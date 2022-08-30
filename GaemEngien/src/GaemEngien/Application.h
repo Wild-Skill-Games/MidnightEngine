@@ -4,7 +4,7 @@
 
 namespace GaemEngien
 {
-	class GAEMENGINE_API Application
+	class GAEMENGIEN_API Application
 	{
 	public:
 		Application();
