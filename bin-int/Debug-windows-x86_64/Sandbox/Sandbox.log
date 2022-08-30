@@ -1,0 +1,8 @@
+﻿  SandboxApp.cpp
+C:\Users\murar\source\repos\GaemEngien\GaemEngien\src\GaemEngien\Log.h(26,42): warning C4251: 'GaemEngien::Log::s_CoreLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'GaemEngien::Log'
+C:\Users\murar\source\repos\GaemEngien\GaemEngien\vendor\spdlog\include\spdlog\details\registry.h(34): message : see declaration of 'std::shared_ptr<spdlog::logger>'
+C:\Users\murar\source\repos\GaemEngien\GaemEngien\src\GaemEngien\Log.h(27,42): warning C4251: 'GaemEngien::Log::s_ClientLogger': class 'std::shared_ptr<spdlog::logger>' needs to have dll-interface to be used by clients of class 'GaemEngien::Log'
+C:\Users\murar\source\repos\GaemEngien\GaemEngien\vendor\spdlog\include\spdlog\details\registry.h(34): message : see declaration of 'std::shared_ptr<spdlog::logger>'
+C:\Users\murar\source\repos\GaemEngien\GaemEngien\src\GaemEngien\Log.h(41,1): warning C4005: 'ERROR': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\wingdi.h(118): message : see previous definition of 'ERROR'
+  Sandbox.vcxproj -> C:\Users\murar\source\repos\GaemEngien\bin\Debug-windows-x86_64\Sandbox\Sandbox.exe
