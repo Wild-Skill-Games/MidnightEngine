@@ -1,2 +1,5 @@
 # visual studio cache
-\.vs
+.vs/
+
+# binaries
+bin/
