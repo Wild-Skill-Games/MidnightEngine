@@ -4,9 +4,9 @@
 
 #include <sstream>
 
-namespace GaemEngien
+namespace Terrible
 {
-	class GAEMENGIEN_API MouseMovedEvent : public Event
+	class TERRIBLE_API MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -31,7 +31,7 @@ namespace GaemEngien
 		float m_MouseX, m_MouseY;
 	};
 
-	class GAEMENGIEN_API MouseScrolledEvent : public Event
+	class TERRIBLE_API MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -56,7 +56,7 @@ namespace GaemEngien
 		float m_XOffset, m_YOffset;
 	};
 
-	class GAEMENGIEN_API MouseButtonEvent : public Event
+	class TERRIBLE_API MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -72,7 +72,7 @@ namespace GaemEngien
 		int m_Button;
 	};
 
-	class GAEMENGIEN_API MouseButtonPressedEvent : public MouseButtonEvent
+	class TERRIBLE_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -90,7 +90,7 @@ namespace GaemEngien
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class GAEMENGIEN_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class TERRIBLE_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

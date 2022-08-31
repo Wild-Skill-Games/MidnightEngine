@@ -1,9 +1,9 @@
 #include "Application.h"
 
-#include "GaemEngien/Events/ApplicationEvent.h"
-#include "GaemEngien/Log.h"
+#include "TerribleEngine/Events/ApplicationEvent.h"
+#include "TerribleEngine/Log.h"
 
-namespace GaemEngien
+namespace Terrible
 {
 	Application::Application()
 	{
@@ -18,11 +18,11 @@ namespace GaemEngien
 		WindowResizeEvent e(1280, 720);
 		if (e.IsInCategory(EventCategoryApplication))
 		{
-			GE_TRACE(e);
+			TE_TRACE(e);
 		}
 		if (e.IsInCategory(EventCategoryInput))
 		{
-			GE_TRACE(e);
+			TE_TRACE(e);
 		}
 
 		while (true);

@@ -4,9 +4,9 @@
 
 #include <sstream>
 
-namespace GaemEngien
+namespace Terrible
 {
-	class GAEMENGIEN_API WindowResizeEvent : public Event
+	class TERRIBLE_API WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
@@ -32,7 +32,7 @@ namespace GaemEngien
 		unsigned int m_Width, m_Height;
 	};
 
-	class GAEMENGIEN_API WindowCloseEvent : public Event
+	class TERRIBLE_API WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() {}
@@ -41,7 +41,7 @@ namespace GaemEngien
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GAEMENGIEN_API AppTickEvent : public Event
+	class TERRIBLE_API AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() {}
@@ -50,7 +50,7 @@ namespace GaemEngien
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GAEMENGIEN_API AppUpdateEvent : public Event
+	class TERRIBLE_API AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {}
@@ -59,7 +59,7 @@ namespace GaemEngien
 			EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class GAEMENGIEN_API AppRenderEvent : public Event
+	class TERRIBLE_API AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}

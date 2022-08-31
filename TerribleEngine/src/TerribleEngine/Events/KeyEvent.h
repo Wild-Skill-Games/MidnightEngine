@@ -4,9 +4,9 @@
 
 #include <sstream>
 
-namespace GaemEngien
+namespace Terrible
 {
-	class GAEMENGIEN_API KeyEvent : public Event
+	class TERRIBLE_API KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -22,7 +22,7 @@ namespace GaemEngien
 		int m_KeyCode;
 	};
 
-	class GAEMENGIEN_API KeyPressedEvent : public KeyEvent
+	class TERRIBLE_API KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keyCode, int repeatCount)
@@ -45,7 +45,7 @@ namespace GaemEngien
 		int m_RepeatCount;
 	};
 
-	class GAEMENGIEN_API KeyReleasedEvent : public KeyEvent
+	class TERRIBLE_API KeyReleasedEvent : public KeyEvent
 	{
 
 	public:

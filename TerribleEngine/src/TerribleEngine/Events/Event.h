@@ -1,11 +1,11 @@
 #pragma once
 
-#include "GaemEngien/Core.h"
+#include "TerribleEngine/Core.h"
 
 #include <string>
 #include <functional>
 
-namespace GaemEngien
+namespace Terrible
 {
 	// Events in GaemEngien r currently blocking, meaning when an event occurs it
 	// immediatly gets dispatched, it stops the app and tries to process the event.
@@ -37,7 +37,7 @@ virtual const char* GetName() const override { return #type; }
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class GAEMENGIEN_API Event
+	class TERRIBLE_API Event
 	{
 		friend class EventDispatcher;
 	public:

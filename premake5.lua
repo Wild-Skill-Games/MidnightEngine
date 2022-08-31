@@ -1,4 +1,4 @@
-workspace "GaemEngien"
+workspace "TerribleEngine"
 	architecture "x64"
 	startproject "Sandbox"
 	
@@ -11,8 +11,8 @@ workspace "GaemEngien"
 	
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 	
-project "GaemEngien"
-	location "GaemEngien"
+project "TerribleEngine"
+	location "TerribleEngine"
 	kind "SharedLib"
 	language "C++"
 
@@ -75,8 +75,8 @@ project "Sandbox"
 	
 	includedirs
 	{
-		"GaemEngien/vendor/spdlog/include",
-		"GaemEngien/src"
+		"TerribleEngine/vendor/spdlog/include",
+		"TerribleEngine/src"
 	}
 	
 	filter "system:windows"
@@ -91,7 +91,7 @@ project "Sandbox"
 
 		links
 		{
-			"GaemEngien"
+			"TerribleEngine"
 		}
 		
 	filter "configurations:Debug"

@@ -1,6 +1,6 @@
-#include <GaemEngien.h>
+#include <TerribleEngine.h>
 
-class Sandbox : public GaemEngien::Application
+class Sandbox : public Terrible::Application
 {
 public:
 	Sandbox()
@@ -14,7 +14,7 @@ public:
 	}
 };
 
-GaemEngien::Application* GaemEngien::CreateApplication()
+Terrible::Application* Terrible::CreateApplication()
 {
 	return new Sandbox();
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="TerribleEngine">
+      <UniqueIdentifier>{B4410DF1-A00F-01F7-89A3-711D7510DD5B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TerribleEngine\Events">
+      <UniqueIdentifier>{187B3941-84E7-F43B-4DDB-8C99B90617A4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\TerribleEngine.h" />
+    <ClInclude Include="src\TerribleEngine\Application.h">
+      <Filter>TerribleEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TerribleEngine\Core.h">
+      <Filter>TerribleEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TerribleEngine\EntryPoint.h">
+      <Filter>TerribleEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TerribleEngine\Events\ApplicationEvent.h">
+      <Filter>TerribleEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TerribleEngine\Events\Event.h">
+      <Filter>TerribleEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TerribleEngine\Events\KeyEvent.h">
+      <Filter>TerribleEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TerribleEngine\Events\MouseEvent.h">
+      <Filter>TerribleEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TerribleEngine\Log.h">
+      <Filter>TerribleEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\trblpch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\TerribleEngine\Application.cpp">
+      <Filter>TerribleEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TerribleEngine\Log.cpp">
+      <Filter>TerribleEngine</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

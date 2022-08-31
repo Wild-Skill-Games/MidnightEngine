@@ -3,9 +3,9 @@
 #include "Core.h"
 #include "Events/Event.h"
 
-namespace GaemEngien
+namespace Terrible
 {
-	class GAEMENGIEN_API Application
+	class TERRIBLE_API Application
 	{
 	public:
 		Application();
