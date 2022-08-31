@@ -2,7 +2,7 @@
 
 #include "Event.h"
 
-namespace Terrible
+namespace TerribleEngine
 {
 	class TERRIBLE_API MouseMovedEvent : public Event
 	{
@@ -22,8 +22,8 @@ namespace Terrible
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseMoved)
-			EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_TYPE(MouseMoved);
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput);
 
 	private:
 		float m_MouseX, m_MouseY;
@@ -47,8 +47,8 @@ namespace Terrible
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseScrolled)
-			EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		EVENT_CLASS_TYPE(MouseScrolled);
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput);
 
 	private:
 		float m_XOffset, m_YOffset;
@@ -59,7 +59,7 @@ namespace Terrible
 	public:
 		inline int GetMouseButton() const { return m_Button; }
 
-		EVENT_CLASS_CATEGORY(EventCategoryMouseButton | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryMouseButton | EventCategoryInput);
 
 	protected:
 		MouseButtonEvent(int button)
@@ -85,7 +85,7 @@ namespace Terrible
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseButtonPressed)
+		EVENT_CLASS_TYPE(MouseButtonPressed);
 	};
 
 	class TERRIBLE_API MouseButtonReleasedEvent : public MouseButtonEvent
@@ -103,6 +103,6 @@ namespace Terrible
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseButtonReleased)
+		EVENT_CLASS_TYPE(MouseButtonReleased);
 	};
 };

@@ -10,6 +10,12 @@ workspace "TerribleEngine"
 	}
 	
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+-- Include directories relative to root folder (solution directory)
+IncludeDir ={}
+IncludeDir["GLFW"] ="TerribleEngine/vendor/glfw/include"
+
+include "TerribleEngine/vendor/glfw"
 	
 project "TerribleEngine"
 	location "TerribleEngine"
@@ -32,6 +38,13 @@ project "TerribleEngine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

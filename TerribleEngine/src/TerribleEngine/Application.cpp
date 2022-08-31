@@ -4,28 +4,20 @@
 #include "TerribleEngine/Events/ApplicationEvent.h"
 #include "TerribleEngine/Log.h"
 
-namespace Terrible
+namespace TerribleEngine
 {
 	Application::Application()
 	{
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 
-	Application::~Application()
-	{
-	}
+	Application::~Application() {}
 
 	void Application::Run()
 	{
-		WindowResizeEvent e(1280, 720);
-		if (e.IsInCategory(EventCategoryApplication))
+		while (m_Runing)
 		{
-			TE_TRACE(e);
+			m_Window->OnUpdate();
 		}
-		if (e.IsInCategory(EventCategoryInput))
-		{
-			TE_TRACE(e);
-		}
-
-		while (true);
 	}
 }

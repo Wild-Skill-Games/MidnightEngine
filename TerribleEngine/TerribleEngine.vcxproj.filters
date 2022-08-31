@@ -7,6 +7,12 @@
     <Filter Include="TerribleEngine\Events">
       <UniqueIdentifier>{187B3941-84E7-F43B-4DDB-8C99B90617A4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{a1cb977e-a05b-4a6b-ad1e-389aa6e7701f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{c95848c4-9dd9-4a1b-adfc-a28940edc987}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\TerribleEngine.h" />
@@ -34,7 +40,13 @@
     <ClInclude Include="src\TerribleEngine\Log.h">
       <Filter>TerribleEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\TerribleEngine\Window.h">
+      <Filter>TerribleEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\trblpch.h" />
+    <ClInclude Include="WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\TerribleEngine\Application.cpp">
@@ -44,5 +56,8 @@
       <Filter>TerribleEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\trblpch.cpp" />
+    <ClCompile Include="WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

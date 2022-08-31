@@ -1,6 +1,8 @@
 #include <TerribleEngine.h>
 
-class Sandbox : public Terrible::Application
+using namespace TerribleEngine;
+
+class Sandbox : public Application
 {
 public:
 	Sandbox()
@@ -14,7 +16,7 @@ public:
 	}
 };
 
-Terrible::Application* Terrible::CreateApplication()
+Application* CreateApplication()
 {
 	return new Sandbox();
 }

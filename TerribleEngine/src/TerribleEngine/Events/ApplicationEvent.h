@@ -2,7 +2,7 @@
 
 #include "Event.h"
 
-namespace Terrible
+namespace TerribleEngine
 {
 	class TERRIBLE_API WindowResizeEvent : public Event
 	{
@@ -23,8 +23,8 @@ namespace Terrible
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(WindowResize)
-			EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(WindowResize);
+		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 
 	private:
 		unsigned int m_Width, m_Height;
@@ -35,8 +35,8 @@ namespace Terrible
 	public:
 		WindowCloseEvent() {}
 
-		EVENT_CLASS_TYPE(WindowClose)
-			EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(WindowClose);
+		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 	};
 
 	class TERRIBLE_API AppTickEvent : public Event
@@ -44,8 +44,8 @@ namespace Terrible
 	public:
 		AppTickEvent() {}
 
-		EVENT_CLASS_TYPE(AppTick)
-			EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(AppTick);
+		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 	};
 
 	class TERRIBLE_API AppUpdateEvent : public Event
@@ -53,8 +53,8 @@ namespace Terrible
 	public:
 		AppUpdateEvent() {}
 
-		EVENT_CLASS_TYPE(AppUpdate)
-			EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(AppUpdate);
+		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 	};
 
 	class TERRIBLE_API AppRenderEvent : public Event
@@ -62,7 +62,7 @@ namespace Terrible
 	public:
 		AppRenderEvent() {}
 
-		EVENT_CLASS_TYPE(AppRender)
-			EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_TYPE(AppRender);
+		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 	};
 }

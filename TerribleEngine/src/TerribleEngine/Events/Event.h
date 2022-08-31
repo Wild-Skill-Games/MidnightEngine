@@ -1,8 +1,10 @@
 #pragma once
 
+#include "trblpch.h"
+
 #include "TerribleEngine/Core.h"
 
-namespace Terrible
+namespace TerribleEngine
 {
 	// Events in GaemEngien r currently blocking, meaning when an event occurs it
 	// immediatly gets dispatched, it stops the app and tries to process the event.

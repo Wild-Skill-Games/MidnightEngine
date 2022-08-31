@@ -2,14 +2,14 @@
 
 #include "Event.h"
 
-namespace Terrible
+namespace TerribleEngine
 {
 	class TERRIBLE_API KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
 
-		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput);
 
 	protected:
 		KeyEvent(int keyCode)
@@ -37,7 +37,7 @@ namespace Terrible
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyPressed)
+		EVENT_CLASS_TYPE(KeyPressed);
 
 	private:
 		int m_RepeatCount;
@@ -59,6 +59,6 @@ namespace Terrible
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyReleased)
+		EVENT_CLASS_TYPE(KeyReleased);
 	};
 };
