@@ -6,6 +6,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ApplicationEvent.h" />
+    <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\GaemEngien.h" />
     <ClInclude Include="src\GaemEngien\Application.h">
       <Filter>GaemEngien</Filter>
@@ -19,6 +21,8 @@
     <ClInclude Include="src\GaemEngien\Log.h">
       <Filter>GaemEngien</Filter>
     </ClInclude>
+    <ClInclude Include="src\KeyEvent.h" />
+    <ClInclude Include="src\MouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GaemEngien\Application.cpp">

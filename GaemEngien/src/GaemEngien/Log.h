@@ -37,8 +37,8 @@ namespace GaemEngien
 #define CORE_TRACE(...)::GaemEngien::Log::GetCoreLogger()->trace(__VA_ARGS__)
 
 //Client log macros
-#define FATAL(...)::GaemEngien::Log::GetClientLogger()->fatal(__VA_ARGS__)
-#define ERROR(...)::GaemEngien::Log::GetClientLogger()->error(__VA_ARGS__)
-#define WARN(...)::GaemEngien::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define INFO(...)::GaemEngien::Log::GetClientLogger()->info(__VA_ARGS__)
-#define TRACE(...)::GaemEngien::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define GE_FATAL(...)::GaemEngien::Log::GetClientLogger()->fatal(__VA_ARGS__)
+#define GE_ERROR(...)::GaemEngien::Log::GetClientLogger()->error(__VA_ARGS__)
+#define GE_WARN(...)::GaemEngien::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define GE_INFO(...)::GaemEngien::Log::GetClientLogger()->info(__VA_ARGS__)
+#define GE_TRACE(...)::GaemEngien::Log::GetClientLogger()->trace(__VA_ARGS__)
