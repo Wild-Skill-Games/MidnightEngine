@@ -1,5 +1,7 @@
 # visual studio cache
 .vs/
+#visual studio solution
+/*.sln
 
 # binaries
 /bin/
