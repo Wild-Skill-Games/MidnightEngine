@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef PLATFORM_WINDOWS
+#ifdef TERRIBLE_ENGINE_PLATFORM_WINDOWS
 
 #ifdef BUILD_DLL
 #define TERRIBLE_API __declspec(dllexport)

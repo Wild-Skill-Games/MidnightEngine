@@ -1,3 +1,4 @@
+#include "trblpch.h"
 #include "Application.h"
 
 #include "TerribleEngine/Events/ApplicationEvent.h"

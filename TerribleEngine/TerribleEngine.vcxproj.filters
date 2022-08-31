@@ -43,5 +43,6 @@
     <ClCompile Include="src\TerribleEngine\Log.cpp">
       <Filter>TerribleEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\trblpch.cpp" />
   </ItemGroup>
 </Project>

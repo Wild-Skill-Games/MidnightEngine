@@ -2,9 +2,6 @@
 
 #include "TerribleEngine/Core.h"
 
-#include <string>
-#include <functional>
-
 namespace Terrible
 {
 	// Events in GaemEngien r currently blocking, meaning when an event occurs it

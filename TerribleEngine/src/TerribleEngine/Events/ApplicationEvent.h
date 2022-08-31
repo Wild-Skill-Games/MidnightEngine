@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Terrible
 {
 	class TERRIBLE_API WindowResizeEvent : public Event

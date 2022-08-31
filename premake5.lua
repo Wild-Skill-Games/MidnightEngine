@@ -19,6 +19,9 @@ project "TerribleEngine"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "trblpch.h"
+	pchsource "TerribleEngine/src/trblpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -38,7 +41,7 @@ project "TerribleEngine"
 		
 		defines
 		{
-			"PLATFORM_WINDOWS",
+			"TERRIBLE_ENGINE_PLATFORM_WINDOWS",
 			"BUILD_DLL"
 		}
 		
@@ -86,7 +89,7 @@ project "Sandbox"
 		
 		defines
 		{
-			"PLATFORM_WINDOWS"
+			"TERRIBLE_ENGINE_PLATFORM_WINDOWS"
 		}
 
 		links
