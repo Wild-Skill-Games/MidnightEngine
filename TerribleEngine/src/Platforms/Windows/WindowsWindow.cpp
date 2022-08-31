@@ -26,18 +26,18 @@ namespace TerribleEngine
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
 
-		TERRIBLE_CORE_INFO("Creating window {0},{1},{2}", properties.Title, properties.Width, properties.Height);
+		TERRIBLE_CORE_INFO("Creating window {0}, {1}, {2}", properties.Title, properties.Width, properties.Height);
 
 		if (!s_GLFWInitialized)
 		{
-			//TODO: glfwTerminate on system shutdown
+			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
 			TERRIBLE_CORE_ASSERT(success, "Could not initialize GLFW!");
 
 			s_GLFWInitialized = true;
 		}
 
-		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, properties.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -53,6 +53,8 @@ namespace TerribleEngine
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
+
+	void WindowsWindow::SetEventCallback(const EventCallbackFn& callback) {}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{

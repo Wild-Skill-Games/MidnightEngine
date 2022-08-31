@@ -152,6 +152,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="src\TerribleEngine.h" />
     <ClInclude Include="src\TerribleEngine\Application.h" />
     <ClInclude Include="src\TerribleEngine\Core.h" />
@@ -163,15 +164,14 @@
     <ClInclude Include="src\TerribleEngine\Log.h" />
     <ClInclude Include="src\TerribleEngine\Window.h" />
     <ClInclude Include="src\trblpch.h" />
-    <ClInclude Include="WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platforms\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\TerribleEngine\Application.cpp" />
     <ClCompile Include="src\TerribleEngine\Log.cpp" />
     <ClCompile Include="src\trblpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="WindowsWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\glfw\GLFW.vcxproj">
