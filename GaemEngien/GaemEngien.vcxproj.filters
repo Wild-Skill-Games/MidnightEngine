@@ -4,10 +4,11 @@
     <Filter Include="GaemEngien">
       <UniqueIdentifier>{B58D3C1D-A145-7E6A-0A4D-57C6F623195B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GaemEngien\Events">
+      <UniqueIdentifier>{F91BFD79-6532-FB0F-AEA9-86311AFFCB97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ApplicationEvent.h" />
-    <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\GaemEngien.h" />
     <ClInclude Include="src\GaemEngien\Application.h">
       <Filter>GaemEngien</Filter>
@@ -18,11 +19,21 @@
     <ClInclude Include="src\GaemEngien\EntryPoint.h">
       <Filter>GaemEngien</Filter>
     </ClInclude>
+    <ClInclude Include="src\GaemEngien\Events\ApplicationEvent.h">
+      <Filter>GaemEngien\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GaemEngien\Events\Event.h">
+      <Filter>GaemEngien\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GaemEngien\Events\KeyEvent.h">
+      <Filter>GaemEngien\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GaemEngien\Events\MouseEvent.h">
+      <Filter>GaemEngien\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\GaemEngien\Log.h">
       <Filter>GaemEngien</Filter>
     </ClInclude>
-    <ClInclude Include="src\KeyEvent.h" />
-    <ClInclude Include="src\MouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GaemEngien\Application.cpp">

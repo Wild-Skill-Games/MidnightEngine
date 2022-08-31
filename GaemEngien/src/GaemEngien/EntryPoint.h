@@ -11,7 +11,7 @@ int main(int arcc, char** argv)
 
 	auto a = 5;
 
-	INFO("Client logger initialized, var={0}", a);
+	GE_INFO("Client logger initialized, var={0}", a);
 
 	auto app = GaemEngien::CreateApplication();
 	app->Run();
