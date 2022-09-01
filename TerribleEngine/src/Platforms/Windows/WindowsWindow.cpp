@@ -26,13 +26,13 @@ namespace TerribleEngine
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
 
-		TERRIBLE_CORE_INFO("Creating window {0}, {1}, {2}", properties.Title, properties.Width, properties.Height);
+		TRBL_CORE_INFO("Creating window {0}, {1}, {2}", properties.Title, properties.Width, properties.Height);
 
 		if (!s_GLFWInitialized)
 		{
 			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
-			TERRIBLE_CORE_ASSERT(success, "Could not initialize GLFW!");
+			TRBL_CORE_ASSERT(success, "Could not initialize GLFW!");
 
 			s_GLFWInitialized = true;
 		}

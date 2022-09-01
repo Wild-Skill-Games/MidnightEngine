@@ -91,7 +91,7 @@ project "Sandbox"
 	
 	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include",
+		"TerribleEngine/vendor/spdlog/include",
 		"TerribleEngine/src"
 	}
 	

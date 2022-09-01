@@ -31,11 +31,11 @@ namespace TerribleEngine
 
 		struct WindowData
 		{
-			std::string Title;
-			unsigned int Width, Height;
-			bool VSync;
+			std::string Title = "TerribleEngine";
+			unsigned int Width = 1280, Height = 720;
+			bool VSync = false;
 		};
 
-		WindowData m_Data;
+		WindowData m_Data = {};
 	};
 }

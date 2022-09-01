@@ -15,7 +15,7 @@ namespace TerribleEngine
 		void Run();
 
 	private:
-		std::unique_ptr<Window> m_Window;
+		std::unique_ptr<Window> m_Window = nullptr;
 		bool m_Runing = true;
 	};
 
