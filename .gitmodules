@@ -4,3 +4,6 @@
 [submodule "TerribleEngine/vendor/glfw"]
 	path = TerribleEngine/vendor/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "TerribleEngine/vendor/spdlog"]
+	path = TerribleEngine/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
