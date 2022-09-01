@@ -54,8 +54,8 @@ project "TerribleEngine"
 		
 		defines
 		{
-			"TERRIBLE_ENGINE_PLATFORM_WINDOWS",
-			"BUILD_DLL"
+			"TRBL_PLATFORM_WINDOWS",
+			"TRBL_BUILD_DLL"
 		}
 		
 		postbuildcommands
@@ -64,15 +64,15 @@ project "TerribleEngine"
 		}
 
 	filter "configurations:Debug"
-		defines "DEBUG"
+		defines "TRBL_DEBUG"
 		symbols "On"
 		
 	filter "configurations:Release"
-		defines "RELEASE"
+		defines "TRBL_RELEASE"
 		optimize "On"
 
 	filter "configurations:Dist"
-		defines "DIST"
+		defines "TRBL_DIST"
 		optimize "On"
 		
 project "Sandbox"
@@ -91,7 +91,7 @@ project "Sandbox"
 	
 	includedirs
 	{
-		"TerribleEngine/vendor/spdlog/include",
+		"%{prj.name}/vendor/spdlog/include",
 		"TerribleEngine/src"
 	}
 	
@@ -102,7 +102,7 @@ project "Sandbox"
 		
 		defines
 		{
-			"TERRIBLE_ENGINE_PLATFORM_WINDOWS"
+			"TRBL_PLATFORM_WINDOWS"
 		}
 
 		links
@@ -111,13 +111,13 @@ project "Sandbox"
 		}
 		
 	filter "configurations:Debug"
-		defines "DEBUG"
+		defines "TRBL_DEBUG"
 		symbols "On"
 		
 	filter "configurations:Release"
-		defines "RELEASE"
+		defines "TRBL_RELEASE"
 		optimize "On"
 		
 	filter "configurations:Dist"
-		defines "DIST"
+		defines "TRBL_DIST"
 		optimize "On"
