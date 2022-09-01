@@ -3,7 +3,7 @@
 #include "TerribleEngine/Window.h"
 #include "TerribleEngine/Log.h"
 
-#include <GLFW/glfw3.h>
+#include <TerribleEngine/vendor/GLFW/include/GLFW/glfw3.h>
 
 namespace TerribleEngine
 {
