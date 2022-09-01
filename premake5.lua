@@ -12,8 +12,8 @@ workspace "TerribleEngine"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
-IncludeDir ={}
-IncludeDir["GLFW"] ="TerribleEngine/vendor/glfw/include"
+IncludeDir = {}
+IncludeDir["glfw"] = "TerribleEngine/vendor/glfw/include"
 
 include "TerribleEngine/vendor/glfw"
 	
