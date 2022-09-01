@@ -3,7 +3,7 @@
 	url = https://github.com/premake/premake-core
 [submodule "MidnightEngine/vendor/glfw"]
 	path = MidnightEngine/vendor/glfw
-	url = https://github.com/glfw/glfw
+	url = https://github.com/daRealZoinks/glfw
 [submodule "MidnightEngine/vendor/spdlog"]
 	path = MidnightEngine/vendor/spdlog
 	url = https://github.com/gabime/spdlog
