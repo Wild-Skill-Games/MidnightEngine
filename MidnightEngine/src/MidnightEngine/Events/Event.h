@@ -1,10 +1,10 @@
 #pragma once
 
-#include "trblpch.h"
+#include "mepch.h"
 
-#include "TerribleEngine/Core.h"
+#include "MidnightEngine/Core.h"
 
-namespace TerribleEngine
+namespace MidnightEngine
 {
 	// Events in GaemEngien r currently blocking, meaning when an event occurs it
 	// immediatly gets dispatched, it stops the app and tries to process the event.
@@ -36,7 +36,7 @@ virtual const char* GetName() const override { return #type; }
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class TERRIBLE_API Event
+	class MIDNIGHT_API Event
 	{
 		friend class EventDispatcher;
 	public:

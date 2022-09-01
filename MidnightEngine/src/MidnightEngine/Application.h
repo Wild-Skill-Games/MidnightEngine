@@ -4,9 +4,9 @@
 #include "Events/Event.h"
 #include "Window.h"
 
-namespace TerribleEngine
+namespace MidnightEngine
 {
-	class TERRIBLE_API Application
+	class MIDNIGHT_API Application
 	{
 	public:
 		Application();

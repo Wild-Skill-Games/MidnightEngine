@@ -1,4 +1,4 @@
-workspace "TerribleEngine"
+workspace "MidnightEngine"
 	architecture "x64"
 	startproject "Sandbox"
 	
@@ -13,20 +13,20 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["glfw"] = "TerribleEngine/vendor/glfw/include"
+IncludeDir["glfw"] = "MidnightEngine/vendor/glfw/include"
 
-include "TerribleEngine/vendor/glfw"
+include "MidnightEngine/vendor/glfw"
 	
-project "TerribleEngine"
-	location "TerribleEngine"
+project "MidnightEngine"
+	location "MidnightEngine"
 	kind "SharedLib"
 	language "C++"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "trblpch.h"
-	pchsource "TerribleEngine/src/trblpch.cpp"
+	pchheader "mepch.h"
+	pchsource "MidnightEngine/src/mepch.cpp"
 
 	files
 	{
@@ -38,12 +38,12 @@ project "TerribleEngine"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.glfw}"
 	}
 
 	links
 	{
-		"GLFW",
+		"glfw",
 		"opengl32.lib"
 	}
 
@@ -54,8 +54,8 @@ project "TerribleEngine"
 		
 		defines
 		{
-			"TRBL_PLATFORM_WINDOWS",
-			"TRBL_BUILD_DLL"
+			"ME_PLATFORM_WINDOWS",
+			"ME_BUILD_DLL"
 		}
 		
 		postbuildcommands
@@ -64,15 +64,15 @@ project "TerribleEngine"
 		}
 
 	filter "configurations:Debug"
-		defines "TRBL_DEBUG"
+		defines "ME_DEBUG"
 		symbols "On"
 		
 	filter "configurations:Release"
-		defines "TRBL_RELEASE"
+		defines "ME_RELEASE"
 		optimize "On"
 
 	filter "configurations:Dist"
-		defines "TRBL_DIST"
+		defines "ME_DIST"
 		optimize "On"
 		
 project "Sandbox"
@@ -91,8 +91,8 @@ project "Sandbox"
 	
 	includedirs
 	{
-		"TerribleEngine/vendor/spdlog/include",
-		"TerribleEngine/src"
+		"MidnightEngine/vendor/spdlog/include",
+		"MidnightEngine/src"
 	}
 	
 	filter "system:windows"
@@ -102,22 +102,22 @@ project "Sandbox"
 		
 		defines
 		{
-			"TRBL_PLATFORM_WINDOWS"
+			"ME_PLATFORM_WINDOWS"
 		}
 
 		links
 		{
-			"TerribleEngine"
+			"MidnightEngine"
 		}
 		
 	filter "configurations:Debug"
-		defines "TRBL_DEBUG"
+		defines "ME_DEBUG"
 		symbols "On"
 		
 	filter "configurations:Release"
-		defines "TRBL_RELEASE"
+		defines "ME_RELEASE"
 		optimize "On"
 		
 	filter "configurations:Dist"
-		defines "TRBL_DIST"
+		defines "ME_DIST"
 		optimize "On"

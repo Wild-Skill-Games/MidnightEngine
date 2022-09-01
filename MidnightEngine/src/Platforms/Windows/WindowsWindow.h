@@ -1,16 +1,16 @@
 #pragma once
 
-#include "TerribleEngine/Window.h"
-#include "TerribleEngine/Log.h"
+#include "MidnightEngine/Window.h"
+#include "MidnightEngine/Log.h"
 
-#include <TerribleEngine/vendor/GLFW/include/GLFW/glfw3.h>
+#include "GLFW/glfw3.h"
 
-namespace TerribleEngine
+namespace MidnightEngine
 {
 	class WindowsWindow : public Window
 	{
 	public:
-		WindowsWindow(const WindowProperties &properties);
+		WindowsWindow(const WindowProperties& properties);
 		virtual ~WindowsWindow();
 
 		void OnUpdate() override;
@@ -18,16 +18,16 @@ namespace TerribleEngine
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 
-		void SetEventCallback(const EventCallbackFn &callback) override;
+		void SetEventCallback(const EventCallbackFn& callback) override;
 
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
 	private:
-		virtual void Init(const WindowProperties &properties);
+		virtual void Init(const WindowProperties& properties);
 		virtual void Shutdown();
 
-		GLFWwindow *m_Window;
+		GLFWwindow* m_Window;
 
 		struct WindowData
 		{

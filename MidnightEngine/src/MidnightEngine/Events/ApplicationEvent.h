@@ -2,9 +2,9 @@
 
 #include "Event.h"
 
-namespace TerribleEngine
+namespace MidnightEngine
 {
-	class TERRIBLE_API WindowResizeEvent : public Event
+	class MIDNIGHT_API WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
@@ -30,7 +30,7 @@ namespace TerribleEngine
 		unsigned int m_Width, m_Height;
 	};
 
-	class TERRIBLE_API WindowCloseEvent : public Event
+	class MIDNIGHT_API WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() {}
@@ -39,7 +39,7 @@ namespace TerribleEngine
 		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 	};
 
-	class TERRIBLE_API AppTickEvent : public Event
+	class MIDNIGHT_API AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() {}
@@ -48,7 +48,7 @@ namespace TerribleEngine
 		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 	};
 
-	class TERRIBLE_API AppUpdateEvent : public Event
+	class MIDNIGHT_API AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {}
@@ -57,7 +57,7 @@ namespace TerribleEngine
 		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 	};
 
-	class TERRIBLE_API AppRenderEvent : public Event
+	class MIDNIGHT_API AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "trblpch.h"
+#include "mepch.h"
 
-#include "TerribleEngine/Core.h"
-#include "TerribleEngine/Events/Event.h"
+#include "MidnightEngine/Core.h"
+#include "MidnightEngine/Events/Event.h"
 
-namespace TerribleEngine
+namespace MidnightEngine
 {
 	struct WindowProperties
 	{
@@ -13,7 +13,7 @@ namespace TerribleEngine
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProperties(const std::string& title = "Terrible Engine",
+		WindowProperties(const std::string& title = "Midnight Engine",
 			unsigned int width = 1280,
 			unsigned int height = 720)
 			: Title(title), Width(width), Height(height)
@@ -21,7 +21,7 @@ namespace TerribleEngine
 		}
 	};
 
-	class TERRIBLE_API Window
+	class MIDNIGHT_API Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

@@ -1,7 +1,7 @@
-#include "trblpch.h"
+#include "mepch.h"
 #include "WindowsWindow.h"
 
-namespace TerribleEngine
+namespace MidnightEngine
 {
 	static bool s_GLFWInitialized = false;
 
@@ -26,13 +26,13 @@ namespace TerribleEngine
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
 
-		TRBL_CORE_INFO("Creating window {0}, {1}, {2}", properties.Title, properties.Width, properties.Height);
+		ME_CORE_INFO("Creating window {0}, {1}, {2}", properties.Title, properties.Width, properties.Height);
 
 		if (!s_GLFWInitialized)
 		{
 			// TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
-			TRBL_CORE_ASSERT(success, "Could not initialize GLFW!");
+			ME_CORE_ASSERT(success, "Could not initialize GLFW!");
 
 			s_GLFWInitialized = true;
 		}

@@ -1,9 +1,0 @@
-[submodule "TerribleEngine/vendor/spdlog"]
-	path = TerribleEngine/vendor/spdlog
-	url = https://github.com/gabime/spdlog
-[submodule "TerribleEngine/vendor/glfw"]
-	path = TerribleEngine/vendor/glfw
-	url = https://github.com/glfw/glfw
-[submodule "vendor/bin/premake"]
-	path = vendor/bin/premake
-	url = https://github.com/premake/premake-core

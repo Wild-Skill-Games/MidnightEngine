@@ -1,6 +1,6 @@
-#include <TerribleEngine.h>
+#include <MidnightEngine.h>
 
-class Sandbox : public TerribleEngine::Application
+class Sandbox : public MidnightEngine::Application
 {
 public:
 	Sandbox()
@@ -14,7 +14,7 @@ public:
 	}
 };
 
-TerribleEngine::Application* TerribleEngine::CreateApplication()
+MidnightEngine::Application* MidnightEngine::CreateApplication()
 {
 	return new Sandbox();
 }

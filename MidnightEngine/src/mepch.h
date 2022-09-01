@@ -12,6 +12,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#ifdef TRBL_PLATFORM_WINDOWS
+#ifdef ME_PLATFORM_WINDOWS
 #include <Windows.h>
 #endif

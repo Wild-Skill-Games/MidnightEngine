@@ -2,9 +2,9 @@
 
 #include "Event.h"
 
-namespace TerribleEngine
+namespace MidnightEngine
 {
-	class TERRIBLE_API MouseMovedEvent : public Event
+	class MIDNIGHT_API MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -29,7 +29,7 @@ namespace TerribleEngine
 		float m_MouseX, m_MouseY;
 	};
 
-	class TERRIBLE_API MouseScrolledEvent : public Event
+	class MIDNIGHT_API MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -54,7 +54,7 @@ namespace TerribleEngine
 		float m_XOffset, m_YOffset;
 	};
 
-	class TERRIBLE_API MouseButtonEvent : public Event
+	class MIDNIGHT_API MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -70,7 +70,7 @@ namespace TerribleEngine
 		int m_Button;
 	};
 
-	class TERRIBLE_API MouseButtonPressedEvent : public MouseButtonEvent
+	class MIDNIGHT_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -88,7 +88,7 @@ namespace TerribleEngine
 		EVENT_CLASS_TYPE(MouseButtonPressed);
 	};
 
-	class TERRIBLE_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class MIDNIGHT_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

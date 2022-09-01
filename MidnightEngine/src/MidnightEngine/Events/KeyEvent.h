@@ -2,9 +2,9 @@
 
 #include "Event.h"
 
-namespace TerribleEngine
+namespace MidnightEngine
 {
-	class TERRIBLE_API KeyEvent : public Event
+	class MIDNIGHT_API KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -20,7 +20,7 @@ namespace TerribleEngine
 		int m_KeyCode;
 	};
 
-	class TERRIBLE_API KeyPressedEvent : public KeyEvent
+	class MIDNIGHT_API KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keyCode, int repeatCount)
@@ -43,7 +43,7 @@ namespace TerribleEngine
 		int m_RepeatCount;
 	};
 
-	class TERRIBLE_API KeyReleasedEvent : public KeyEvent
+	class MIDNIGHT_API KeyReleasedEvent : public KeyEvent
 	{
 
 	public:
