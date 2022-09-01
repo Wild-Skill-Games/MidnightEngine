@@ -1,11 +1,12 @@
 # visual studio cache
 .vs/
-#visual studio solution
+
+#visual studio files
 /*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 
 # binaries
 /bin/
 /bin-int/
-
-# files
-*.user
