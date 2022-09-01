@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#ifdef TERRIBLE_ENGINE_PLATFORM_WINDOWS
+#ifdef TRBL_PLATFORM_WINDOWS
 #include <Windows.h>
 #endif
 
