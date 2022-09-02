@@ -3,7 +3,7 @@
 #include "MidnightEngine/Window.h"
 #include "MidnightEngine/Log.h"
 
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 namespace MidnightEngine
 {
@@ -18,7 +18,7 @@ namespace MidnightEngine
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 
-		void SetEventCallback(const EventCallbackFn& callback) override;
+		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; };
 
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
@@ -34,6 +34,8 @@ namespace MidnightEngine
 			std::string Title;
 			unsigned int Width, Height;
 			bool VSync;
+
+			EventCallbackFn EventCallback;
 		};
 
 		WindowData m_Data = {};
