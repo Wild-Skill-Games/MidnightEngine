@@ -6,7 +6,7 @@ workspace "MidnightEngine"
 	{
 		"Debug",
 		"Release",
-		"Dist"
+		"Dist",
 	}
 	
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
@@ -14,8 +14,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["glfw"] = "MidnightEngine/vendor/glfw/include"
+IncludeDir["glad"] = "MidnightEngine/vendor/glad/include"
 
 include "MidnightEngine/vendor/glfw"
+include "MidnightEngine/vendor/glad"
 	
 project "MidnightEngine"
 	location "MidnightEngine"
@@ -31,20 +33,22 @@ project "MidnightEngine"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
 	}
 
 	includedirs
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.glfw}"
+		"%{IncludeDir.glfw}",
+		"%{IncludeDir.glad}",	
 	}
 
 	links
 	{
 		"glfw",
-		"opengl32.lib"
+		"glad",
+		"opengl32.lib",
 	}
 
 	filter "system:windows"
@@ -55,7 +59,8 @@ project "MidnightEngine"
 		defines
 		{
 			"ME_PLATFORM_WINDOWS",
-			"ME_BUILD_DLL"
+			"ME_BUILD_DLL",
+			"GLFW_INCLUDE_NONE",
 		}
 		
 		postbuildcommands

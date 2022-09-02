@@ -1,7 +1,6 @@
 #pragma once
 
 #include "MidnightEngine/Window.h"
-#include "MidnightEngine/Log.h"
 
 #include <GLFW/glfw3.h>
 

@@ -1,9 +1,13 @@
 #include "mepch.h"
 #include "WindowsWindow.h"
 
+#include "MidnightEngine/Log.h"
+
 #include "MidnightEngine/Events/ApplicationEvent.h"
 #include "MidnightEngine/Events/MouseEvent.h"
 #include "MidnightEngine/Events/KeyEvent.h"
+
+#include <glad/glad.h>
 
 namespace MidnightEngine
 {
@@ -48,6 +52,8 @@ namespace MidnightEngine
 
 		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, properties.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		ME_CORE_ASSERT(status, "Failed to initialize GLAD");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

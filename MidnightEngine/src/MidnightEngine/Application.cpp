@@ -3,7 +3,7 @@
 
 #include "MidnightEngine/Log.h"
 
-#include <gl/GL.h>
+#include <glad/glad.h>
 
 namespace MidnightEngine
 {

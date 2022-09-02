@@ -7,8 +7,6 @@
 #include "Events/Event.h"
 #include "MidnightEngine/Events/ApplicationEvent.h"
 
-
-
 namespace MidnightEngine
 {
 	class MIDNIGHT_API Application
