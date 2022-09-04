@@ -16,7 +16,7 @@ namespace MidnightEngine
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyTyped, KeyReleased,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
@@ -43,10 +43,7 @@ virtual const char* GetName() const override { return #type; }
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
-		virtual std::string ToString() const
-		{
-			return GetName();
-		}
+		virtual std::string ToString() const { return GetName(); }
 
 		inline bool IsInCategory(EventCategory category)
 		{
@@ -78,6 +75,7 @@ virtual const char* GetName() const override { return #type; }
 			}
 			return false;
 		}
+
 	private:
 		Event& m_Event;
 	};

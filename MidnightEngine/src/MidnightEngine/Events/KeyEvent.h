@@ -43,6 +43,26 @@ namespace MidnightEngine
 		int m_RepeatCount;
 	};
 
+	class MIDNIGHT_API KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int keyCode)
+			: KeyEvent(keyCode)
+		{
+		}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped);
+
+	private:
+	};
+
 	class MIDNIGHT_API KeyReleasedEvent : public KeyEvent
 	{
 
