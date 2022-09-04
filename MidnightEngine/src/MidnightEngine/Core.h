@@ -14,23 +14,9 @@
 #define ME_ENABLE_ASSERTS
 #endif // ME_DEBUG
 
-#if ME_ENABLE_ASSERTS
-#define ME_ASSERT(x, ...)                                   \
-    {                                                       \
-        if (!(x))                                           \
-        {                                                   \
-            ME_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
-            __debugbreak();                                 \
-        }                                                   \
-    }
-#define ME_CORE_ASSERT(x, ...)                                   \
-    {                                                            \
-        if (!(x))                                                \
-        {                                                        \
-            ME_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
-            __debugbreak();                                      \
-        }                                                        \
-    }
+#ifdef ME_ENABLE_ASSERTS
+#define ME_ASSERT(x, ...) { if (!(x)) { ME_ERROR("Assertion Failed: {0}", __VA_ARGS__) ; __debugbreak() ; } }
+#define ME_CORE_ASSERT(x, ...)  { if (!(x)) { ME_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak() ; } }
 #else
 #define ME_ASSERT(x, ...)
 #define ME_CORE_ASSERT(x, ...)
