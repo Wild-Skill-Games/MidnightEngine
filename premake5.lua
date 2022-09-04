@@ -65,6 +65,7 @@ project "MidnightEngine"
 			"ME_PLATFORM_WINDOWS",
 			"ME_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
+			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
 		}
 		
 		postbuildcommands
