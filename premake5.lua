@@ -17,10 +17,12 @@ IncludeDir["glfw"] = "MidnightEngine/vendor/glfw/include"
 IncludeDir["glad"] = "MidnightEngine/vendor/glad/include"
 IncludeDir["imgui"] = "MidnightEngine/vendor/imgui"
 
-include "MidnightEngine/vendor/glfw"
-include "MidnightEngine/vendor/glad"
-include "MidnightEngine/vendor/imgui"
-	
+
+group "Dependencies"
+	include "MidnightEngine/vendor/glfw"
+	include "MidnightEngine/vendor/glad"
+	include "MidnightEngine/vendor/imgui"
+
 project "MidnightEngine"
 	location "MidnightEngine"
 	kind "SharedLib"
@@ -70,7 +72,7 @@ project "MidnightEngine"
 		
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"
