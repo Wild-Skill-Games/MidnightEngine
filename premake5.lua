@@ -23,6 +23,8 @@ group "Dependencies"
 	include "MidnightEngine/vendor/glad"
 	include "MidnightEngine/vendor/imgui"
 
+group ""
+
 project "MidnightEngine"
 	location "MidnightEngine"
 	kind "SharedLib"
