@@ -10,12 +10,21 @@ public:
 
 	void OnUpdate()
 	{
-		ME_INFO("ExampleLayer::Update");
+		if (MidnightEngine::Input::IsKeyPressed(ME_KEY_TAB))
+			ME_TRACE("Tab key is pressed (poll)!");
 	}
 
 	void OnEvent(MidnightEngine::Event& event) override
 	{
-		ME_TRACE("{0}", event);
+		if (event.GetEventType() == MidnightEngine::EventType::KeyPressed)
+		{
+			auto& e = (MidnightEngine::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == ME_KEY_TAB)
+			{
+				ME_TRACE("Tab key is pressed (event)!");
+			}
+			ME_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 };
 
