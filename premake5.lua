@@ -23,7 +23,6 @@ group "Dependencies"
 	include "MidnightEngine/vendor/glfw"
 	include "MidnightEngine/vendor/glad"
 	include "MidnightEngine/vendor/imgui"
-	include "MidnightEngine/vendor/glm"
 
 group ""
 
@@ -43,6 +42,8 @@ project "MidnightEngine"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
 
 	includedirs
@@ -60,7 +61,6 @@ project "MidnightEngine"
 		"glfw",
 		"glad",
 		"imgui",
-		"glm",
 		"opengl32.lib",
 	}
 
