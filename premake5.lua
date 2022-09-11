@@ -16,12 +16,14 @@ IncludeDir = {}
 IncludeDir["glfw"] = "MidnightEngine/vendor/glfw/include"
 IncludeDir["glad"] = "MidnightEngine/vendor/glad/include"
 IncludeDir["imgui"] = "MidnightEngine/vendor/imgui"
+IncludeDir["glm"] = "MidnightEngine/vendor/glm"
 
 
 group "Dependencies"
 	include "MidnightEngine/vendor/glfw"
 	include "MidnightEngine/vendor/glad"
 	include "MidnightEngine/vendor/imgui"
+	include "MidnightEngine/vendor/glm"
 
 group ""
 
@@ -50,6 +52,7 @@ project "MidnightEngine"
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.imgui}",
+		"%{IncludeDir.glm}",
 	}
 
 	links
@@ -57,6 +60,7 @@ project "MidnightEngine"
 		"glfw",
 		"glad",
 		"imgui",
+		"glm",
 		"opengl32.lib",
 	}
 
@@ -110,7 +114,8 @@ project "Sandbox"
 	includedirs
 	{
 		"MidnightEngine/vendor/spdlog/include",
-		"MidnightEngine/src"
+		"MidnightEngine/src",
+		"%{IncludeDir.glm}",
 	}
 	
 	filter "system:windows"
