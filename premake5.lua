@@ -115,6 +115,7 @@ project "Sandbox"
 	{
 		"MidnightEngine/vendor/spdlog/include",
 		"MidnightEngine/src",
+		"MidnightEngine/vendor",
 		"%{IncludeDir.glm}",
 	}
 	

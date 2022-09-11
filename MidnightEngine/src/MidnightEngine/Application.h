@@ -3,9 +3,11 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "LayerStack.h"
-#include "Events/Event.h"
+#include "MidnightEngine/LayerStack.h"
+#include "MidnightEngine/Events/Event.h"
 #include "MidnightEngine/Events/ApplicationEvent.h"
+
+#include "MidnightEngine/ImGui/ImGuiLayer.h"
 
 namespace MidnightEngine
 {
@@ -30,6 +32,7 @@ namespace MidnightEngine
 
 	private:
 		std::unique_ptr<Window> m_Window = nullptr;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Runing = true;
 		LayerStack m_LayerStack;
 
