@@ -9,6 +9,8 @@
 
 #include "MidnightEngine/ImGui/ImGuiLayer.h"
 
+#include "MidnightEngine/Renderer/Shader.h"
+
 namespace MidnightEngine
 {
 	class MIDNIGHT_API Application
@@ -39,6 +41,8 @@ namespace MidnightEngine
 		unsigned int m_VertexArray;
 		unsigned int m_VertexBuffer;
 		unsigned int m_IndexBuffer;
+
+		std::unique_ptr<Shader> m_Shader;
 
 	private:
 		static Application* s_Instance;
