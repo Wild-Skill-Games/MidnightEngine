@@ -11,7 +11,41 @@ namespace MidnightEngine
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
-	Application *Application::s_Instance = nullptr;
+	Application* Application::s_Instance = nullptr;
+
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+			case MidnightEngine::ShaderDataType::None:
+				return GL_NONE;
+			case MidnightEngine::ShaderDataType::Float:
+				return GL_FLOAT;
+			case MidnightEngine::ShaderDataType::Float2:
+				return GL_FLOAT_VEC2;
+			case MidnightEngine::ShaderDataType::Float3:
+				return GL_FLOAT_VEC3;
+			case MidnightEngine::ShaderDataType::Float4:
+				return GL_FLOAT_VEC4;
+			case MidnightEngine::ShaderDataType::Mat3:
+				return GL_FLOAT_MAT3;
+			case MidnightEngine::ShaderDataType::Mat4:
+				return GL_FLOAT_MAT4;
+			case MidnightEngine::ShaderDataType::Int:
+				return GL_INT;
+			case MidnightEngine::ShaderDataType::Int2:
+				return GL_INT_VEC2;
+			case MidnightEngine::ShaderDataType::Int3:
+				return GL_INT_VEC3;
+			case MidnightEngine::ShaderDataType::Int4:
+				return GL_INT_VEC4;
+			case MidnightEngine::ShaderDataType::Bool:
+				return GL_BOOL;
+		}
+
+		ME_CORE_ASSERT(false, "Unknown ShaderDataType");
+		return 0;
+	}
 
 	Application::Application()
 	{
@@ -27,37 +61,54 @@ namespace MidnightEngine
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
-		float vertices[3 * 3] = {
-			-0.5f,
-			-0.5f,
-			0.0f,
-			0.5f,
-			-0.5f,
-			0.0f,
-			0.0f,
-			0.5f,
-			0.0f,
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 1.8f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 1.8f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 1.8f, 0.8f, 0.2f, 1.0f,
 		};
 
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		// m_VertexBuffer->Bind();
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		{
+			BufferLayout layout = {
+				{ ShaderDataType::Float3, "a_Position" },
+				{ ShaderDataType::Float4, "a_Color" },
+			};
 
-		uint32_t indices[3] = {0, 1, 2};
+			m_VertexBuffer->SetLayout(layout);
+		}
+
+		uint32_t index = 0;
+		const auto& layout = m_VertexBuffer->GetLayout();
+		for (const auto& element : layout)
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index,
+				element.GetComponentCount(),
+				ShaderDataTypeToOpenGLBaseType(element.Type),
+				element.Normalized ? GL_TRUE : GL_FALSE,
+				layout.GetStride(),
+				(const void*)element.Offset);
+			index++;
+		}
+
+		uint32_t indices[3] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
 		std::string vertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
 
 			out vec3 v_Position;
+			out vec4 v_Color;
 
-			void main(){
+			void main()
+			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position + 0.5, 1.0);
+				v_Color = a_Color;
+				gl_Position = vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -67,9 +118,12 @@ namespace MidnightEngine
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
+			in vec4 v_Color;
 
-			void main(){
+			void main()
+			{
 				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
 			}
 		)";
 
@@ -82,7 +136,6 @@ namespace MidnightEngine
 	{
 		while (m_Runing)
 		{
-			// make the window magenta for debuging
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
@@ -106,7 +159,7 @@ namespace MidnightEngine
 		}
 	}
 
-	void Application::OnEvent(Event &e)
+	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
@@ -121,19 +174,19 @@ namespace MidnightEngine
 		}
 	}
 
-	void Application::PushLayer(Layer *layer)
+	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
-	void Application::PushOverlay(Layer *layer)
+	void Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent &e)
+	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Runing = false;
 		return true;
