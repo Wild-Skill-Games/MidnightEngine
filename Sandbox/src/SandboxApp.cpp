@@ -1,6 +1,6 @@
 #include <MidnightEngine.h>
 
-#include "imgui/imgui.h"
+//#include "imgui/imgui.h"
 
 class ExampleLayer : public MidnightEngine::Layer
 {
@@ -18,9 +18,9 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hello World!");
-		ImGui::End();
+		//ImGui::Begin("Test");
+		//ImGui::Text("Hello World!");
+		//ImGui::End();
 	}
 
 	void OnEvent(MidnightEngine::Event& event) override
