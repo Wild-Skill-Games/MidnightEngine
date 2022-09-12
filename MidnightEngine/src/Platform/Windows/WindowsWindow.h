@@ -4,6 +4,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include "MidnightEngine/Renderer/GraphicsContext.h"
+
 namespace MidnightEngine
 {
 	class WindowsWindow : public Window
@@ -30,6 +32,8 @@ namespace MidnightEngine
 
 	private:
 		GLFWwindow* m_Window;
+
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
