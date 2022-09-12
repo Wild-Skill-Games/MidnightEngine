@@ -1,11 +1,9 @@
 #include "mepch.h"
 #include "ImGuiLayer.h"
 
-#include "imgui.h"
-
-#define IMGUI_IMPL_API
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
+#include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
 
 #include "MidnightEngine/Application.h"
 
@@ -85,7 +83,7 @@ namespace MidnightEngine
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
-		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
 		//Rendering
 		ImGui::Render();

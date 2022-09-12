@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef ME_PLATFORM_WINDOWS
+#if ME_DYNAMIC_LINK
 #ifdef ME_BUILD_DLL
 #define MIDNIGHT_API __declspec(dllexport)
 #else
 #define MIDNIGHT_API __declspec(dllimport)
 #endif // ME_BUILD_DLL
+#else
+#define MIDNIGHT_API
+#endif // ME_DYNAMIC_LINK
 #else
 #error Midnight Engine only supports Windows!
 #endif // ME_PLATFORM_WINDOWS

@@ -28,9 +28,10 @@ group ""
 
 project "MidnightEngine"
 	location "MidnightEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -44,6 +45,11 @@ project "MidnightEngine"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS",
 	}
 
 	includedirs
@@ -65,7 +71,6 @@ project "MidnightEngine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 		
 		defines
@@ -75,32 +80,28 @@ project "MidnightEngine"
 			"GLFW_INCLUDE_NONE",
 			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
 		}
-		
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		}
 
 	filter "configurations:Debug"
 		defines "ME_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 		
 	filter "configurations:Release"
 		defines "ME_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "ME_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 		
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -119,31 +120,30 @@ project "Sandbox"
 		"%{IncludeDir.glm}",
 	}
 	
+	links
+	{
+		"MidnightEngine"
+	}
+
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 		
 		defines
 		{
 			"ME_PLATFORM_WINDOWS"
 		}
-
-		links
-		{
-			"MidnightEngine"
-		}
 		
 	filter "configurations:Debug"
 		defines "ME_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 		
 	filter "configurations:Release"
 		defines "ME_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 		
 	filter "configurations:Dist"
 		defines "ME_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
