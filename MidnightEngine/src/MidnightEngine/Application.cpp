@@ -13,40 +13,6 @@ namespace MidnightEngine
 
 	Application* Application::s_Instance = nullptr;
 
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-			case MidnightEngine::ShaderDataType::None:
-				return GL_NONE;
-			case MidnightEngine::ShaderDataType::Float:
-				return GL_FLOAT;
-			case MidnightEngine::ShaderDataType::Float2:
-				return GL_FLOAT;
-			case MidnightEngine::ShaderDataType::Float3:
-				return GL_FLOAT;
-			case MidnightEngine::ShaderDataType::Float4:
-				return GL_FLOAT;
-			case MidnightEngine::ShaderDataType::Mat3:
-				return GL_FLOAT;
-			case MidnightEngine::ShaderDataType::Mat4:
-				return GL_FLOAT;
-			case MidnightEngine::ShaderDataType::Int:
-				return GL_INT;
-			case MidnightEngine::ShaderDataType::Int2:
-				return GL_INT;
-			case MidnightEngine::ShaderDataType::Int3:
-				return GL_INT;
-			case MidnightEngine::ShaderDataType::Int4:
-				return GL_INT;
-			case MidnightEngine::ShaderDataType::Bool:
-				return GL_BOOL;
-		}
-
-		ME_CORE_ASSERT(false, "Unknown ShaderDataType");
-		return 0;
-	}
-
 	Application::Application()
 	{
 		ME_CORE_ASSERT(!s_Instance, "Application already exists");
@@ -58,8 +24,7 @@ namespace MidnightEngine
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 1.8f, 1.0f,
@@ -67,40 +32,31 @@ namespace MidnightEngine
 			 0.0f,  0.5f, 0.0f, 1.8f, 0.8f, 0.2f, 1.0f,
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		std::shared_ptr<VertexBuffer> vertexBuffer;
 
-		{
-			BufferLayout layout = {
-				{ ShaderDataType::Float3, "a_Position" },
-				{ ShaderDataType::Float4, "a_Color" },
-			};
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-			m_VertexBuffer->SetLayout(layout);
-		}
+		BufferLayout layout = {
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float4, "a_Color"},
+		};
 
-		uint32_t index = 0;
-		const auto& layout = m_VertexBuffer->GetLayout();
-		for (const auto& element : layout)
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
-				element.GetComponentCount(),
-				ShaderDataTypeToOpenGLBaseType(element.Type),
-				element.Normalized ? GL_TRUE : GL_FALSE,
-				layout.GetStride(),
-				(const void*)element.Offset);
-			index++;
-		}
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+
+		std::shared_ptr<IndexBuffer> indexBuffer;
+
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		std::string vertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
-
+			
 			out vec3 v_Position;
 			out vec4 v_Color;
 
@@ -122,7 +78,6 @@ namespace MidnightEngine
 
 			void main()
 			{
-				color = vec4(v_Position * 0.5 + 0.5, 1.0);
 				color = v_Color;
 			}
 		)";
@@ -140,8 +95,9 @@ namespace MidnightEngine
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			m_Shader->Bind();
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			m_VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (auto layer : m_LayerStack)
 			{
