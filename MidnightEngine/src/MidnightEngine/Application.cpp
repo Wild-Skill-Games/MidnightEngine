@@ -3,7 +3,7 @@
 
 #include "MidnightEngine/Log.h"
 
-#include <glad/glad.h>
+#include "Renderer/Renderer.h"
 
 #include "Input.h"
 
@@ -27,9 +27,9 @@ namespace MidnightEngine
 		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 1.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 1.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 1.8f, 0.8f, 0.2f, 1.0f,
+			-0.5f, -0.5f, 0.0f, 0.9f, 0.7f, 1.0f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.5f, 0.0f, 1.0f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.0f, 0.9f, 0.2f, 1.0f,
 		};
 
 		std::shared_ptr<VertexBuffer> vertexBuffer;
@@ -91,13 +91,15 @@ namespace MidnightEngine
 	{
 		while (m_Runing)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
+			RenderCommand::Clear();
+
+			Renderer::BeginScene();
 
 			m_Shader->Bind();
+			Renderer::Submit(m_VertexArray);
 
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::EndScene();
 
 			for (auto layer : m_LayerStack)
 			{
