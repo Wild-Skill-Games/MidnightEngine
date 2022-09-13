@@ -22,23 +22,23 @@ namespace MidnightEngine
 			case MidnightEngine::ShaderDataType::Float:
 				return GL_FLOAT;
 			case MidnightEngine::ShaderDataType::Float2:
-				return GL_FLOAT_VEC2;
+				return GL_FLOAT;
 			case MidnightEngine::ShaderDataType::Float3:
-				return GL_FLOAT_VEC3;
+				return GL_FLOAT;
 			case MidnightEngine::ShaderDataType::Float4:
-				return GL_FLOAT_VEC4;
+				return GL_FLOAT;
 			case MidnightEngine::ShaderDataType::Mat3:
-				return GL_FLOAT_MAT3;
+				return GL_FLOAT;
 			case MidnightEngine::ShaderDataType::Mat4:
-				return GL_FLOAT_MAT4;
+				return GL_FLOAT;
 			case MidnightEngine::ShaderDataType::Int:
 				return GL_INT;
 			case MidnightEngine::ShaderDataType::Int2:
-				return GL_INT_VEC2;
+				return GL_INT;
 			case MidnightEngine::ShaderDataType::Int3:
-				return GL_INT_VEC3;
+				return GL_INT;
 			case MidnightEngine::ShaderDataType::Int4:
-				return GL_INT_VEC4;
+				return GL_INT;
 			case MidnightEngine::ShaderDataType::Bool:
 				return GL_BOOL;
 		}
