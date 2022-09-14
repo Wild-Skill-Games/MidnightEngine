@@ -3,6 +3,8 @@
 #include "MidnightEngine/Core.h"
 #include "MidnightEngine/Events/Event.h"
 
+#include "MidnightEngine/Core/Timestep.h"
+
 namespace MidnightEngine
 {
 	class MIDNIGHT_API Layer
@@ -13,7 +15,7 @@ namespace MidnightEngine
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

@@ -71,40 +71,37 @@ public:
 		m_Shader.reset(new MidnightEngine::Shader(vertexSrc, fragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(MidnightEngine::Timestep ts) override
 	{
 		// Camera Movement
 
+
 		if (MidnightEngine::Input::IsKeyPressed(ME_KEY_LEFT) || MidnightEngine::Input::IsKeyPressed(ME_KEY_A))
 		{
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
 		}
 		else if (MidnightEngine::Input::IsKeyPressed(ME_KEY_RIGHT) || MidnightEngine::Input::IsKeyPressed(ME_KEY_D))
 		{
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * ts;
 		}
 
 		if (MidnightEngine::Input::IsKeyPressed(ME_KEY_DOWN) || MidnightEngine::Input::IsKeyPressed(ME_KEY_S))
 		{
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
 		}
 		else if (MidnightEngine::Input::IsKeyPressed(ME_KEY_UP) || MidnightEngine::Input::IsKeyPressed(ME_KEY_W))
 		{
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * ts;
 		}
 
 		if (MidnightEngine::Input::IsKeyPressed(ME_KEY_Q))
 		{
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * ts;
 		}
 		else if (MidnightEngine::Input::IsKeyPressed(ME_KEY_E))
 		{
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * ts;
 		}
-
-
-
-
 
 		MidnightEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		MidnightEngine::RenderCommand::Clear();
@@ -129,10 +126,10 @@ private:
 
 	MidnightEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.03f;
+	float m_CameraMoveSpeed = 3.0f;
 
 	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 2.0f;
+	float m_CameraRotationSpeed = 100.0f;
 };
 
 class Sandbox : public MidnightEngine::Application

@@ -7,6 +7,8 @@
 
 #include "Input.h"
 
+#include <GLFW/glfw3.h>
+
 namespace MidnightEngine
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -20,10 +22,10 @@ namespace MidnightEngine
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window->SetVSync(false);
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
-
 	}
 
 	Application::~Application() {}
@@ -32,17 +34,24 @@ namespace MidnightEngine
 	{
 		while (m_Runing)
 		{
-			for (auto layer : m_LayerStack)
-			{
-				layer->OnUpdate();
-			}
+			float time = (float)glfwGetTime(); // Platform::GetTime()
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
 
-			m_ImGuiLayer->Begin();
-			for (auto layer : m_LayerStack)
+			if (m_Runing)
 			{
-				layer->OnImGuiRender();
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnUpdate(timestep);
+				}
+
+				m_ImGuiLayer->Begin();
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnImGuiRender();
+				}
+				m_ImGuiLayer->End();
 			}
-			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 		}

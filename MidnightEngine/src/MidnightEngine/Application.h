@@ -7,6 +7,8 @@
 #include "MidnightEngine/Events/Event.h"
 #include "MidnightEngine/Events/ApplicationEvent.h"
 
+#include "MidnightEngine/Core/Timestep.h"
+
 #include "MidnightEngine/ImGui/ImGuiLayer.h"
 
 namespace MidnightEngine
@@ -35,6 +37,7 @@ namespace MidnightEngine
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Runing = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 
 	private:
 		static Application* s_Instance;
