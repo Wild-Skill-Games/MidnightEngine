@@ -13,6 +13,8 @@
 #include "MidnightEngine/Renderer/Buffer.h"
 #include "MidnightEngine/Renderer/VertexArray.h"
 
+#include "Renderer/OrthographicCamera.h"
+
 namespace MidnightEngine
 {
 	class MIDNIGHT_API Application
@@ -44,6 +46,8 @@ namespace MidnightEngine
 		std::shared_ptr<VertexArray> m_VertexArray;
 
 		std::shared_ptr<VertexArray> m_SquareVA;
+
+		OrthographicCamera m_Camera;
 
 	private:
 		static Application* s_Instance;
