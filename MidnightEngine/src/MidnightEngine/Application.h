@@ -9,15 +9,9 @@
 
 #include "MidnightEngine/ImGui/ImGuiLayer.h"
 
-#include "MidnightEngine/Renderer/Shader.h"
-#include "MidnightEngine/Renderer/Buffer.h"
-#include "MidnightEngine/Renderer/VertexArray.h"
-
-#include "Renderer/OrthographicCamera.h"
-
 namespace MidnightEngine
 {
-	class MIDNIGHT_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -41,13 +35,6 @@ namespace MidnightEngine
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Runing = true;
 		LayerStack m_LayerStack;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<VertexArray> m_SquareVA;
-
-		OrthographicCamera m_Camera;
 
 	private:
 		static Application* s_Instance;
