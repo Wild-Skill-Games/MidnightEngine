@@ -21,6 +21,9 @@ namespace MidnightEngine
 		shader->UploadUniformMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
 		shader->UploadUniformMat4("u_Transform", transform);
 
+		// TODO: binding the actual material instance in the renderer
+		//mi.Bind();
+
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}

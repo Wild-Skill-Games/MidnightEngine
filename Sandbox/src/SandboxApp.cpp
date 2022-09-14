@@ -8,7 +8,7 @@ class ExampleLayer : public MidnightEngine::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
 	{
 		// Rendering T R Y E N G U L
 
@@ -138,9 +138,11 @@ public:
 
 			in vec3 v_Position;
 
+			uniform vec4 u_Color;
+
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = u_Color;
 			}
 		)";
 
@@ -189,12 +191,35 @@ public:
 
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.0f);
+		glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
+
+		// TODO: Material system in the future
+
+		//MidnightEngine::MaterialRef material = new MidnightEngine::Material(m_SquareShader);
+		//MidnightEngine::MaterialInstanceRef mi = new MidnightEngine::MaterialInstance(m_SquareShader);
+
+		//mi->SetValue("u_Color", redColor);
+		//mi->SetTexture("u_Texture", texture);
+		//mi->SetAlbedo("u_AlbedoMap", albedoMap);
+		//squareMesh->SetMaterial(material);
+
 		for (size_t y = 0; y < 20; y++)
 		{
 			for (size_t x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11, 0.0);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+
+				if (x % 2 == 0)
+				{
+					m_SquareShader->UploadUniformFloat4("u_Color", redColor);
+				}
+				else
+				{
+					m_SquareShader->UploadUniformFloat4("u_Color", blueColor);
+				}
+
 				MidnightEngine::Renderer::Submit(m_SquareShader, m_SquareVertexArray, transform);
 			}
 		}
