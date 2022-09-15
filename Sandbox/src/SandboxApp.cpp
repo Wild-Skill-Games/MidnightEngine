@@ -1,8 +1,12 @@
 #include <MidnightEngine.h>
+#include <Platform/OpenGL/OpenGLShader.h>
+
+#include "mepch.h"
 
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public MidnightEngine::Layer
 {
@@ -74,7 +78,7 @@ public:
 			}
 		)";
 
-		m_TriangleShader.reset(new MidnightEngine::Shader(triangleVertexSrc, triangleFragmentSrc));
+		m_TriangleShader.reset(MidnightEngine::Shader::Create(triangleVertexSrc, triangleFragmentSrc));
 
 
 
@@ -138,15 +142,15 @@ public:
 
 			in vec3 v_Position;
 
-			uniform vec4 u_Color;
+			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = u_Color;
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
-		m_SquareShader.reset(new MidnightEngine::Shader(sqaureVertexSrc, squareFragmentSrc));
+		m_SquareShader.reset(MidnightEngine::Shader::Create(sqaureVertexSrc, squareFragmentSrc));
 	}
 
 	void OnUpdate(MidnightEngine::Timestep ts) override
@@ -204,21 +208,15 @@ public:
 		//mi->SetAlbedo("u_AlbedoMap", albedoMap);
 		//squareMesh->SetMaterial(material);
 
+		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_SquareShader)->Bind();
+		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_SquareShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+
 		for (size_t y = 0; y < 20; y++)
 		{
 			for (size_t x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11, 0.0);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-
-				if (x % 2 == 0)
-				{
-					m_SquareShader->UploadUniformFloat4("u_Color", redColor);
-				}
-				else
-				{
-					m_SquareShader->UploadUniformFloat4("u_Color", blueColor);
-				}
 
 				MidnightEngine::Renderer::Submit(m_SquareShader, m_SquareVertexArray, transform);
 			}
@@ -229,7 +227,12 @@ public:
 		MidnightEngine::Renderer::EndScene();
 	}
 
-	virtual void OnImGuiRender() override {}
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::End();
+	}
 
 	void OnEvent(MidnightEngine::Event& event) override {}
 
@@ -246,6 +249,8 @@ private:
 
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 100.0f;
+
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
 class Sandbox : public MidnightEngine::Application
