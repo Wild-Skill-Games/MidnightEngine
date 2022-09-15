@@ -33,7 +33,7 @@ namespace MidnightEngine
 		bool OnWindowClose(WindowCloseEvent& e);
 
 	private:
-		std::unique_ptr<Window> m_Window = nullptr;
+		Scope<Window> m_Window = nullptr;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Runing = true;
 		LayerStack m_LayerStack;

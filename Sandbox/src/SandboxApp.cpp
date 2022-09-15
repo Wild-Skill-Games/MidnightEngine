@@ -25,7 +25,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.0f, 0.9f, 0.2f, 1.0f,
 		};
 
-		std::shared_ptr<MidnightEngine::VertexBuffer> triangleVertexBuffer;
+		MidnightEngine::Ref<MidnightEngine::VertexBuffer> triangleVertexBuffer;
 
 		triangleVertexBuffer.reset(MidnightEngine::VertexBuffer::Create(triangleVertices, sizeof(triangleVertices)));
 
@@ -39,7 +39,7 @@ public:
 
 		uint32_t triangleIndices[3] = { 0, 1, 2 };
 
-		std::shared_ptr<MidnightEngine::IndexBuffer> triangleIndexBuffer;
+		MidnightEngine::Ref<MidnightEngine::IndexBuffer> triangleIndexBuffer;
 
 		triangleIndexBuffer.reset(MidnightEngine::IndexBuffer::Create(triangleIndices, sizeof(triangleIndices) / sizeof(uint32_t)));
 		m_TriangleVertexArray->SetIndexBuffer(triangleIndexBuffer);
@@ -100,7 +100,7 @@ public:
 			-0.5f,  0.5f, 0.0f,
 		};
 
-		std::shared_ptr<MidnightEngine::VertexBuffer> squareVertexBuffer;
+		MidnightEngine::Ref<MidnightEngine::VertexBuffer> squareVertexBuffer;
 
 		squareVertexBuffer.reset(MidnightEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
@@ -113,7 +113,7 @@ public:
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
-		std::shared_ptr<MidnightEngine::IndexBuffer> squareIndexBuffer;
+		MidnightEngine::Ref<MidnightEngine::IndexBuffer> squareIndexBuffer;
 
 		squareIndexBuffer.reset(MidnightEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
@@ -237,11 +237,11 @@ public:
 	void OnEvent(MidnightEngine::Event& event) override {}
 
 private:
-	std::shared_ptr<MidnightEngine::Shader> m_TriangleShader;
-	std::shared_ptr<MidnightEngine::VertexArray> m_TriangleVertexArray;
+	MidnightEngine::Ref<MidnightEngine::Shader> m_TriangleShader;
+	MidnightEngine::Ref<MidnightEngine::VertexArray> m_TriangleVertexArray;
 
-	std::shared_ptr<MidnightEngine::Shader> m_SquareShader;
-	std::shared_ptr<MidnightEngine::VertexArray> m_SquareVertexArray;
+	MidnightEngine::Ref<MidnightEngine::Shader> m_SquareShader;
+	MidnightEngine::Ref<MidnightEngine::VertexArray> m_SquareVertexArray;
 
 	MidnightEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
