@@ -16,13 +16,30 @@ public:
 	{
 		// Rendering T R Y E N G U L
 
-
 		m_TriangleVertexArray.reset(MidnightEngine::VertexArray::Create());
 
 		float triangleVertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.9f, 0.7f, 1.0f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.5f, 0.0f, 1.0f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.0f, 0.9f, 0.2f, 1.0f,
+			-0.5f,
+			-0.5f,
+			0.0f,
+			0.9f,
+			0.7f,
+			1.0f,
+			1.0f,
+			0.5f,
+			-0.5f,
+			0.0f,
+			0.5f,
+			0.0f,
+			1.0f,
+			1.0f,
+			0.0f,
+			0.5f,
+			0.0f,
+			0.0f,
+			0.9f,
+			0.2f,
+			1.0f,
 		};
 
 		MidnightEngine::Ref<MidnightEngine::VertexBuffer> triangleVertexBuffer;
@@ -37,7 +54,7 @@ public:
 		triangleVertexBuffer->SetLayout(triangleLayout);
 		m_TriangleVertexArray->AddVertexBuffer(triangleVertexBuffer);
 
-		uint32_t triangleIndices[3] = { 0, 1, 2 };
+		uint32_t triangleIndices[3] = {0, 1, 2};
 
 		MidnightEngine::Ref<MidnightEngine::IndexBuffer> triangleIndexBuffer;
 
@@ -80,24 +97,31 @@ public:
 
 		m_TriangleShader.reset(MidnightEngine::Shader::Create(triangleVertexSrc, triangleFragmentSrc));
 
-
-
-
-
-
-
-
-
-
 		// Rendering S K U E R
 
 		m_SquareVertexArray.reset(MidnightEngine::VertexArray::Create());
 
 		float squareVertices[4 * 5] = {
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
+			-0.5f,
+			-0.5f,
+			0.0f,
+			0.0f,
+			0.0f,
+			0.5f,
+			-0.5f,
+			0.0f,
+			1.0f,
+			0.0f,
+			0.5f,
+			0.5f,
+			0.0f,
+			1.0f,
+			1.0f,
+			-0.5f,
+			0.5f,
+			0.0f,
+			0.0f,
+			1.0f,
 		};
 
 		MidnightEngine::Ref<MidnightEngine::VertexBuffer> squareVertexBuffer;
@@ -112,7 +136,7 @@ public:
 		squareVertexBuffer->SetLayout(squareLayout);
 		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
 
-		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
 
 		MidnightEngine::Ref<MidnightEngine::IndexBuffer> squareIndexBuffer;
 
@@ -153,13 +177,6 @@ public:
 
 		m_SquareShader.reset(MidnightEngine::Shader::Create(sqaureVertexSrc, squareFragmentSrc));
 
-
-
-
-
-
-
-
 		std::string textureSqaureVertexSrc = R"(
 			#version 330 core
 
@@ -196,6 +213,7 @@ public:
 		m_TextureShader.reset(MidnightEngine::Shader::Create(textureSqaureVertexSrc, textureSquareFragmentSrc));
 
 		m_Texture2D = MidnightEngine::Texture2D::Create("assets/textures/Image.png");
+		m_LogoTexture = MidnightEngine::Texture2D::Create("assets/textures/Logo.png");
 
 		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -232,7 +250,7 @@ public:
 			m_CameraRotation += m_CameraRotationSpeed * ts;
 		}
 
-		MidnightEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+		MidnightEngine::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
 		MidnightEngine::RenderCommand::Clear();
 
 		m_Camera.SetPosition(m_CameraPosition);
@@ -247,13 +265,13 @@ public:
 
 		// TODO: Material system in the future
 
-		//MidnightEngine::MaterialRef material = new MidnightEngine::Material(m_SquareShader);
-		//MidnightEngine::MaterialInstanceRef mi = new MidnightEngine::MaterialInstance(m_SquareShader);
+		// MidnightEngine::MaterialRef material = new MidnightEngine::Material(m_SquareShader);
+		// MidnightEngine::MaterialInstanceRef mi = new MidnightEngine::MaterialInstance(m_SquareShader);
 
-		//mi->SetValue("u_Color", redColor);
-		//mi->SetTexture("u_Texture", texture);
-		//mi->SetAlbedo("u_AlbedoMap", albedoMap);
-		//squareMesh->SetMaterial(material);
+		// mi->SetValue("u_Color", redColor);
+		// mi->SetTexture("u_Texture", texture);
+		// mi->SetAlbedo("u_AlbedoMap", albedoMap);
+		// squareMesh->SetMaterial(material);
 
 		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_SquareShader)->Bind();
 		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_SquareShader)->UploadUniformFloat3("u_Color", m_SquareColor);
@@ -273,9 +291,13 @@ public:
 
 		MidnightEngine::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+		m_LogoTexture->Bind();
+
+		MidnightEngine::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 		// Rendering T R Y E N G U L
 
-		//MidnightEngine::Renderer::Submit(m_TriangleShader, m_TriangleVertexArray);
+		// MidnightEngine::Renderer::Submit(m_TriangleShader, m_TriangleVertexArray);
 
 		MidnightEngine::Renderer::EndScene();
 	}
@@ -287,7 +309,7 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(MidnightEngine::Event& event) override {}
+	void OnEvent(MidnightEngine::Event &event) override {}
 
 private:
 	MidnightEngine::Ref<MidnightEngine::Shader> m_TriangleShader;
@@ -296,7 +318,7 @@ private:
 	MidnightEngine::Ref<MidnightEngine::Shader> m_SquareShader, m_TextureShader;
 	MidnightEngine::Ref<MidnightEngine::VertexArray> m_SquareVertexArray;
 
-	MidnightEngine::Ref<MidnightEngine::Texture2D> m_Texture2D;
+	MidnightEngine::Ref<MidnightEngine::Texture2D> m_Texture2D, m_LogoTexture;
 
 	MidnightEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
@@ -305,7 +327,7 @@ private:
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 100.0f;
 
-	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
+	glm::vec3 m_SquareColor = {0.2f, 0.3f, 0.8f};
 };
 
 class Sandbox : public MidnightEngine::Application
@@ -319,7 +341,7 @@ public:
 	~Sandbox() {}
 };
 
-MidnightEngine::Application* MidnightEngine::CreateApplication()
+MidnightEngine::Application *MidnightEngine::CreateApplication()
 {
 	return new Sandbox();
 }
