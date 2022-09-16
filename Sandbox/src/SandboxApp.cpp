@@ -93,11 +93,11 @@ public:
 
 		m_SquareVertexArray.reset(MidnightEngine::VertexArray::Create());
 
-		float squareVertices[4 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f,
+		float squareVertices[4 * 5] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
 		};
 
 		MidnightEngine::Ref<MidnightEngine::VertexBuffer> squareVertexBuffer;
@@ -106,6 +106,7 @@ public:
 
 		MidnightEngine::BufferLayout squareLayout = {
 			{MidnightEngine::ShaderDataType::Float3, "a_Position"},
+			{MidnightEngine::ShaderDataType::Float2, "a_TextureCoordonate"},
 		};
 
 		squareVertexBuffer->SetLayout(squareLayout);
@@ -151,12 +152,58 @@ public:
 		)";
 
 		m_SquareShader.reset(MidnightEngine::Shader::Create(sqaureVertexSrc, squareFragmentSrc));
+
+
+
+
+
+
+
+
+		std::string textureSqaureVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TextureCoordonate;
+			
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TextureCoordonate;
+
+			void main()
+			{
+				v_TextureCoordonate = a_TextureCoordonate;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureSquareFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TextureCoordonate;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TextureCoordonate);
+			}
+		)";
+
+		m_TextureShader.reset(MidnightEngine::Shader::Create(textureSqaureVertexSrc, textureSquareFragmentSrc));
+
+		m_Texture2D = MidnightEngine::Texture2D::Create("assets/textures/Image.png");
+
+		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(MidnightEngine::Timestep ts) override
 	{
 		// Camera Movement
-
 
 		if (MidnightEngine::Input::IsKeyPressed(ME_KEY_LEFT) || MidnightEngine::Input::IsKeyPressed(ME_KEY_A))
 		{
@@ -222,7 +269,13 @@ public:
 			}
 		}
 
-		MidnightEngine::Renderer::Submit(m_TriangleShader, m_TriangleVertexArray);
+		m_Texture2D->Bind();
+
+		MidnightEngine::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		// Rendering T R Y E N G U L
+
+		//MidnightEngine::Renderer::Submit(m_TriangleShader, m_TriangleVertexArray);
 
 		MidnightEngine::Renderer::EndScene();
 	}
@@ -240,8 +293,10 @@ private:
 	MidnightEngine::Ref<MidnightEngine::Shader> m_TriangleShader;
 	MidnightEngine::Ref<MidnightEngine::VertexArray> m_TriangleVertexArray;
 
-	MidnightEngine::Ref<MidnightEngine::Shader> m_SquareShader;
+	MidnightEngine::Ref<MidnightEngine::Shader> m_SquareShader, m_TextureShader;
 	MidnightEngine::Ref<MidnightEngine::VertexArray> m_SquareVertexArray;
+
+	MidnightEngine::Ref<MidnightEngine::Texture2D> m_Texture2D;
 
 	MidnightEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

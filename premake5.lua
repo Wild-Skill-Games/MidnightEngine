@@ -17,6 +17,7 @@ IncludeDir["glfw"] = "MidnightEngine/vendor/glfw/include"
 IncludeDir["glad"] = "MidnightEngine/vendor/glad/include"
 IncludeDir["imgui"] = "MidnightEngine/vendor/imgui"
 IncludeDir["glm"] = "MidnightEngine/vendor/glm"
+IncludeDir["stb_image"] = "MidnightEngine/vendor/stb_image"
 
 
 group "Dependencies"
@@ -43,6 +44,8 @@ project "MidnightEngine"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
@@ -60,6 +63,7 @@ project "MidnightEngine"
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.imgui}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}",
 	}
 
 	links
