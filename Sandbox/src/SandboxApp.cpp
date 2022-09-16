@@ -1,7 +1,7 @@
-#include <MidnightEngine.h>
-#include <Platform/OpenGL/OpenGLShader.h>
-
 #include "mepch.h"
+#include <MidnightEngine.h>
+
+#include "Platform/OpenGL/OpenGLShader.h"
 
 #include "imgui/imgui.h"
 
@@ -54,7 +54,7 @@ public:
 		triangleVertexBuffer->SetLayout(triangleLayout);
 		m_TriangleVertexArray->AddVertexBuffer(triangleVertexBuffer);
 
-		uint32_t triangleIndices[3] = {0, 1, 2};
+		uint32_t triangleIndices[3] = { 0, 1, 2 };
 
 		MidnightEngine::Ref<MidnightEngine::IndexBuffer> triangleIndexBuffer;
 
@@ -136,7 +136,7 @@ public:
 		squareVertexBuffer->SetLayout(squareLayout);
 		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
 
-		uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 		MidnightEngine::Ref<MidnightEngine::IndexBuffer> squareIndexBuffer;
 
@@ -177,40 +177,7 @@ public:
 
 		m_SquareShader.reset(MidnightEngine::Shader::Create(sqaureVertexSrc, squareFragmentSrc));
 
-		std::string textureSqaureVertexSrc = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TextureCoordonate;
-			
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec2 v_TextureCoordonate;
-
-			void main()
-			{
-				v_TextureCoordonate = a_TextureCoordonate;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string textureSquareFragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec2 v_TextureCoordonate;
-
-			uniform sampler2D u_Texture;
-
-			void main()
-			{
-				color = texture(u_Texture, v_TextureCoordonate);
-			}
-		)";
-
-		m_TextureShader.reset(MidnightEngine::Shader::Create(textureSqaureVertexSrc, textureSquareFragmentSrc));
+		m_TextureShader.reset(MidnightEngine::Shader::Create("assets/shaders/Texture.glsl"));
 
 		m_Texture2D = MidnightEngine::Texture2D::Create("assets/textures/Image.png");
 		m_LogoTexture = MidnightEngine::Texture2D::Create("assets/textures/Logo.png");
@@ -250,7 +217,7 @@ public:
 			m_CameraRotation += m_CameraRotationSpeed * ts;
 		}
 
-		MidnightEngine::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
+		MidnightEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		MidnightEngine::RenderCommand::Clear();
 
 		m_Camera.SetPosition(m_CameraPosition);
@@ -309,7 +276,7 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(MidnightEngine::Event &event) override {}
+	void OnEvent(MidnightEngine::Event& event) override {}
 
 private:
 	MidnightEngine::Ref<MidnightEngine::Shader> m_TriangleShader;
@@ -327,7 +294,7 @@ private:
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 100.0f;
 
-	glm::vec3 m_SquareColor = {0.2f, 0.3f, 0.8f};
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
 class Sandbox : public MidnightEngine::Application
@@ -341,7 +308,7 @@ public:
 	~Sandbox() {}
 };
 
-MidnightEngine::Application *MidnightEngine::CreateApplication()
+MidnightEngine::Application* MidnightEngine::CreateApplication()
 {
 	return new Sandbox();
 }

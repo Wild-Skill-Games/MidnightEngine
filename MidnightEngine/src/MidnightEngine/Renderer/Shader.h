@@ -12,8 +12,9 @@ namespace MidnightEngine
 
 		// TODO: u might need 2 make multiples of these functions for different types of uniforms
 
-		//virtual void UploadUniformBuffer()
+		// virtual void UploadUniformBuffer()
 
-		static Shader* Create(const std::string& vertexShader, const std::string& fragmentShader);
+		static Shader *Create(const std::string &filepath);
+		static Shader *Create(const std::string &vertexShader, const std::string &fragmentShader);
 	};
 }
