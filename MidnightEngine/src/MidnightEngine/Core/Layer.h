@@ -1,9 +1,9 @@
 #pragma once
 
-#include "MidnightEngine/Core.h"
-#include "MidnightEngine/Events/Event.h"
-
+#include "MidnightEngine/Core/Core.h"
 #include "MidnightEngine/Core/Timestep.h"
+
+#include "MidnightEngine/Events/Event.h"
 
 namespace MidnightEngine
 {

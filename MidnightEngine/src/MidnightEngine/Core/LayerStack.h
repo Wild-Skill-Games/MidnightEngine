@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MidnightEngine/Core.h"
+#include "MidnightEngine/Core/Core.h"
 #include "Layer.h"
 
 #include <vector>

@@ -1,7 +1,7 @@
 #include "mepch.h"
 #include "Application.h"
 
-#include "Renderer/Renderer.h"
+#include "MidnightEngine/Renderer/Renderer.h"
 
 #include "Input.h"
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MidnightEngine/Input.h"
+#include "MidnightEngine/Core/Input.h"
 
 namespace MidnightEngine
 {

@@ -1,7 +1,7 @@
 #include "mepch.h"
 #include "WindowsInput.h"
 
-#include "MidnightEngine/Application.h"
+#include "MidnightEngine/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace MidnightEngine

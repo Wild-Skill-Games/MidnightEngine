@@ -5,7 +5,7 @@
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
-#include "MidnightEngine/Application.h"
+#include "MidnightEngine/Core/Application.h"
 
 // TEMPORARY
 #include <GLFW/glfw3.h>

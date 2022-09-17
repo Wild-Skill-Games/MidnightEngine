@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Core.h"
+#include "MidnightEngine/Core/Core.h"
 
-#include "Window.h"
-#include "MidnightEngine/LayerStack.h"
+#include "MidnightEngine/Core/Window.h"
+#include "MidnightEngine/Core/LayerStack.h"
 #include "MidnightEngine/Events/Event.h"
 #include "MidnightEngine/Events/ApplicationEvent.h"
 

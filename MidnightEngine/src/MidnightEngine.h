@@ -2,16 +2,16 @@
 
 // For use by Midnight applications
 
-#include "MidnightEngine/Application.h"
-#include "MidnightEngine/Layer.h"
-#include "MidnightEngine/Log.h"
+#include "MidnightEngine/Core/Application.h"
+#include "MidnightEngine/Core/Layer.h"
+#include "MidnightEngine/Core/Log.h"
 
 #include "MidnightEngine/Core/Timestep.h"
 
-#include "MidnightEngine/Input.h"
-#include "MidnightEngine/KeyCodes.h"
-#include "MidnightEngine/MouseButtonCodes.h"
-#include "MidnightEngine/OrthographicCameraController.h"
+#include "MidnightEngine/Core/Input.h"
+#include "MidnightEngine/Core/KeyCodes.h"
+#include "MidnightEngine/Core/MouseButtonCodes.h"
+#include "MidnightEngine/Renderer/OrthographicCameraController.h"
 
 #include "MidnightEngine/ImGui/ImGuiLayer.h"
 
@@ -28,5 +28,5 @@
 // ---------------------------------
 
 // ---------- Entry Point ----------
-#include "MidnightEngine/EntryPoint.h"
+#include "MidnightEngine/Core/EntryPoint.h"
 // ---------------------------------

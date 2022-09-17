@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "MidnightEngine/Log.h"
+#include "MidnightEngine./Core/Log.h"
 
 #ifdef ME_PLATFORM_WINDOWS
 #include <Windows.h>

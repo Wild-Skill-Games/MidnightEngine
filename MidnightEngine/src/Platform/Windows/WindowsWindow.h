@@ -1,10 +1,9 @@
 #pragma once
 
-#include "MidnightEngine/Window.h"
+#include "MidnightEngine/Core/Window.h"
+#include "MidnightEngine/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
-
-#include "MidnightEngine/Renderer/GraphicsContext.h"
 
 namespace MidnightEngine
 {

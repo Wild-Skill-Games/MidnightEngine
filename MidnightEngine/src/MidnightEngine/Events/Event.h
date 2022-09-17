@@ -2,7 +2,7 @@
 
 #include "mepch.h"
 
-#include "MidnightEngine/Core.h"
+#include "MidnightEngine/Core/Core.h"
 
 namespace MidnightEngine
 {

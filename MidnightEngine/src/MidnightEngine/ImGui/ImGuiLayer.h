@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MidnightEngine/Layer.h"
+#include "MidnightEngine/Core/Layer.h"
 
 #include "MidnightEngine/Events/KeyEvent.h"
 #include "MidnightEngine/Events/MouseEvent.h"

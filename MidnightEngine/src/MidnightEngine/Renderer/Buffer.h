@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MidnightEngine/Log.h"
+#include "MidnightEngine/Core/Log.h"
 
 namespace MidnightEngine
 {

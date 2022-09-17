@@ -1,8 +1,8 @@
 #include "mepch.h"
 #include "OrthographicCameraController.h"
 
-#include "MidnightEngine/Input.h"
-#include "MidnightEngine/KeyCodes.h"
+#include "MidnightEngine/Core/Input.h"
+#include "MidnightEngine/Core/KeyCodes.h"
 
 namespace MidnightEngine
 {
