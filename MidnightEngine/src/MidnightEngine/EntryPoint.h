@@ -1,6 +1,6 @@
 #pragma once
 
-//#ifdef PLATFORM_WINDOWS
+#ifdef ME_PLATFORM_WINDOWS
 
 extern MidnightEngine::Application* MidnightEngine::CreateApplication();
 
@@ -18,4 +18,4 @@ int main(int arcc, char** argv)
 	delete app;
 }
 
-//#endif
+#endif

@@ -1,6 +1,5 @@
 #include "mepch.h"
 #include "OpenGLContext.h"
-#include "MidnightEngine/Log.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>

@@ -1,8 +1,6 @@
 #include "mepch.h"
 #include "WindowsWindow.h"
 
-#include "MidnightEngine/Log.h"
-
 #include "MidnightEngine/Events/ApplicationEvent.h"
 #include "MidnightEngine/Events/MouseEvent.h"
 #include "MidnightEngine/Events/KeyEvent.h"

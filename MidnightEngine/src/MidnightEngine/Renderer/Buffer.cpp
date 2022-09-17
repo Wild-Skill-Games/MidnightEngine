@@ -4,7 +4,6 @@
 #include "Renderer.h"
 
 #include "Platform/OpenGL/OpenGLBuffer.h"
-#include "MidnightEngine/Log.h"
 
 namespace MidnightEngine
 {

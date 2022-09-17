@@ -13,11 +13,13 @@ namespace MidnightEngine
 	{
 	public:
 		OpenGLShader(const std::string& filepath);
-		OpenGLShader(const std::string& vertexShader, const std::string& fragmentShader);
+		OpenGLShader(const std::string& name, const std::string& vertexShader, const std::string& fragmentShader);
 		virtual ~OpenGLShader();
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual const std::string& GetName() const override { return m_Name; }
 
 		void UploadUniformInt(const std::string& name, const int& values);
 		void UploadUniformInt2(const std::string& name, const glm::ivec2& values);
@@ -39,5 +41,6 @@ namespace MidnightEngine
 
 	private:
 		uint32_t m_RendererID = 0;
+		std::string m_Name;
 	};
 }

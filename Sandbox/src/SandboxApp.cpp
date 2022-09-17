@@ -1,4 +1,3 @@
-#include "mepch.h"
 #include <MidnightEngine.h>
 
 #include "Platform/OpenGL/OpenGLShader.h"
@@ -95,7 +94,7 @@ public:
 			}
 		)";
 
-		m_TriangleShader.reset(MidnightEngine::Shader::Create(triangleVertexSrc, triangleFragmentSrc));
+		m_TriangleShader = MidnightEngine::Shader::Create("TRYENGUL", triangleVertexSrc, triangleFragmentSrc);
 
 		// Rendering S K U E R
 
@@ -175,15 +174,15 @@ public:
 			}
 		)";
 
-		m_SquareShader.reset(MidnightEngine::Shader::Create(sqaureVertexSrc, squareFragmentSrc));
+		m_SquareShader = MidnightEngine::Shader::Create("SKUER", sqaureVertexSrc, squareFragmentSrc);
 
-		m_TextureShader.reset(MidnightEngine::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture2D = MidnightEngine::Texture2D::Create("assets/textures/Image.png");
 		m_LogoTexture = MidnightEngine::Texture2D::Create("assets/textures/Logo.png");
 
-		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(MidnightEngine::Timestep ts) override
@@ -254,16 +253,15 @@ public:
 			}
 		}
 
-		m_Texture2D->Bind();
+		auto textureShader = m_ShaderLibrary.Get("Texture");
 
-		MidnightEngine::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		m_Texture2D->Bind();
+		MidnightEngine::Renderer::Submit(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_LogoTexture->Bind();
-
-		MidnightEngine::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		MidnightEngine::Renderer::Submit(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		// Rendering T R Y E N G U L
-
 		// MidnightEngine::Renderer::Submit(m_TriangleShader, m_TriangleVertexArray);
 
 		MidnightEngine::Renderer::EndScene();
@@ -279,10 +277,12 @@ public:
 	void OnEvent(MidnightEngine::Event& event) override {}
 
 private:
+	MidnightEngine::ShaderLibrary m_ShaderLibrary;
+
 	MidnightEngine::Ref<MidnightEngine::Shader> m_TriangleShader;
 	MidnightEngine::Ref<MidnightEngine::VertexArray> m_TriangleVertexArray;
 
-	MidnightEngine::Ref<MidnightEngine::Shader> m_SquareShader, m_TextureShader;
+	MidnightEngine::Ref<MidnightEngine::Shader> m_SquareShader;
 	MidnightEngine::Ref<MidnightEngine::VertexArray> m_SquareVertexArray;
 
 	MidnightEngine::Ref<MidnightEngine::Texture2D> m_Texture2D, m_LogoTexture;

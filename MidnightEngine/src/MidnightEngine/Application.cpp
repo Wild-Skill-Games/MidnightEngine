@@ -1,8 +1,6 @@
 #include "mepch.h"
 #include "Application.h"
 
-#include "MidnightEngine/Log.h"
-
 #include "Renderer/Renderer.h"
 
 #include "Input.h"
