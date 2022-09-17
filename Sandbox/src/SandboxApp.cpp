@@ -11,7 +11,7 @@ class ExampleLayer : public MidnightEngine::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_CameraController(16.0f / 9.0f, true)
 	{
 		// Rendering T R Y E N G U L
 
@@ -187,57 +187,19 @@ public:
 
 	void OnUpdate(MidnightEngine::Timestep ts) override
 	{
-		// Camera Movement
+		// Update
+		m_CameraController.OnUpdate(ts);
 
-		if (MidnightEngine::Input::IsKeyPressed(ME_KEY_LEFT) || MidnightEngine::Input::IsKeyPressed(ME_KEY_A))
-		{
-			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-		}
-		else if (MidnightEngine::Input::IsKeyPressed(ME_KEY_RIGHT) || MidnightEngine::Input::IsKeyPressed(ME_KEY_D))
-		{
-			m_CameraPosition.x += m_CameraMoveSpeed * ts;
-		}
-
-		if (MidnightEngine::Input::IsKeyPressed(ME_KEY_DOWN) || MidnightEngine::Input::IsKeyPressed(ME_KEY_S))
-		{
-			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-		}
-		else if (MidnightEngine::Input::IsKeyPressed(ME_KEY_UP) || MidnightEngine::Input::IsKeyPressed(ME_KEY_W))
-		{
-			m_CameraPosition.y += m_CameraMoveSpeed * ts;
-		}
-
-		if (MidnightEngine::Input::IsKeyPressed(ME_KEY_Q))
-		{
-			m_CameraRotation -= m_CameraRotationSpeed * ts;
-		}
-		else if (MidnightEngine::Input::IsKeyPressed(ME_KEY_E))
-		{
-			m_CameraRotation += m_CameraRotationSpeed * ts;
-		}
-
+		// Render
 		MidnightEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		MidnightEngine::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
-
-		MidnightEngine::Renderer::BeginScene(m_Camera);
+		MidnightEngine::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 		glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.0f);
 		glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
-
-		// TODO: Material system in the future
-
-		// MidnightEngine::MaterialRef material = new MidnightEngine::Material(m_SquareShader);
-		// MidnightEngine::MaterialInstanceRef mi = new MidnightEngine::MaterialInstance(m_SquareShader);
-
-		// mi->SetValue("u_Color", redColor);
-		// mi->SetTexture("u_Texture", texture);
-		// mi->SetAlbedo("u_AlbedoMap", albedoMap);
-		// squareMesh->SetMaterial(material);
 
 		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_SquareShader)->Bind();
 		std::dynamic_pointer_cast<MidnightEngine::OpenGLShader>(m_SquareShader)->UploadUniformFloat3("u_Color", m_SquareColor);
@@ -274,7 +236,10 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(MidnightEngine::Event& event) override {}
+	void OnEvent(MidnightEngine::Event& event) override
+	{
+		m_CameraController.OnEvent(event);
+	}
 
 private:
 	MidnightEngine::ShaderLibrary m_ShaderLibrary;
@@ -287,12 +252,7 @@ private:
 
 	MidnightEngine::Ref<MidnightEngine::Texture2D> m_Texture2D, m_LogoTexture;
 
-	MidnightEngine::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 3.0f;
-
-	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 100.0f;
+	MidnightEngine::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };

@@ -11,10 +11,11 @@
 #include "MidnightEngine/Input.h"
 #include "MidnightEngine/KeyCodes.h"
 #include "MidnightEngine/MouseButtonCodes.h"
+#include "MidnightEngine/OrthographicCameraController.h"
 
 #include "MidnightEngine/ImGui/ImGuiLayer.h"
 
-// ---- Renderer ----
+// ----------- Renderer ------------
 #include "MidnightEngine/Renderer/Renderer.h"
 #include "MidnightEngine/Renderer/RenderCommand.h"
 
@@ -24,7 +25,8 @@
 #include "MidnightEngine/Renderer/VertexArray.h"
 
 #include "MidnightEngine/Renderer/OrthographicCamera.h"
+// ---------------------------------
 
-// --- Entry Point ---
+// ---------- Entry Point ----------
 #include "MidnightEngine/EntryPoint.h"
-// -------------------
+// ---------------------------------
