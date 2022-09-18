@@ -75,11 +75,12 @@ project "MidnightEngine"
 	}
 
 	filter "system:windows"
-		systemversion "latest"
-		
+	systemversion "latest"
+	
 		defines
 		{
 			"ME_PLATFORM_WINDOWS",
+			"ME_DYNAMIC_LINK",
 			"ME_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
 			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",

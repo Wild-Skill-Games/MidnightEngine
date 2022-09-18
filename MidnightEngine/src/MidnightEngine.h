@@ -17,6 +17,7 @@
 
 // ----------- Renderer ------------
 #include "MidnightEngine/Renderer/Renderer.h"
+#include "MidnightEngine/Renderer/Renderer2D.h"
 #include "MidnightEngine/Renderer/RenderCommand.h"
 
 #include "MidnightEngine/Renderer/Shader.h"
@@ -25,8 +26,4 @@
 #include "MidnightEngine/Renderer/VertexArray.h"
 
 #include "MidnightEngine/Renderer/OrthographicCamera.h"
-// ---------------------------------
-
-// ---------- Entry Point ----------
-#include "MidnightEngine/Core/EntryPoint.h"
 // ---------------------------------

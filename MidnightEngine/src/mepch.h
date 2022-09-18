@@ -17,4 +17,4 @@
 
 #ifdef ME_PLATFORM_WINDOWS
 #include <Windows.h>
-#endif
+#endif // ME_PLATFORM_WINDOWS

@@ -1,4 +1,5 @@
 #include <MidnightEngine.h>
+#include <MidnightEngine/Core/EntryPoint.h>
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
@@ -6,6 +7,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Sandbox2D.h"
 
 class ExampleLayer : public MidnightEngine::Layer
 {
@@ -15,7 +18,7 @@ public:
 	{
 		// Rendering T R Y E N G U L
 
-		m_TriangleVertexArray.reset(MidnightEngine::VertexArray::Create());
+		m_TriangleVertexArray = MidnightEngine::VertexArray::Create();
 
 		float triangleVertices[3 * 7] = {
 			-0.5f,
@@ -53,7 +56,7 @@ public:
 		triangleVertexBuffer->SetLayout(triangleLayout);
 		m_TriangleVertexArray->AddVertexBuffer(triangleVertexBuffer);
 
-		uint32_t triangleIndices[3] = { 0, 1, 2 };
+		uint32_t triangleIndices[3] = {0, 1, 2};
 
 		MidnightEngine::Ref<MidnightEngine::IndexBuffer> triangleIndexBuffer;
 
@@ -98,7 +101,7 @@ public:
 
 		// Rendering S K U E R
 
-		m_SquareVertexArray.reset(MidnightEngine::VertexArray::Create());
+		m_SquareVertexArray = MidnightEngine::VertexArray::Create();
 
 		float squareVertices[4 * 5] = {
 			-0.5f,
@@ -135,7 +138,7 @@ public:
 		squareVertexBuffer->SetLayout(squareLayout);
 		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
 
-		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
 
 		MidnightEngine::Ref<MidnightEngine::IndexBuffer> squareIndexBuffer;
 
@@ -191,7 +194,7 @@ public:
 		m_CameraController.OnUpdate(ts);
 
 		// Render
-		MidnightEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+		MidnightEngine::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
 		MidnightEngine::RenderCommand::Clear();
 
 		MidnightEngine::Renderer::BeginScene(m_CameraController.GetCamera());
@@ -236,7 +239,7 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(MidnightEngine::Event& event) override
+	void OnEvent(MidnightEngine::Event &event) override
 	{
 		m_CameraController.OnEvent(event);
 	}
@@ -254,7 +257,7 @@ private:
 
 	MidnightEngine::OrthographicCameraController m_CameraController;
 
-	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
+	glm::vec3 m_SquareColor = {0.2f, 0.3f, 0.8f};
 };
 
 class Sandbox : public MidnightEngine::Application
@@ -262,13 +265,14 @@ class Sandbox : public MidnightEngine::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		// PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox() {}
 };
 
-MidnightEngine::Application* MidnightEngine::CreateApplication()
+MidnightEngine::Application *MidnightEngine::CreateApplication()
 {
 	return new Sandbox();
 }

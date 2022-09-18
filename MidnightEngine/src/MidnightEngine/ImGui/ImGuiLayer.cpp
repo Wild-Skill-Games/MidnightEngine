@@ -17,44 +17,43 @@ namespace MidnightEngine
 		: Layer("ImGuiLayer")
 
 	{
-
 	}
 
 	ImGuiLayer::~ImGuiLayer()
 	{
-
 	}
 
 	void ImGuiLayer::OnAttach()
 	{
-		//Setup Dear ImGui context
+		// Setup Dear ImGui context
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; //Enable Keyboard Controls
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //Enable Gamepad Controls
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; //Enable Docking
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable; //Enable Multi-Viewport / Platform Windows
-		//io.ConfigFlags |= ImGuiViewportFlags_NoTaskBarIcon;
-		//io.ConfigFlags |= ImGuiViewportFlags_NoAutoMerge;
+		ImGuiIO &io = ImGui::GetIO();
+		(void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+		// io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //Enable Gamepad Controls
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;	// Enable Docking
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable; // Enable Multi-Viewport / Platform Windows
+		// io.ConfigFlags |= ImGuiViewportFlags_NoTaskBarIcon;
+		// io.ConfigFlags |= ImGuiViewportFlags_NoAutoMerge;
 
-		//Setup Dear ImGui style
+		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
-		//ImGui::StyleColorsClassic();
+		// ImGui::StyleColorsClassic();
 
-		//When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to other platforms
-		ImGuiStyle& style = ImGui::GetStyle();
+		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to other platforms
+		ImGuiStyle &style = ImGui::GetStyle();
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 			style.WindowRounding = 0;
 			style.Colors[ImGuiCol_WindowBg].w = 1;
 		}
 
-		Application& app = Application::Get();
-		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+		Application &app = Application::Get();
+		GLFWwindow *window = static_cast<GLFWwindow *>(app.GetWindow().GetNativeWindow());
 
-		//Setup Platform/Renderer bindings
+		// Setup Platform/Renderer bindings
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
@@ -81,17 +80,17 @@ namespace MidnightEngine
 
 	void ImGuiLayer::End()
 	{
-		ImGuiIO& io = ImGui::GetIO();
-		Application& app = Application::Get();
+		ImGuiIO &io = ImGui::GetIO();
+		Application &app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
-		//Rendering
+		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
-			auto* backup_current_context = glfwGetCurrentContext();
+			auto *backup_current_context = glfwGetCurrentContext();
 
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
