@@ -18,7 +18,6 @@ namespace MidnightEngine
 
 	{
 	}
-
 	ImGuiLayer::~ImGuiLayer()
 	{
 	}
@@ -57,19 +56,11 @@ namespace MidnightEngine
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
-
 	void ImGuiLayer::OnDetach()
 	{
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
-	}
-
-	void ImGuiLayer::OnImGuiRender()
-	{
-		// TODO: get rid of this
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
 	}
 
 	void ImGuiLayer::Begin()
@@ -78,7 +69,6 @@ namespace MidnightEngine
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 	}
-
 	void ImGuiLayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
