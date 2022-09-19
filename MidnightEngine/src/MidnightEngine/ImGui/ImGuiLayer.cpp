@@ -29,7 +29,7 @@ namespace MidnightEngine
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 
-		ImGuiIO &io = ImGui::GetIO();
+		ImGuiIO& io = ImGui::GetIO();
 		(void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
 		// io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //Enable Gamepad Controls
@@ -43,15 +43,15 @@ namespace MidnightEngine
 		// ImGui::StyleColorsClassic();
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to other platforms
-		ImGuiStyle &style = ImGui::GetStyle();
+		ImGuiStyle& style = ImGui::GetStyle();
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 			style.WindowRounding = 0;
 			style.Colors[ImGuiCol_WindowBg].w = 1;
 		}
 
-		Application &app = Application::Get();
-		GLFWwindow *window = static_cast<GLFWwindow *>(app.GetWindow().GetNativeWindow());
+		Application& app = Application::Get();
+		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
 		// Setup Platform/Renderer bindings
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -67,6 +67,7 @@ namespace MidnightEngine
 
 	void ImGuiLayer::OnImGuiRender()
 	{
+		// TODO: get rid of this
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
 	}
@@ -80,8 +81,8 @@ namespace MidnightEngine
 
 	void ImGuiLayer::End()
 	{
-		ImGuiIO &io = ImGui::GetIO();
-		Application &app = Application::Get();
+		ImGuiIO& io = ImGui::GetIO();
+		Application& app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
 		// Rendering
@@ -90,7 +91,7 @@ namespace MidnightEngine
 
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
-			auto *backup_current_context = glfwGetCurrentContext();
+			auto* backup_current_context = glfwGetCurrentContext();
 
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
