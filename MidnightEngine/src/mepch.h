@@ -13,7 +13,9 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "MidnightEngine./Core/Log.h"
+#include "MidnightEngine/Core/Log.h"
+
+#include "MidnightEngine/Debug/Instrumentor.h"
 
 #ifdef ME_PLATFORM_WINDOWS
 #include <Windows.h>
