@@ -46,7 +46,7 @@ public:
 
 		MidnightEngine::Ref<MidnightEngine::VertexBuffer> triangleVertexBuffer;
 
-		triangleVertexBuffer.reset(MidnightEngine::VertexBuffer::Create(triangleVertices, sizeof(triangleVertices)));
+		triangleVertexBuffer = MidnightEngine::VertexBuffer::Create(triangleVertices, sizeof(triangleVertices));
 
 		MidnightEngine::BufferLayout triangleLayout = {
 			{MidnightEngine::ShaderDataType::Float3, "a_Position"},
@@ -56,11 +56,11 @@ public:
 		triangleVertexBuffer->SetLayout(triangleLayout);
 		m_TriangleVertexArray->AddVertexBuffer(triangleVertexBuffer);
 
-		uint32_t triangleIndices[3] = {0, 1, 2};
+		uint32_t triangleIndices[3] = { 0, 1, 2 };
 
 		MidnightEngine::Ref<MidnightEngine::IndexBuffer> triangleIndexBuffer;
 
-		triangleIndexBuffer.reset(MidnightEngine::IndexBuffer::Create(triangleIndices, sizeof(triangleIndices) / sizeof(uint32_t)));
+		triangleIndexBuffer = MidnightEngine::IndexBuffer::Create(triangleIndices, sizeof(triangleIndices) / sizeof(uint32_t));
 		m_TriangleVertexArray->SetIndexBuffer(triangleIndexBuffer);
 
 		std::string triangleVertexSrc = R"(
@@ -128,7 +128,7 @@ public:
 
 		MidnightEngine::Ref<MidnightEngine::VertexBuffer> squareVertexBuffer;
 
-		squareVertexBuffer.reset(MidnightEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVertexBuffer = MidnightEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 
 		MidnightEngine::BufferLayout squareLayout = {
 			{MidnightEngine::ShaderDataType::Float3, "a_Position"},
@@ -138,11 +138,11 @@ public:
 		squareVertexBuffer->SetLayout(squareLayout);
 		m_SquareVertexArray->AddVertexBuffer(squareVertexBuffer);
 
-		uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
 		MidnightEngine::Ref<MidnightEngine::IndexBuffer> squareIndexBuffer;
 
-		squareIndexBuffer.reset(MidnightEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		squareIndexBuffer = MidnightEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
 
 		std::string sqaureVertexSrc = R"(
@@ -194,7 +194,7 @@ public:
 		m_CameraController.OnUpdate(ts);
 
 		// Render
-		MidnightEngine::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1.0f});
+		MidnightEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		MidnightEngine::RenderCommand::Clear();
 
 		MidnightEngine::Renderer::BeginScene(m_CameraController.GetCamera());
@@ -239,7 +239,7 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(MidnightEngine::Event &event) override
+	void OnEvent(MidnightEngine::Event& event) override
 	{
 		m_CameraController.OnEvent(event);
 	}
@@ -257,7 +257,7 @@ private:
 
 	MidnightEngine::OrthographicCameraController m_CameraController;
 
-	glm::vec3 m_SquareColor = {0.2f, 0.3f, 0.8f};
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
 class Sandbox : public MidnightEngine::Application
@@ -272,7 +272,7 @@ public:
 	~Sandbox() {}
 };
 
-MidnightEngine::Application *MidnightEngine::CreateApplication()
+MidnightEngine::Application* MidnightEngine::CreateApplication()
 {
 	return new Sandbox();
 }
