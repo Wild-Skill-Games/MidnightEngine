@@ -40,7 +40,7 @@ void Sandbox2D::OnUpdate(MidnightEngine::Timestep ts)
 		MidnightEngine::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.2f, 0.8f, 0.3f, 1.0f });
 		MidnightEngine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.8f, 0.3f, 0.8f, 1.0f });
 		MidnightEngine::Renderer2D::DrawQuad({ 0.5f, 0.7f }, { 0.7f, 0.4f }, { 0.8f, 0.8f, 0.2f, 1.0f });
-		MidnightEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_Texture2D, 10.0f, glm::vec4(1.0f));
+		MidnightEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_Texture2D, 10.0f, m_Color);
 
 		MidnightEngine::Renderer2D::EndScene();
 	}
@@ -50,7 +50,7 @@ void Sandbox2D::OnImGuiRender()
 	ME_PROFILE_FUNCTION();
 
 	ImGui::Begin("Settings");
-	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_Color));
+	ImGui::ColorEdit4("Background tint", glm::value_ptr(m_Color));
 	ImGui::End();
 }
 void Sandbox2D::OnEvent(MidnightEngine::Event& event)
