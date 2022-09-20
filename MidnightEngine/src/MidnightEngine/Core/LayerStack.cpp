@@ -3,9 +3,7 @@
 
 namespace MidnightEngine
 {
-	LayerStack::LayerStack()
-	{
-	}
+	LayerStack::LayerStack() {}
 
 	LayerStack::~LayerStack()
 	{

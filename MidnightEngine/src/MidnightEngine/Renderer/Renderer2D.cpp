@@ -20,10 +20,9 @@ namespace MidnightEngine
 
 	void Renderer2D::Init()
 	{
-		// Rendering S K U E R
+		ME_PROFILE_FUNCTION();
 
 		s_Data = new Renderer2DStorage();
-
 		s_Data->QuadVertexArray = VertexArray::Create();
 
 		float squareVertices[5 * 4] = {
@@ -58,15 +57,22 @@ namespace MidnightEngine
 	}
 	void Renderer2D::Shutdown()
 	{
+		ME_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		ME_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
-	void Renderer2D::EndScene() {}
+	void Renderer2D::EndScene()
+	{
+		ME_PROFILE_FUNCTION();
+	}
 	void Renderer2D::Flush() {}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -75,6 +81,8 @@ namespace MidnightEngine
 	}
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		ME_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", color);
 		s_Data->WhiteTexture->Bind();
 
@@ -90,6 +98,8 @@ namespace MidnightEngine
 	}
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor)
 	{
+		ME_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", tintColor);
 		s_Data->TextureShader->SetFloat("u_TilingFactor", tilingFactor);
 		texture->Bind();

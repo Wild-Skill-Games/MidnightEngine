@@ -15,6 +15,8 @@ namespace MidnightEngine
 
 	Application::Application()
 	{
+		ME_PROFILE_FUNCTION();
+
 		ME_CORE_ASSERT(!s_Instance, "Application already exists");
 		s_Instance = this;
 
@@ -31,14 +33,20 @@ namespace MidnightEngine
 
 	void Application::Run()
 	{
+		ME_PROFILE_FUNCTION();
+
 		while (m_Runing)
 		{
+			ME_PROFILE_SCOPE("RunLoop");
+
 			float time = (float)glfwGetTime(); // Platform::GetTime()
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized)
 			{
+				ME_PROFILE_SCOPE("LayerStack Layer OnUpdate");
+
 				for (Layer* layer : m_LayerStack)
 				{
 					layer->OnUpdate(timestep);
@@ -46,9 +54,13 @@ namespace MidnightEngine
 			}
 
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
 			{
-				layer->OnImGuiRender();
+				ME_PROFILE_SCOPE("LayerStack Layer OnImGuirender");
+
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnImGuiRender();
+				}
 			}
 			m_ImGuiLayer->End();
 
@@ -58,6 +70,8 @@ namespace MidnightEngine
 
 	void Application::OnEvent(Event& e)
 	{
+		ME_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
@@ -74,12 +88,16 @@ namespace MidnightEngine
 
 	void Application::PushLayer(Layer* layer)
 	{
+		ME_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer)
 	{
+		ME_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
 	}
@@ -91,6 +109,8 @@ namespace MidnightEngine
 	}
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		ME_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;

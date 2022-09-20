@@ -15,6 +15,8 @@ namespace MidnightEngine
 
 	void OpenGLContext::Init()
 	{
+		ME_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		ME_CORE_ASSERT(status, "Failed to initialize Glad!");
@@ -36,6 +38,8 @@ namespace MidnightEngine
 
 	void OpenGLContext::SwapBuffers()
 	{
+		ME_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 }

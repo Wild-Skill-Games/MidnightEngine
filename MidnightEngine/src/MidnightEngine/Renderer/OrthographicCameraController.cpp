@@ -18,6 +18,8 @@ namespace MidnightEngine
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
+		ME_PROFILE_FUNCTION();
+
 		if (Input::IsKeyPressed(ME_KEY_A))
 		{
 			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
@@ -61,6 +63,8 @@ namespace MidnightEngine
 	}
 	void OrthographicCameraController::OnEvent(Event& e)
 	{
+		ME_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(ME_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(ME_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
@@ -68,12 +72,16 @@ namespace MidnightEngine
 
 	void OrthographicCameraController::OnResize(float width, float height)
 	{
+		ME_PROFILE_FUNCTION();
+
 		m_AspectRatio = width / height;
 		SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 	}
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
+		ME_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= e.GetYOffset() * 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 		m_CameraController.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
@@ -81,6 +89,8 @@ namespace MidnightEngine
 	}
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
+		ME_PROFILE_FUNCTION();
+
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 		m_CameraController.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;

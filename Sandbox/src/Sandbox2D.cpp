@@ -11,21 +11,20 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	ME_PROFILE_FUNCTION();
+
 	m_Texture2D = MidnightEngine::Texture2D::Create("assets/textures/Image.png");
 }
 void Sandbox2D::OnDetach()
 {
+	ME_PROFILE_FUNCTION();
 }
 
 void Sandbox2D::OnUpdate(MidnightEngine::Timestep ts)
 {
 	ME_PROFILE_FUNCTION();
 
-	// Update
-	{
-		ME_PROFILE_SCOPE("CameraController::OnUpdate");
-		m_CameraController.OnUpdate(ts);
-	}
+	m_CameraController.OnUpdate(ts);
 
 	// Render
 	{

@@ -23,6 +23,8 @@ namespace MidnightEngine
 
 	WindowsWindow::WindowsWindow(const WindowProperties& properties)
 	{
+		ME_PROFILE_FUNCTION();
+
 		Init(properties);
 	}
 
@@ -33,6 +35,8 @@ namespace MidnightEngine
 
 	void WindowsWindow::Init(const WindowProperties& properties)
 	{
+		ME_PROFILE_FUNCTION();
+
 		m_Data.Title = properties.Title;
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
@@ -41,18 +45,21 @@ namespace MidnightEngine
 
 		if (!s_GLFWInitialized)
 		{
-			// TODO: glfwTerminate on system shutdown
+			ME_PROFILE_SCOPE("glfwInit");
 			int success = glfwInit();
 			ME_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
 		}
 
-		m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, properties.Title.c_str(), nullptr, nullptr);
+		{
+			ME_PROFILE_SCOPE("glfwCreateWindow");
+			m_Window = glfwCreateWindow((int)properties.Width, (int)properties.Height, properties.Title.c_str(), nullptr, nullptr);
+		}
 
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
-		// ^
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -152,17 +159,23 @@ namespace MidnightEngine
 
 	void WindowsWindow::Shutdown()
 	{
+		ME_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		ME_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		ME_PROFILE_FUNCTION();
+
 		if (enabled)
 		{
 			glfwSwapInterval(1);
