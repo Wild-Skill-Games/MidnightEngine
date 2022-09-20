@@ -1,7 +1,5 @@
 #pragma once
 
-#include <MidnightEngine.h>
-
 class ExampleLayer : public MidnightEngine::Layer
 {
 public:

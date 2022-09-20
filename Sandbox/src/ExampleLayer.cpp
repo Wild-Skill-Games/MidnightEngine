@@ -1,8 +1,6 @@
 #include "mepch.h"
 #include "ExampleLayer.h"
 
-#include <MidnightEngine/Core/EntryPoint.h>
-
 #include "Platform/OpenGL/OpenGLShader.h"
 
 #include "imgui/imgui.h"
