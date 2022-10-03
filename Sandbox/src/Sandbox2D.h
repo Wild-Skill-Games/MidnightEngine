@@ -23,5 +23,14 @@ private:
 
 	MidnightEngine::Ref<MidnightEngine::Texture2D> m_Texture2D;
 
-	glm::vec4 m_Color = { 0.2f, 0.3f, 0.8f, 1.0f };
+	glm::vec4 m_BackgroundColor = { 0.1f, 0.1f, 0.1f, 1.0f };
+
+	struct Quad
+	{
+		glm::vec2 Position = { 0.0f, 0.0f };
+		glm::vec2 Size = { 1.0f, 1.0f };
+		glm::vec4 Color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	};
+
+	std::vector<Quad> m_Quads;
 };
