@@ -217,6 +217,13 @@ namespace MidnightEngine
 		UploadUniformInt4(name, value);
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		ME_PROFILE_FUNCTION();
+
+		UploadUniformIntArray(name, values, count);
+	}
+
 	void OpenGLShader::SetFloat(const std::string& name, const float& value)
 	{
 		ME_PROFILE_FUNCTION();
@@ -274,6 +281,12 @@ namespace MidnightEngine
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform4i(location, value.x, value.y, value.z, value.w);
+	}
+
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1iv(location, count, values);
 	}
 
 	void OpenGLShader::UploadUniformFloat(const std::string& name, const float& value)

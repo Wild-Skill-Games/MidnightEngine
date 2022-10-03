@@ -68,7 +68,7 @@ void Sandbox2D::OnUpdate(MidnightEngine::Timestep ts)
 
 		MidnightEngine::Renderer2D::DrawQuad(m_Quads[0].Position, m_Quads[0].Size, m_Quads[0].Color);
 		MidnightEngine::Renderer2D::DrawQuad(m_Quads[1].Position, m_Quads[1].Size, m_Quads[1].Color);
-		MidnightEngine::Renderer2D::DrawQuad(m_Quads[2].Position, m_Quads[2].Size, m_Quads[2].Color);
+		MidnightEngine::Renderer2D::DrawQuad(m_Quads[2].Position, m_Quads[2].Size, m_Texture2D, 1.0, m_Quads[2].Color);
 
 		MidnightEngine::Renderer2D::EndScene();
 	}
