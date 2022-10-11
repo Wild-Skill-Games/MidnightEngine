@@ -1,1 +1,1 @@
-{"otherData": {},"traceEvents":[{"cat":"function","dur":55829,"name":"void __cdecl MidnightEngine::WindowsWindow::Shutdown(void)","ph":"X","pid":0,"tid":2822275816,"ts":321218127677}]}
+{"otherData": {},"traceEvents":[{"cat":"function","dur":1563,"name":"__cdecl MidnightEngine::OpenGLTexture2D::~OpenGLTexture2D(void)","ph":"X","pid":0,"tid":2503761341,"ts":9028766499},{"cat":"function","dur":178934,"name":"void __cdecl MidnightEngine::WindowsWindow::Shutdown(void)","ph":"X","pid":0,"tid":2503761341,"ts":9028768447}]}
