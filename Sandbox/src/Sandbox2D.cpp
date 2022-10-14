@@ -27,6 +27,7 @@ void Sandbox2D::OnUpdate(MidnightEngine::Timestep ts)
 	m_CameraController.OnUpdate(ts);
 
 	// Render
+	MidnightEngine::Renderer2D::ResetStats();
 	{
 		ME_PROFILE_SCOPE("RenderCommand Render");
 		MidnightEngine::RenderCommand::SetClearColor(m_BackgroundColor);
@@ -39,14 +40,41 @@ void Sandbox2D::OnUpdate(MidnightEngine::Timestep ts)
 
 		for (auto& quad : m_Quads)
 		{
-			MidnightEngine::Renderer2D::DrawQuad(quad.Position, quad.Size, quad.TintColor);
+			if (quad.UseTexture)
+			{
+				MidnightEngine::Renderer2D::DrawQuad(quad.Position, quad.Size, m_Texture2D, quad.TilingFactor, quad.TintColor);
+			}
+			else
+			{
+				MidnightEngine::Renderer2D::DrawQuad(quad.Position, quad.Size, quad.TintColor);
+			}
 		}
 
 		for (auto& quad : m_RotatedQuads)
 		{
-			MidnightEngine::Renderer2D::DrawRotatedQuad(quad.Position, quad.Size, quad.Rotation, quad.TintColor);
+			if (quad.UseTexture)
+			{
+				MidnightEngine::Renderer2D::DrawRotatedQuad(quad.Position, quad.Size, quad.Rotation, m_Texture2D, quad.TilingFactor, quad.TintColor);
+			}
+			else
+			{
+				MidnightEngine::Renderer2D::DrawRotatedQuad(quad.Position, quad.Size, quad.Rotation, quad.TintColor);
+			}
 		}
 
+		MidnightEngine::Renderer2D::EndScene();
+
+
+		// stress test
+		MidnightEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		for (float y = -5.0f; y < 5.0f; y += 0.5f)
+		{
+			for (float x = -5.0f; x < 5.0f; x += 0.5f)
+			{
+				glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f,(y + 5.0f) / 10.0f,1.0f };
+				MidnightEngine::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
+			}
+		}
 		MidnightEngine::Renderer2D::EndScene();
 	}
 }
@@ -55,6 +83,15 @@ void Sandbox2D::OnImGuiRender()
 	ME_PROFILE_FUNCTION();
 
 	ImGui::Begin("Inspector");
+
+	auto stats = MidnightEngine::Renderer2D::GetStatistics();
+
+	ImGui::Text("Renderer2D Stats:");
+	ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+	ImGui::Text("Quads: %d", stats.QuadCount);
+	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+
 	ImGui::ColorEdit4("Background tint", glm::value_ptr(m_BackgroundColor));
 	ImGui::Separator();
 
@@ -67,6 +104,8 @@ void Sandbox2D::OnImGuiRender()
 		ImGui::Text("Quad %d", i);
 		ImGui::DragFloat3("Position", glm::value_ptr(m_Quads[i].Position), 0.1f);
 		ImGui::DragFloat2("Size", glm::value_ptr(m_Quads[i].Size), 0.1f);
+		ImGui::Checkbox("Use Texture", &m_Quads[i].UseTexture);
+		ImGui::DragFloat("Tiling Factor", &m_Quads[i].TilingFactor, 0.1f, 0.0f, 10.0f);
 		ImGui::ColorEdit4("Color", glm::value_ptr(m_Quads[i].TintColor));
 		ImGui::Separator();
 		ImGui::PopID();
@@ -74,7 +113,7 @@ void Sandbox2D::OnImGuiRender()
 
 	if (ImGui::Button("Create Quad"))
 	{
-		m_Quads.push_back({ { 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f } });
+		m_Quads.push_back(Quad());
 	}
 	ImGui::Separator();
 
@@ -88,6 +127,8 @@ void Sandbox2D::OnImGuiRender()
 		ImGui::DragFloat3("Position", glm::value_ptr(m_RotatedQuads[i].Position), 0.1f);
 		ImGui::DragFloat2("Size", glm::value_ptr(m_RotatedQuads[i].Size), 0.1f);
 		ImGui::DragFloat("Rotation", &m_RotatedQuads[i].Rotation, 0.1f);
+		ImGui::Checkbox("Use Texture", &m_RotatedQuads[i].UseTexture);
+		ImGui::DragFloat("Tiling Factor", &m_RotatedQuads[i].TilingFactor, 0.1f, 0.0f, 10.0f);
 		ImGui::ColorEdit4("Color", glm::value_ptr(m_RotatedQuads[i].TintColor));
 		ImGui::Separator();
 		ImGui::PopID();
@@ -95,7 +136,7 @@ void Sandbox2D::OnImGuiRender()
 
 	if (ImGui::Button("Create Rotated Quad"))
 	{
-		m_RotatedQuads.push_back({ { 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, 0.0f, { 0.8f, 0.2f, 0.3f, 1.0f } });
+		m_RotatedQuads.push_back(RotatedQuad());
 	}
 
 	ImGui::End();
