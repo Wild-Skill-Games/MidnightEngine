@@ -102,6 +102,11 @@ namespace MidnightEngine
 		layer->OnAttach();
 	}
 
+	void Application::Close()
+	{
+		m_Runing = false;
+	}
+
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Runing = false;

@@ -1,1 +1,0 @@
-{"otherData": {},"traceEvents":[{"cat":"function","dur":1449,"name":"__cdecl MidnightEngine::OpenGLTexture2D::~OpenGLTexture2D(void)","ph":"X","pid":0,"tid":1098777261,"ts":55603233086},{"cat":"function","dur":99942,"name":"void __cdecl MidnightEngine::WindowsWindow::Shutdown(void)","ph":"X","pid":0,"tid":1098777261,"ts":55603234842}]}

@@ -18,8 +18,10 @@ public:
 private:
 	MidnightEngine::OrthographicCameraController m_CameraController;
 
+	// Temporary
 	MidnightEngine::Ref<MidnightEngine::VertexArray> m_VertexArray;
 	MidnightEngine::Ref<MidnightEngine::Shader> m_Shader;
+	MidnightEngine::Ref<MidnightEngine::Framebuffer> m_Framebuffer;
 
 	MidnightEngine::Ref<MidnightEngine::Texture2D> m_Texture2D;
 

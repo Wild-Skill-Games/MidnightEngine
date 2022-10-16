@@ -21,6 +21,7 @@
 #include "MidnightEngine/Renderer/RenderCommand.h"
 
 #include "MidnightEngine/Renderer/Shader.h"
+#include "MidnightEngine/Renderer/Framebuffer.h"
 #include "MidnightEngine/Renderer/Buffer.h"
 #include "MidnightEngine/Renderer/Texture.h"
 #include "MidnightEngine/Renderer/VertexArray.h"
