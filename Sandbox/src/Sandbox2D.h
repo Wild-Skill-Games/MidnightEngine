@@ -2,11 +2,11 @@
 
 #include "MidnightEngine.h"
 
-class Sandbox2D : public MidnightEngine::Layer
+class EditorLayer : public MidnightEngine::Layer
 {
 public:
-	Sandbox2D();
-	virtual ~Sandbox2D() = default;
+	EditorLayer();
+	virtual ~EditorLayer() = default;
 
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
@@ -21,7 +21,6 @@ private:
 	// Temporary
 	MidnightEngine::Ref<MidnightEngine::VertexArray> m_VertexArray;
 	MidnightEngine::Ref<MidnightEngine::Shader> m_Shader;
-	MidnightEngine::Ref<MidnightEngine::Framebuffer> m_Framebuffer;
 
 	MidnightEngine::Ref<MidnightEngine::Texture2D> m_Texture2D;
 

@@ -16,7 +16,7 @@ namespace MidnightEngine
 	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "MidnightEngine");
 		virtual ~Application();
 
 		void OnEvent(Event& e);

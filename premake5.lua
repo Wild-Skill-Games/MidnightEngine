@@ -152,3 +152,56 @@ project "Sandbox"
 		defines "ME_DIST"
 		runtime "Release"
 		optimize "on"
+
+		
+project "Chill-Editor"
+	location "Chill-Editor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+	
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+	
+	includedirs
+	{
+		"MidnightEngine/vendor/spdlog/include",
+		"MidnightEngine/src",
+		"MidnightEngine/vendor",
+		"%{IncludeDir.glm}",
+	}
+	
+	links
+	{
+		"MidnightEngine"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		
+		defines
+		{
+			"ME_PLATFORM_WINDOWS"
+		}
+		
+	filter "configurations:Debug"
+		defines "ME_DEBUG"
+		runtime "Debug"
+		symbols "on"
+		
+	filter "configurations:Release"
+		defines "ME_RELEASE"
+		runtime "Release"
+		optimize "on"
+		
+	filter "configurations:Dist"
+		defines "ME_DIST"
+		runtime "Release"
+		optimize "on"

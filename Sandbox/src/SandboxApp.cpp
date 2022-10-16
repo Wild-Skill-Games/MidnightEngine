@@ -4,19 +4,19 @@
 #include "Sandbox2D.h"
 #include "ExampleLayer.h"
 
-class Sandbox : public MidnightEngine::Application
+class ChillEditor : public MidnightEngine::Application
 {
 public:
-	Sandbox()
+	ChillEditor()
 	{
 		// PushLayer(new ExampleLayer());
-		PushLayer(new Sandbox2D());
+		PushLayer(new EditorLayer());
 	}
 
-	~Sandbox() {}
+	~ChillEditor() {}
 };
 
-MidnightEngine::Application *MidnightEngine::CreateApplication()
+MidnightEngine::Application* MidnightEngine::CreateApplication()
 {
-	return new Sandbox();
+	return new ChillEditor();
 }
