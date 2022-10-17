@@ -32,7 +32,10 @@ namespace MidnightEngine
 	{
 		ME_PROFILE_FUNCTION();
 
-		m_CameraController.OnUpdate(ts);
+		if (m_ViewportFocused)
+		{
+			m_CameraController.OnUpdate(ts);
+		}
 
 		// Render
 		Renderer2D::ResetStats();
@@ -341,6 +344,12 @@ namespace MidnightEngine
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 		ImGui::Begin("Viewport");
+
+		m_ViewportFocused = ImGui::IsWindowFocused();
+		m_ViewportHovered = ImGui::IsWindowHovered();
+
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
+
 		auto viewportPanelSize = ImGui::GetContentRegionAvail();
 
 		if (m_ViewportSize != glm::vec2(viewportPanelSize.x, viewportPanelSize.y))

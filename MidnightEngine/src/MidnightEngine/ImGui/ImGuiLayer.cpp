@@ -65,6 +65,18 @@ namespace MidnightEngine
 		ImGui::DestroyContext();
 	}
 
+	void ImGuiLayer::OnEvent(Event& event)
+	{
+		ME_PROFILE_FUNCTION();
+
+		if (m_BlockEvents)
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			event.Handled |= event.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+			event.Handled |= event.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		}
+	}
+
 	void ImGuiLayer::Begin()
 	{
 		ME_PROFILE_FUNCTION();

@@ -27,6 +27,9 @@ namespace MidnightEngine
 
 		Ref<Texture2D> m_Texture2D;
 
+		bool m_ViewportFocused = false;
+		bool m_ViewportHovered = false;
+
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
 
 		glm::vec4 m_BackgroundColor = { 0.1f, 0.1f, 0.1f, 1.0f };
