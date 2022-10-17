@@ -18,13 +18,13 @@ namespace MidnightEngine
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
 
+		void OnResize(float width, float height);
+
 		OrthographicCamera& GetCamera() { return m_CameraController; }
 		const OrthographicCamera& GetCamera() const { return m_CameraController; }
 
 		float GetZoomLevel() const { return m_ZoomLevel; }
 		void SetZoomLevel(float level) { m_ZoomLevel = level; }
-
-		void OnResize(float width, float height);
 
 	private:
 		bool OnMouseScrolled(MouseScrolledEvent& e);

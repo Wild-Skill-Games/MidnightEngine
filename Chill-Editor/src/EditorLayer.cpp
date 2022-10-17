@@ -140,11 +140,124 @@ namespace MidnightEngine
 		{
 			if (ImGui::BeginMenu("File"))
 			{
+				ImGui::MenuItem("Build Settings...");
+				ImGui::MenuItem("Build And Run");
+
+				ImGui::Separator();
+
 				if (ImGui::MenuItem("Exit"))
 				{
 					Application::Get().Close();
 				}
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Edit"))
+			{
+				ImGui::MenuItem("Undo");
+				ImGui::MenuItem("Redo");
+				ImGui::MenuItem("Undo History");
+
 				ImGui::Separator();
+
+				ImGui::MenuItem("Select All");
+				ImGui::MenuItem("Deselect All");
+				ImGui::MenuItem("Select Children");
+				ImGui::MenuItem("Select Prefab Root");
+				ImGui::MenuItem("Invert Selection");
+
+				ImGui::Separator();
+
+				ImGui::MenuItem("Cut");
+				ImGui::MenuItem("Copy");
+				ImGui::MenuItem("Paste");
+				ImGui::MenuItem("Paste As Child");
+
+				ImGui::Separator();
+
+				ImGui::MenuItem("Duplicate");
+				ImGui::MenuItem("Rename");
+				ImGui::MenuItem("Delete");
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Project"))
+			{
+				ImGui::MenuItem("New Project...");
+				ImGui::MenuItem("Open Project...");
+				ImGui::MenuItem("Save Project");
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Scene"))
+			{
+				ImGui::MenuItem("New Scene");
+				ImGui::MenuItem("Open Scene");
+				ImGui::MenuItem("Open Recent Scene");
+
+				ImGui::Separator();
+
+				ImGui::MenuItem("Save");
+				ImGui::MenuItem("Save As...");
+				ImGui::MenuItem("Save As Scene Template...");
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Object"))
+			{
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Player"))
+			{
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Tools"))
+			{
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Window"))
+			{
+				ImGui::MenuItem("Panels");
+
+				ImGui::Separator();
+
+				ImGui::MenuItem("Next Window");
+				ImGui::MenuItem("Previous Window");
+
+				ImGui::Separator();
+
+				ImGui::MenuItem("Layouts");
+
+				ImGui::Separator();
+
+				ImGui::MenuItem("Search");
+
+				ImGui::Separator();
+
+				ImGui::MenuItem("General");
+				ImGui::MenuItem("Rendering");
+				ImGui::MenuItem("Text");
+				ImGui::MenuItem("Animation");
+				ImGui::MenuItem("Audio");
+				ImGui::MenuItem("Sequencing");
+				ImGui::MenuItem("AI");
+				ImGui::MenuItem("VisualEffects");
+				ImGui::MenuItem("UI");
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Help"))
+			{
+				ImGui::MenuItem("About");
+				ImGui::MenuItem("Documentation");
 
 				ImGui::EndMenu();
 			}
@@ -156,71 +269,117 @@ namespace MidnightEngine
 
 
 
+
+
+		ImGui::Begin("Library");
+		ImGui::End();
+
+
+
+
+
+
+
+		ImGui::Begin("Inspector");
+
+		auto stats = Renderer2D::GetStatistics();
+
+		ImGui::Text("Renderer2D Stats:");
+		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+		ImGui::Text("Quads: %d", stats.QuadCount);
+		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+
+		ImGui::ColorEdit4("Background tint", glm::value_ptr(m_BackgroundColor));
+		ImGui::Separator();
+
+		ImGui::Text("Quads: %d", m_Quads.size());
+		ImGui::Separator();
+
+		for (auto i = 0; i < m_Quads.size(); i++)
 		{
-
-			ImGui::Begin("Inspector");
-
-			auto stats = Renderer2D::GetStatistics();
-
-			ImGui::Text("Renderer2D Stats:");
-			ImGui::Text("Draw Calls: %d", stats.DrawCalls);
-			ImGui::Text("Quads: %d", stats.QuadCount);
-			ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-			ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-
-			ImGui::ColorEdit4("Background tint", glm::value_ptr(m_BackgroundColor));
+			ImGui::PushID(i);
+			ImGui::Text("Quad %d", i);
+			ImGui::DragFloat3("Position", glm::value_ptr(m_Quads[i].Position), 0.1f);
+			ImGui::DragFloat2("Size", glm::value_ptr(m_Quads[i].Size), 0.1f);
+			ImGui::Checkbox("Use Texture", &m_Quads[i].UseTexture);
+			ImGui::DragFloat("Tiling Factor", &m_Quads[i].TilingFactor, 0.1f, 0.0f, 10.0f);
+			ImGui::ColorEdit4("Color", glm::value_ptr(m_Quads[i].TintColor));
 			ImGui::Separator();
-
-			ImGui::Text("Quads: %d", m_Quads.size());
-			ImGui::Separator();
-
-			for (auto i = 0; i < m_Quads.size(); i++)
-			{
-				ImGui::PushID(i);
-				ImGui::Text("Quad %d", i);
-				ImGui::DragFloat3("Position", glm::value_ptr(m_Quads[i].Position), 0.1f);
-				ImGui::DragFloat2("Size", glm::value_ptr(m_Quads[i].Size), 0.1f);
-				ImGui::Checkbox("Use Texture", &m_Quads[i].UseTexture);
-				ImGui::DragFloat("Tiling Factor", &m_Quads[i].TilingFactor, 0.1f, 0.0f, 10.0f);
-				ImGui::ColorEdit4("Color", glm::value_ptr(m_Quads[i].TintColor));
-				ImGui::Separator();
-				ImGui::PopID();
-			}
-
-			if (ImGui::Button("Create Quad"))
-			{
-				m_Quads.push_back(Quad());
-			}
-			ImGui::Separator();
-
-			ImGui::Text("Rotated Quads: %d", m_RotatedQuads.size());
-			ImGui::Separator();
-
-			for (auto i = 0; i < m_RotatedQuads.size(); i++)
-			{
-				ImGui::PushID(m_Quads.size() + i);
-				ImGui::Text("Rotated Quad %d", i);
-				ImGui::DragFloat3("Position", glm::value_ptr(m_RotatedQuads[i].Position), 0.1f);
-				ImGui::DragFloat2("Size", glm::value_ptr(m_RotatedQuads[i].Size), 0.1f);
-				ImGui::DragFloat("Rotation", &m_RotatedQuads[i].Rotation, 0.1f);
-				ImGui::Checkbox("Use Texture", &m_RotatedQuads[i].UseTexture);
-				ImGui::DragFloat("Tiling Factor", &m_RotatedQuads[i].TilingFactor, 0.1f, 0.0f, 10.0f);
-				ImGui::ColorEdit4("Color", glm::value_ptr(m_RotatedQuads[i].TintColor));
-				ImGui::Separator();
-				ImGui::PopID();
-			}
-
-			if (ImGui::Button("Create Rotated Quad"))
-			{
-				m_RotatedQuads.push_back(RotatedQuad());
-			}
-
-			auto textureID = m_Framebuffer->GetColorAttachmentRendererID();
-			ImGui::Image((void*)textureID, { 320.0f, 180.0f });
-
-			ImGui::End();
-
+			ImGui::PopID();
 		}
+
+		if (ImGui::Button("Create Quad"))
+		{
+			m_Quads.push_back(Quad());
+		}
+		ImGui::Separator();
+
+		ImGui::Text("Rotated Quads: %d", m_RotatedQuads.size());
+		ImGui::Separator();
+
+		for (auto i = 0; i < m_RotatedQuads.size(); i++)
+		{
+			ImGui::PushID(m_Quads.size() + i);
+			ImGui::Text("Rotated Quad %d", i);
+			ImGui::DragFloat3("Position", glm::value_ptr(m_RotatedQuads[i].Position), 0.1f);
+			ImGui::DragFloat2("Size", glm::value_ptr(m_RotatedQuads[i].Size), 0.1f);
+			ImGui::DragFloat("Rotation", &m_RotatedQuads[i].Rotation, 0.1f);
+			ImGui::Checkbox("Use Texture", &m_RotatedQuads[i].UseTexture);
+			ImGui::DragFloat("Tiling Factor", &m_RotatedQuads[i].TilingFactor, 0.1f, 0.0f, 10.0f);
+			ImGui::ColorEdit4("Color", glm::value_ptr(m_RotatedQuads[i].TintColor));
+			ImGui::Separator();
+			ImGui::PopID();
+		}
+
+		if (ImGui::Button("Create Rotated Quad"))
+		{
+			m_RotatedQuads.push_back(RotatedQuad());
+		}
+
+		ImGui::End();
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+		ImGui::Begin("Viewport");
+		auto viewportPanelSize = ImGui::GetContentRegionAvail();
+
+		if (m_ViewportSize != glm::vec2(viewportPanelSize.x, viewportPanelSize.y))
+		{
+			m_ViewportSize = { (uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y };
+			m_Framebuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
+
+			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+		}
+
+		auto textureID = m_Framebuffer->GetColorAttachmentRendererID();
+		ImGui::Image((void*)textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
+
+		ImGui::PopStyleVar();
+		ImGui::End();
+
+
+
+
+
+
+		ImGui::Begin("Game");
+		ImGui::End();
+
+
+
+
+
+
+		ImGui::Begin("Settings");
+		ImGui::End();
+
+
+
+
+
+
+		ImGui::Begin("Hierarchy");
+		ImGui::End();
 
 
 
