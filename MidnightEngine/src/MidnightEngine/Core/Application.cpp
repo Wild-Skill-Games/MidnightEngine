@@ -9,8 +9,6 @@
 
 namespace MidnightEngine
 {
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
-
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application(const std::string& name)
@@ -21,7 +19,7 @@ namespace MidnightEngine
 		s_Instance = this;
 
 		m_Window = Scope<Window>(Window::Create(WindowProperties(name)));
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window->SetEventCallback(ME_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
 
@@ -73,8 +71,8 @@ namespace MidnightEngine
 		ME_PROFILE_FUNCTION();
 
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(ME_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(ME_BIND_EVENT_FN(Application::OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{

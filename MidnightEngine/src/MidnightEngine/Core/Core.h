@@ -33,7 +33,19 @@
 #error "Unknown platform!"
 #endif // _WIN32
 
-// DLL support
+#ifdef ME_DEBUG
+#ifdef ME_PLATFORM_WINDOWS
+#define ME_DEBUGBREAK() __debugbreak()
+#elif defined(ME_PLATFORM_LINUX)
+#include <signal.h>
+#define ME_DEBUGBREAK() raise(SIGTRAP)
+#else
+#error "Platform doesnt support debugbreak yet"
+#endif //ME_PLATFORM_WINDOWS
+#define ME_ENABLE_ASSERTS
+#else
+#define ME_DEBUGBREAK()
+#endif // ME_DEBUG
 
 #ifdef ME_PLATFORM_WINDOWS
 #if ME_DYNAMIC_LINK
@@ -49,10 +61,7 @@
 #error "MidnightEngine only supports Windows!"
 #endif // ME_PLATFORM_WINDOWS
 
-#ifdef ME_DEBUG
-#define ME_ENABLE_ASSERTS
-#endif // ME_DEBUG
-
+// TODO: Make this macro b able 2 take only 1 argument
 #ifdef ME_ENABLE_ASSERTS
 #define ME_ASSERT(x, ...) {	if (!(x)) { ME_ERROR("Assertion Failed: {0}", __VA_ARGS__);	__debugbreak();	} }
 #define ME_CORE_ASSERT(x, ...) { if (!(x)) { ME_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }	}

@@ -352,10 +352,10 @@ namespace MidnightEngine
 
 		auto viewportPanelSize = ImGui::GetContentRegionAvail();
 
-		if (m_ViewportSize != glm::vec2(viewportPanelSize.x, viewportPanelSize.y))
+		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y > 0)
 		{
-			m_ViewportSize = { (uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y };
 			m_Framebuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
+			m_ViewportSize = { viewportPanelSize.x,  viewportPanelSize.y };
 
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
 		}
