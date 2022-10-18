@@ -9,12 +9,6 @@ namespace MidnightEngine
 	{
 	}
 
-	static void OnTransformConstruct(entt::registry& registry, entt::entity entity)
-	{
-		auto& transform = registry.get<TransformComponent>(entity);
-		DoMath(transform.Transform);
-	}
-
 	Scene::Scene()
 	{
 		struct MeshComponent {};
@@ -36,8 +30,6 @@ namespace MidnightEngine
 		auto entity = m_Registry.create();
 
 		m_Registry.emplace<TransformComponent>(entity, glm::mat4(1.0f));
-
-		m_Registry.on_construct<TransformComponent>().connect<&OnTransformConstruct>();
 
 		if (m_Registry.has<TransformComponent>(entity))
 		{

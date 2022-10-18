@@ -18,7 +18,6 @@ IncludeDir["glad"] = "MidnightEngine/vendor/glad/include"
 IncludeDir["imgui"] = "MidnightEngine/vendor/imgui"
 IncludeDir["glm"] = "MidnightEngine/vendor/glm"
 IncludeDir["stb_image"] = "MidnightEngine/vendor/stb_image"
-IncludeDir["entt"] = "MidnightEngine/vendor/entt/include"
 
 
 group "Dependencies"
@@ -65,7 +64,6 @@ project "MidnightEngine"
 		"%{IncludeDir.imgui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}",
 	}
 
 	links
@@ -125,7 +123,6 @@ project "Sandbox"
 		"MidnightEngine/src",
 		"MidnightEngine/vendor",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}",
 	}
 	
 	links
@@ -179,7 +176,6 @@ project "Chill-Editor"
 		"MidnightEngine/src",
 		"MidnightEngine/vendor",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}",
 	}
 	
 	links
