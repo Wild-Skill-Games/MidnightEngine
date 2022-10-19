@@ -11,27 +11,8 @@
 
 namespace MidnightEngine
 {
-	static void DoMath(const glm::mat4& transform)
-	{
-	}
-
 	Scene::Scene()
 	{
-		/*auto entity = m_Registry.create();
-
-		m_Registry.emplace<Component::Transform>(entity, glm::mat4(1.0f));
-
-		auto view = m_Registry.view<Component::Transform>();
-		for (auto entity : view)
-		{
-			auto& transform = view.get<Component::Transform>(entity);
-		}
-
-		auto group = m_Registry.group<Component::Transform>(entt::get<Component::SpriteRenderer>);
-		for (auto entity : group)
-		{
-			auto& [transform, mesh] = group.get<Component::Transform, Component::SpriteRenderer>(entity);
-		}*/
 	}
 	Scene::~Scene()
 	{
@@ -48,6 +29,22 @@ namespace MidnightEngine
 
 	void Scene::OnUpdate(Timestep ts)
 	{
+		// update scripts
+		{
+			m_Registry.view<Component::NativeScript>().each([=](auto actor, auto& ns)
+				{
+					// TODO : move to Scene:OnScenePlay
+					if (!ns.Instance)
+					{
+						ns.Instance = ns.InstantiateScript();
+						ns.Instance->m_Actor = Actor{ actor, this };
+						ns.Instance->OnCreate();
+					}
+
+					ns.Instance->OnUpdate(ts);
+				});
+		}
+
 		//render sprites
 		Camera* mainCamera = nullptr;
 		glm::mat4* cameraTransform = nullptr;
@@ -55,7 +52,7 @@ namespace MidnightEngine
 			auto view = m_Registry.view<Component::Transform, Component::Camera>();
 			for (auto entity : view)
 			{
-				auto& [transform, camera] = view.get<Component::Transform, Component::Camera>(entity);
+				auto [transform, camera] = view.get<Component::Transform, Component::Camera>(entity);
 				if (camera.Primary)
 				{
 					mainCamera = &camera.SceneCamera;
@@ -72,7 +69,7 @@ namespace MidnightEngine
 			auto group = m_Registry.group<Component::Transform>(entt::get<Component::SpriteRenderer>);
 			for (auto entity : group)
 			{
-				auto& [transform, sprite] = group.get<Component::Transform, Component::SpriteRenderer>(entity);
+				auto [transform, sprite] = group.get<Component::Transform, Component::SpriteRenderer>(entity);
 				Renderer2D::DrawRotatedQuad(transform, sprite.Color);
 			}
 

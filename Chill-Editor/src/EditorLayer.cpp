@@ -36,6 +36,43 @@ namespace MidnightEngine
 		m_SecondCameraActor = m_ActiveScene->CreateActor("Clip-space Camera");
 		auto& cc = m_SecondCameraActor.AddComponent<Component::Camera>();
 		cc.Primary = false;
+
+		class CameraController : public ScriptableActor
+		{
+		public:
+			float speed = 5.0f;
+
+			void OnCreate()
+			{
+				auto& transform = GetComponent<Component::Transform>().TransformMatrix;
+				transform[3][0] = rand() % 10 - 5.0f;
+			}
+
+			void OnUpdate(Timestep ts)
+			{
+				auto& transform = GetComponent<Component::Transform>().TransformMatrix;
+
+				if (Input::IsKeyPressed(ME_KEY_A))
+				{
+					transform[3][0] -= speed * ts;
+				}
+				if (Input::IsKeyPressed(ME_KEY_D))
+				{
+					transform[3][0] += speed * ts;
+				}
+				if (Input::IsKeyPressed(ME_KEY_W))
+				{
+					transform[3][1] += speed * ts;
+				}
+				if (Input::IsKeyPressed(ME_KEY_S))
+				{
+					transform[3][1] -= speed * ts;
+				}
+			}
+		};
+
+		m_CameraActor.AddComponent<Component::NativeScript>().Bind<CameraController>();
+		m_SecondCameraActor.AddComponent<Component::NativeScript>().Bind<CameraController>();
 	}
 	void EditorLayer::OnDetach()
 	{
@@ -279,6 +316,38 @@ namespace MidnightEngine
 
 
 
+
+		ImGui::Begin("Game");
+		ImGui::End();
+
+
+
+
+
+
+
+
+
+		ImGui::Begin("Settings");
+		ImGui::End();
+
+
+
+
+
+
+
+
+		ImGui::Begin("Hierarchy");
+		ImGui::End();
+
+
+
+
+
+
+
+
 		ImGui::Begin("Inspector");
 
 		auto stats = Renderer2D::GetStatistics();
@@ -389,33 +458,6 @@ namespace MidnightEngine
 
 		ImGui::PopStyleVar();
 		ImGui::End();
-
-
-
-
-
-		ImGui::Begin("Game");
-		ImGui::End();
-
-
-
-
-
-
-		ImGui::Begin("Settings");
-		ImGui::End();
-
-
-
-
-
-
-		ImGui::Begin("Hierarchy");
-		ImGui::End();
-
-
-
-
 
 		ImGui::End();
 	}

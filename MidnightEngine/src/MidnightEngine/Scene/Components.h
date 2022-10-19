@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "SceneCamera.h"
+#include "ScriptableActor.h"
 
 namespace MidnightEngine
 {
@@ -55,6 +56,21 @@ namespace MidnightEngine
 
 			Camera() = default;
 			Camera(const Camera&) = default;
+		};
+
+		struct NativeScript
+		{
+			ScriptableActor* Instance = nullptr;
+
+			ScriptableActor* (*InstantiateScript)();
+			void (*DestroyScript)(NativeScript*);
+
+			template <typename T>
+			void Bind()
+			{
+				InstantiateScript = []() { return static_cast<ScriptableActor*>(new T()); };
+				DestroyScript = [](NativeScript* ns) { delete ns->Instance; ns->Instance = nullptr; };
+			}
 		};
 	}
 }
