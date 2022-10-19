@@ -14,7 +14,7 @@ namespace MidnightEngine
 		Scene();
 		~Scene();
 
-		Actor CreateEntity(const std::string& name = std::string());
+		Actor CreateActor(const std::string& name = std::string());
 
 		void OnUpdate(Timestep ts);
 

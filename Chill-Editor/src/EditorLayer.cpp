@@ -21,14 +21,21 @@ namespace MidnightEngine
 		framebufferSpecification.Width = 1280;
 		framebufferSpecification.Height = 720;
 
-		m_Framebuffer = Framebuffer::Create(framebufferSpecification);
+		m_ViewportFramebuffer = Framebuffer::Create(framebufferSpecification);
 
 		m_ActiveScene = CreateRef<Scene>();
 
-		Actor actor = m_ActiveScene->CreateEntity("Square");
+		Actor actor = m_ActiveScene->CreateActor("Square");
 		actor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
-		m_SquareEntity = actor;
+		m_SquareActor = actor;
+
+		m_CameraActor = m_ActiveScene->CreateActor("Main Camera");
+		m_CameraActor.AddComponent<Component::Camera>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+
+		m_SecondCameraActor = m_ActiveScene->CreateActor("Clip-space Camera");
+		auto& cc = m_SecondCameraActor.AddComponent<Component::Camera>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
+		cc.Primary = false;
 	}
 	void EditorLayer::OnDetach()
 	{
@@ -39,6 +46,16 @@ namespace MidnightEngine
 	{
 		ME_PROFILE_FUNCTION();
 
+		// Resize
+		FramebufferSpecification spec = m_ViewportFramebuffer->GetSpecification();
+		if (m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && (spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
+		{
+			m_ViewportFramebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+			//m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		}
+
+		// Update
 		if (m_ViewportFocused)
 		{
 			m_CameraController.OnUpdate(ts);
@@ -47,17 +64,14 @@ namespace MidnightEngine
 		// Render
 		Renderer2D::ResetStats();
 
-		m_Framebuffer->Bind();
+		m_ViewportFramebuffer->Bind();
 		RenderCommand::SetClearColor(m_BackgroundColor);
 		RenderCommand::Clear();
-
-		Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 		// Update Scene
 		m_ActiveScene->OnUpdate(ts);
 
-		Renderer2D::EndScene();
-		m_Framebuffer->Unbind();
+		m_ViewportFramebuffer->Unbind();
 	}
 	void EditorLayer::OnImGuiRender()
 	{
@@ -277,14 +291,26 @@ namespace MidnightEngine
 		ImGui::ColorEdit4("Background tint", glm::value_ptr(m_BackgroundColor));
 		ImGui::Separator();
 
-		if (m_SquareEntity)
+		if (m_SquareActor)
 		{
-			ImGui::Text("%s", m_SquareEntity.GetComponent<Component::Tag>().TagString.c_str());
+			ImGui::Text("%s", m_SquareActor.GetComponent<Component::Tag>().TagString.c_str());
 
-			auto& squareColor = m_SquareEntity.GetComponent<Component::SpriteRenderer>().Color;
+			auto& squareColor = m_SquareActor.GetComponent<Component::SpriteRenderer>().Color;
 			ImGui::ColorEdit4("Test Square Color", glm::value_ptr(squareColor));
 			ImGui::Separator();
 		}
+
+		auto& cameraTransform = m_CameraActor.GetComponent<Component::Transform>().TransformMatrix[3];
+
+		ImGui::DragFloat3("camera transform", glm::value_ptr(cameraTransform), 0.1f);
+
+		if (ImGui::Checkbox("Camera A", &m_PrimaryCamera))
+		{
+			m_CameraActor.GetComponent<Component::Camera>().Primary = m_PrimaryCamera;
+			m_SecondCameraActor.GetComponent<Component::Camera>().Primary = !m_PrimaryCamera;
+		}
+
+
 
 		ImGui::Text("Quads: %d", m_Quads.size());
 		ImGui::Separator();
@@ -344,18 +370,17 @@ namespace MidnightEngine
 
 		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y > 0)
 		{
-			m_Framebuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
+			m_ViewportFramebuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
 			m_ViewportSize = { viewportPanelSize.x,  viewportPanelSize.y };
 
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
 		}
 
-		auto textureID = m_Framebuffer->GetColorAttachmentRendererID();
-		ImGui::Image((void*)textureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
+		auto viewportTextureID = m_ViewportFramebuffer->GetColorAttachmentRendererID();
+		ImGui::Image((void*)viewportTextureID, ImVec2(m_ViewportSize.x, m_ViewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
 
 		ImGui::PopStyleVar();
 		ImGui::End();
-
 
 
 

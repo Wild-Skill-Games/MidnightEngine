@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "MidnightEngine/Renderer/Camera.h"
+
 namespace MidnightEngine
 {
 	namespace Component
@@ -41,6 +43,19 @@ namespace MidnightEngine
 			SpriteRenderer(const SpriteRenderer&) = default;
 			SpriteRenderer(const glm::vec4& color)
 				: Color(color)
+			{
+			}
+		};
+
+		struct Camera
+		{
+			MidnightEngine::Camera CameraObject;
+			bool Primary = true; // TODO : move to scene
+
+			Camera() = default;
+			Camera(const Camera&) = default;
+			Camera(const glm::mat4& projection)
+				: CameraObject(projection)
 			{
 			}
 		};

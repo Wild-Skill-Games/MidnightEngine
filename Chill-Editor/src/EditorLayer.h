@@ -23,11 +23,15 @@ namespace MidnightEngine
 		// Temporary
 		Ref<VertexArray> m_VertexArray;
 		Ref<Shader> m_Shader;
-		Ref<Framebuffer> m_Framebuffer;
-
-		Actor m_SquareEntity;
+		Ref<Framebuffer> m_ViewportFramebuffer;
 
 		Ref<Scene> m_ActiveScene;
+		Actor m_SquareActor;
+
+		bool m_PrimaryCamera = true;
+
+		Actor m_CameraActor;
+		Actor m_SecondCameraActor;
 
 		Ref<Texture2D> m_Texture2D;
 

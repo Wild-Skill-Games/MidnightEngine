@@ -38,7 +38,7 @@ namespace MidnightEngine
 
 	}
 
-	Actor Scene::CreateEntity(const std::string& name)
+	Actor Scene::CreateActor(const std::string& name)
 	{
 		auto actor = Actor(m_Registry.create(), this);
 		actor.AddComponent<Component::Transform>();
@@ -48,11 +48,35 @@ namespace MidnightEngine
 
 	void Scene::OnUpdate(Timestep ts)
 	{
-		auto group = m_Registry.group<Component::Transform>(entt::get<Component::SpriteRenderer>);
-		for (auto entity : group)
+		//render sprites
+		Camera* mainCamera = nullptr;
+		glm::mat4* cameraTransform = nullptr;
 		{
-			auto& [transform, sprite] = group.get<Component::Transform, Component::SpriteRenderer>(entity);
-			Renderer2D::DrawRotatedQuad(transform, sprite.Color);
+			auto group = m_Registry.view<Component::Transform, Component::Camera>();
+			for (auto entity : group)
+			{
+				auto& [transform, camera] = group.get<Component::Transform, Component::Camera>(entity);
+				if (camera.Primary)
+				{
+					mainCamera = &camera.CameraObject;
+					cameraTransform = &transform.TransformMatrix;
+					break;
+				}
+			}
+		}
+
+		if (mainCamera)
+		{
+			Renderer2D::BeginScene(mainCamera->GetProjection(), *cameraTransform);
+
+			auto group = m_Registry.group<Component::Transform>(entt::get<Component::SpriteRenderer>);
+			for (auto entity : group)
+			{
+				auto& [transform, sprite] = group.get<Component::Transform, Component::SpriteRenderer>(entity);
+				Renderer2D::DrawRotatedQuad(transform, sprite.Color);
+			}
+
+			Renderer2D::EndScene();
 		}
 	}
 }
