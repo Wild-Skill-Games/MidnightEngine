@@ -19,6 +19,7 @@ namespace MidnightEngine
 
 	private:
 		void DrawActorNode(Actor actor);
+		void DrawComponents(Actor actor);
 
 	private:
 		Ref<Scene> m_Context;

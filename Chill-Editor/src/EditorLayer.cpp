@@ -28,6 +28,10 @@ namespace MidnightEngine
 		Actor actor = m_ActiveScene->CreateActor("Square");
 		actor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
+
+		actor = m_ActiveScene->CreateActor("Anoda Square");
+		actor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+
 		m_SquareActor = actor;
 
 		m_CameraActor = m_ActiveScene->CreateActor("Main Camera");
@@ -309,7 +313,16 @@ namespace MidnightEngine
 
 
 
-		ImGui::Begin("Library");
+		ImGui::Begin("Libary");
+		ImGui::End();
+
+
+
+
+
+
+
+		ImGui::Begin("Project");
 		ImGui::End();
 
 
@@ -331,41 +344,9 @@ namespace MidnightEngine
 
 
 		ImGui::Begin("Settings");
-		ImGui::End();
-
-
-
-
-
-
-
-
-
-		ImGui::Begin("Inspector");
-
-		auto stats = Renderer2D::GetStatistics();
-
-		ImGui::Text("Renderer2D Stats:");
-		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
-		ImGui::Text("Quads: %d", stats.QuadCount);
-		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
-		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
 		ImGui::ColorEdit4("Background tint", glm::value_ptr(m_BackgroundColor));
 		ImGui::Separator();
-
-		if (m_SquareActor)
-		{
-			ImGui::Text("%s", m_SquareActor.GetComponent<Component::Tag>().TagString.c_str());
-
-			auto& squareColor = m_SquareActor.GetComponent<Component::SpriteRenderer>().Color;
-			ImGui::ColorEdit4("Test Square Color", glm::value_ptr(squareColor));
-			ImGui::Separator();
-		}
-
-		auto& cameraTransform = m_CameraActor.GetComponent<Component::Transform>().TransformMatrix[3];
-
-		ImGui::DragFloat3("camera transform", glm::value_ptr(cameraTransform), 0.1f);
 
 		if (ImGui::Checkbox("Camera A", &m_PrimaryCamera))
 		{
@@ -382,51 +363,35 @@ namespace MidnightEngine
 			}
 		}
 
-		ImGui::Text("Quads: %d", m_Quads.size());
-		ImGui::Separator();
+		ImGui::End();
 
-		for (auto i = 0; i < m_Quads.size(); i++)
-		{
-			ImGui::PushID(i);
-			ImGui::Text("Quad %d", i);
-			ImGui::DragFloat3("Position", glm::value_ptr(m_Quads[i].Position), 0.1f);
-			ImGui::DragFloat2("Size", glm::value_ptr(m_Quads[i].Size), 0.1f);
-			ImGui::Checkbox("Use Texture", &m_Quads[i].UseTexture);
-			ImGui::DragFloat("Tiling Factor", &m_Quads[i].TilingFactor, 0.1f, 0.0f, 10.0f);
-			ImGui::ColorEdit4("Color", glm::value_ptr(m_Quads[i].TintColor));
-			ImGui::Separator();
-			ImGui::PopID();
-		}
 
-		if (ImGui::Button("Create Quad"))
-		{
-			m_Quads.push_back(Quad());
-		}
-		ImGui::Separator();
 
-		ImGui::Text("Rotated Quads: %d", m_RotatedQuads.size());
-		ImGui::Separator();
 
-		for (auto i = 0; i < m_RotatedQuads.size(); i++)
-		{
-			ImGui::PushID(m_Quads.size() + i);
-			ImGui::Text("Rotated Quad %d", i);
-			ImGui::DragFloat3("Position", glm::value_ptr(m_RotatedQuads[i].Position), 0.1f);
-			ImGui::DragFloat2("Size", glm::value_ptr(m_RotatedQuads[i].Size), 0.1f);
-			ImGui::DragFloat("Rotation", &m_RotatedQuads[i].Rotation, 0.1f);
-			ImGui::Checkbox("Use Texture", &m_RotatedQuads[i].UseTexture);
-			ImGui::DragFloat("Tiling Factor", &m_RotatedQuads[i].TilingFactor, 0.1f, 0.0f, 10.0f);
-			ImGui::ColorEdit4("Color", glm::value_ptr(m_RotatedQuads[i].TintColor));
-			ImGui::Separator();
-			ImGui::PopID();
-		}
 
-		if (ImGui::Button("Create Rotated Quad"))
-		{
-			m_RotatedQuads.push_back(RotatedQuad());
-		}
+
+
+
+
+		ImGui::Begin("Stats");
+
+		auto stats = Renderer2D::GetStatistics();
+
+		ImGui::Text("Renderer2D Stats:");
+		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+		ImGui::Text("Quads: %d", stats.QuadCount);
+		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
 		ImGui::End();
+
+
+
+
+
+
+
+
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 		ImGui::Begin("Viewport");
