@@ -25,10 +25,10 @@ namespace MidnightEngine
 
 		m_ActiveScene = CreateRef<Scene>();
 
-		m_SquareEntity = m_ActiveScene->CreateEntity();
+		Actor actor = m_ActiveScene->CreateEntity("Square");
+		actor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
-		m_ActiveScene->Reg().emplace<Component::Transform>(m_SquareEntity);
-		m_ActiveScene->Reg().emplace<Component::SpriteRenderer>(m_SquareEntity, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		m_SquareEntity = actor;
 	}
 	void EditorLayer::OnDetach()
 	{
@@ -277,8 +277,14 @@ namespace MidnightEngine
 		ImGui::ColorEdit4("Background tint", glm::value_ptr(m_BackgroundColor));
 		ImGui::Separator();
 
-		ImGui::ColorEdit4("Test Square Color", glm::value_ptr(m_ActiveScene->Reg().get<Component::SpriteRenderer>(m_SquareEntity).Color));
-		ImGui::Separator();
+		if (m_SquareEntity)
+		{
+			ImGui::Text("%s", m_SquareEntity.GetComponent<Component::Tag>().TagString.c_str());
+
+			auto& squareColor = m_SquareEntity.GetComponent<Component::SpriteRenderer>().Color;
+			ImGui::ColorEdit4("Test Square Color", glm::value_ptr(squareColor));
+			ImGui::Separator();
+		}
 
 		ImGui::Text("Quads: %d", m_Quads.size());
 		ImGui::Separator();

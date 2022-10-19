@@ -1,8 +1,13 @@
 #include "mepch.h"
 #include "Scene.h"
 
-#include <glm/glm.hpp>
+#include "Components.h"
 #include <MidnightEngine/Renderer/Renderer2D.h>
+
+#include <glm/glm.hpp>
+
+#include "Actor.h"
+
 
 namespace MidnightEngine
 {
@@ -32,10 +37,15 @@ namespace MidnightEngine
 	{
 
 	}
-	entt::entity Scene::CreateEntity(const std::string& name)
+
+	Actor Scene::CreateEntity(const std::string& name)
 	{
-		return m_Registry.create();
+		auto actor = Actor(m_Registry.create(), this);
+		actor.AddComponent<Component::Transform>();
+		actor.AddComponent<Component::Tag>(name.empty() ? "Actor" : name);
+		return actor;
 	}
+
 	void Scene::OnUpdate(Timestep ts)
 	{
 		auto group = m_Registry.group<Component::Transform>(entt::get<Component::SpriteRenderer>);

@@ -6,6 +6,18 @@ namespace MidnightEngine
 {
 	namespace Component
 	{
+		struct Tag
+		{
+			std::string TagString;
+
+			Tag() = default;
+			Tag(const Tag&) = default;
+			Tag(const std::string& tagString)
+				: TagString(tagString)
+			{
+			}
+		};
+
 		struct Transform
 		{
 			glm::mat4 TransformMatrix = glm::mat4(1.0f);

@@ -16,6 +16,7 @@
 #include "MidnightEngine/ImGui/ImGuiLayer.h"
 
 #include "MidnightEngine/Scene/Scene.h"
+#include "MidnightEngine/Scene/Actor.h"
 #include "MidnightEngine/Scene/Components.h"
 
 // ----------- Renderer ------------
