@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MidnightEngine.h"
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace MidnightEngine
 {
@@ -67,5 +68,8 @@ namespace MidnightEngine
 
 		std::vector<Quad> m_Quads;
 		std::vector<RotatedQuad> m_RotatedQuads;
+
+		// Panels
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 }

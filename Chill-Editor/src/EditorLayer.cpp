@@ -73,6 +73,8 @@ namespace MidnightEngine
 
 		m_CameraActor.AddComponent<Component::NativeScript>().Bind<CameraController>();
 		m_SecondCameraActor.AddComponent<Component::NativeScript>().Bind<CameraController>();
+
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
 	void EditorLayer::OnDetach()
 	{
@@ -338,15 +340,6 @@ namespace MidnightEngine
 
 
 
-		ImGui::Begin("Hierarchy");
-		ImGui::End();
-
-
-
-
-
-
-
 
 		ImGui::Begin("Inspector");
 
@@ -458,6 +451,8 @@ namespace MidnightEngine
 
 		ImGui::PopStyleVar();
 		ImGui::End();
+
+		m_SceneHierarchyPanel.OnImGuiRender();
 
 		ImGui::End();
 	}

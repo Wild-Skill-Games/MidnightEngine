@@ -27,6 +27,12 @@ namespace MidnightEngine
 		return actor;
 	}
 
+	void Scene::DestroyActor(Actor actor)
+	{
+		// TODO : destroy actor
+		//m_Registry.destroy(actor);
+	}
+
 	void Scene::OnUpdate(Timestep ts)
 	{
 		// update scripts

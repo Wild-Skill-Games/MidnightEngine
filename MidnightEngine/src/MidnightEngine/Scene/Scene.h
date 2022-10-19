@@ -15,6 +15,7 @@ namespace MidnightEngine
 		~Scene();
 
 		Actor CreateActor(const std::string& name = std::string());
+		void DestroyActor(Actor actor);
 
 		void OnUpdate(Timestep ts);
 		void OnViewportResize(uint32_t width, uint32_t height);
@@ -25,5 +26,6 @@ namespace MidnightEngine
 		uint32_t m_ViewportHeight;
 
 		friend class Actor;
+		friend class SceneHierarchyPanel;
 	};
 }
