@@ -13,3 +13,6 @@
 [submodule "MidnightEngine/vendor/glm"]
 	path = MidnightEngine/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "MidnightEngine/vendor/entt"]
+	path = MidnightEngine/vendor/entt
+	url = https://github.com/skypjack/entt.git

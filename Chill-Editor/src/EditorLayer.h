@@ -25,6 +25,10 @@ namespace MidnightEngine
 		Ref<Shader> m_Shader;
 		Ref<Framebuffer> m_Framebuffer;
 
+		entt::entity m_SquareEntity;
+
+		Ref<Scene> m_ActiveScene;
+
 		Ref<Texture2D> m_Texture2D;
 
 		bool m_ViewportFocused = false;

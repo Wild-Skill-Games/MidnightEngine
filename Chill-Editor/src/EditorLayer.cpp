@@ -22,6 +22,13 @@ namespace MidnightEngine
 		framebufferSpecification.Height = 720;
 
 		m_Framebuffer = Framebuffer::Create(framebufferSpecification);
+
+		m_ActiveScene = CreateRef<Scene>();
+
+		m_SquareEntity = m_ActiveScene->CreateEntity();
+
+		m_ActiveScene->Reg().emplace<Component::Transform>(m_SquareEntity);
+		m_ActiveScene->Reg().emplace<Component::SpriteRenderer>(m_SquareEntity, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 	}
 	void EditorLayer::OnDetach()
 	{
@@ -39,44 +46,18 @@ namespace MidnightEngine
 
 		// Render
 		Renderer2D::ResetStats();
-		{
-			ME_PROFILE_SCOPE("RenderCommand Render");
-			m_Framebuffer->Bind();
-			RenderCommand::SetClearColor(m_BackgroundColor);
-			RenderCommand::Clear();
-		}
 
-		{
-			ME_PROFILE_SCOPE("Renderer2D Draw");
-			Renderer2D::BeginScene(m_CameraController.GetCamera());
+		m_Framebuffer->Bind();
+		RenderCommand::SetClearColor(m_BackgroundColor);
+		RenderCommand::Clear();
 
-			for (auto& quad : m_Quads)
-			{
-				if (quad.UseTexture)
-				{
-					Renderer2D::DrawQuad(quad.Position, quad.Size, m_Texture2D, quad.TilingFactor, quad.TintColor);
-				}
-				else
-				{
-					Renderer2D::DrawQuad(quad.Position, quad.Size, quad.TintColor);
-				}
-			}
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-			for (auto& quad : m_RotatedQuads)
-			{
-				if (quad.UseTexture)
-				{
-					Renderer2D::DrawRotatedQuad(quad.Position, quad.Size, quad.Rotation, m_Texture2D, quad.TilingFactor, quad.TintColor);
-				}
-				else
-				{
-					Renderer2D::DrawRotatedQuad(quad.Position, quad.Size, quad.Rotation, quad.TintColor);
-				}
-			}
+		// Update Scene
+		m_ActiveScene->OnUpdate(ts);
 
-			Renderer2D::EndScene();
-			m_Framebuffer->Unbind();
-		}
+		Renderer2D::EndScene();
+		m_Framebuffer->Unbind();
 	}
 	void EditorLayer::OnImGuiRender()
 	{
@@ -294,6 +275,9 @@ namespace MidnightEngine
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
 		ImGui::ColorEdit4("Background tint", glm::value_ptr(m_BackgroundColor));
+		ImGui::Separator();
+
+		ImGui::ColorEdit4("Test Square Color", glm::value_ptr(m_ActiveScene->Reg().get<Component::SpriteRenderer>(m_SquareEntity).Color));
 		ImGui::Separator();
 
 		ImGui::Text("Quads: %d", m_Quads.size());

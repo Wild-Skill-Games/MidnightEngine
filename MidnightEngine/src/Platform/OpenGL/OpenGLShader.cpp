@@ -249,11 +249,11 @@ namespace MidnightEngine
 		UploadUniformFloat4(name, value);
 	}
 
-	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& matrix)
+	void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& TransformMatrix)
 	{
 		ME_PROFILE_FUNCTION();
 
-		UploadUniformMat3(name, matrix);
+		UploadUniformMat3(name, TransformMatrix);
 	}
 	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
 	{
@@ -310,14 +310,14 @@ namespace MidnightEngine
 		glUniform4f(location, value.x, value.y, value.z, value.w);
 	}
 
-	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix)
+	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& TransformMatrix)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(TransformMatrix));
 	}
-	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
+	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& TransformMatrix)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(TransformMatrix));
 	}
 }

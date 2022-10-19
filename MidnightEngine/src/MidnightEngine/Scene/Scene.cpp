@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 #include <glm/glm.hpp>
+#include <MidnightEngine/Renderer/Renderer2D.h>
 
 namespace MidnightEngine
 {
@@ -11,47 +12,37 @@ namespace MidnightEngine
 
 	Scene::Scene()
 	{
-		struct MeshComponent {};
-		struct TransformComponent
-		{
-			glm::mat4 Transform;
+		/*auto entity = m_Registry.create();
 
-			TransformComponent() = default;
-			TransformComponent(const TransformComponent&) = default;
-			TransformComponent(const glm::mat4& transform)
-				: Transform(transform)
-			{
-			}
+		m_Registry.emplace<Component::Transform>(entity, glm::mat4(1.0f));
 
-			operator glm::mat4& () { return Transform; }
-			operator const glm::mat4& () const { return Transform; }
-		};
-
-		auto entity = m_Registry.create();
-
-		m_Registry.emplace<TransformComponent>(entity, glm::mat4(1.0f));
-
-		if (m_Registry.has<TransformComponent>(entity))
-		{
-			TransformComponent& transform = m_Registry.get<TransformComponent>(entity);
-		}
-
-		auto view = m_Registry.view<TransformComponent>();
+		auto view = m_Registry.view<Component::Transform>();
 		for (auto entity : view)
 		{
-			TransformComponent& transform = view.get<TransformComponent>(entity);
+			auto& transform = view.get<Component::Transform>(entity);
 		}
 
-		auto group = m_Registry.group<TransformComponent>(entt::get<MeshComponent>);
+		auto group = m_Registry.group<Component::Transform>(entt::get<Component::SpriteRenderer>);
 		for (auto entity : group)
 		{
-			auto& [transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
-
-			Renderer::Submit(mesh, transform);
-		}
+			auto& [transform, mesh] = group.get<Component::Transform, Component::SpriteRenderer>(entity);
+		}*/
 	}
 	Scene::~Scene()
 	{
 
+	}
+	entt::entity Scene::CreateEntity(const std::string& name)
+	{
+		return m_Registry.create();
+	}
+	void Scene::OnUpdate(Timestep ts)
+	{
+		auto group = m_Registry.group<Component::Transform>(entt::get<Component::SpriteRenderer>);
+		for (auto entity : group)
+		{
+			auto& [transform, sprite] = group.get<Component::Transform, Component::SpriteRenderer>(entity);
+			Renderer2D::DrawRotatedQuad(transform, sprite.Color);
+		}
 	}
 }
