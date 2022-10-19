@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "MidnightEngine/Renderer/Camera.h"
+#include "SceneCamera.h"
 
 namespace MidnightEngine
 {
@@ -49,15 +49,12 @@ namespace MidnightEngine
 
 		struct Camera
 		{
-			MidnightEngine::Camera CameraObject;
+			SceneCamera SceneCamera;
 			bool Primary = true; // TODO : move to scene
+			bool FixedAspectRatio = false;
 
 			Camera() = default;
 			Camera(const Camera&) = default;
-			Camera(const glm::mat4& projection)
-				: CameraObject(projection)
-			{
-			}
 		};
 	}
 }

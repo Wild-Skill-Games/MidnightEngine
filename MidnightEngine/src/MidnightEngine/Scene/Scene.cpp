@@ -52,13 +52,13 @@ namespace MidnightEngine
 		Camera* mainCamera = nullptr;
 		glm::mat4* cameraTransform = nullptr;
 		{
-			auto group = m_Registry.view<Component::Transform, Component::Camera>();
-			for (auto entity : group)
+			auto view = m_Registry.view<Component::Transform, Component::Camera>();
+			for (auto entity : view)
 			{
-				auto& [transform, camera] = group.get<Component::Transform, Component::Camera>(entity);
+				auto& [transform, camera] = view.get<Component::Transform, Component::Camera>(entity);
 				if (camera.Primary)
 				{
-					mainCamera = &camera.CameraObject;
+					mainCamera = &camera.SceneCamera;
 					cameraTransform = &transform.TransformMatrix;
 					break;
 				}
@@ -77,6 +77,21 @@ namespace MidnightEngine
 			}
 
 			Renderer2D::EndScene();
+		}
+	}
+	void Scene::OnViewportResize(uint32_t width, uint32_t height)
+	{
+		m_ViewportWidth = width;
+		m_ViewportHeight = height;
+
+		auto view = m_Registry.view<Component::Camera>();
+		for (auto entity : view)
+		{
+			auto& camera = view.get<Component::Camera>(entity);
+			if (!camera.FixedAspectRatio)
+			{
+				camera.SceneCamera.SetViewportSize(width, height);
+			}
 		}
 	}
 }

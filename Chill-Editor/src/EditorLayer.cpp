@@ -31,10 +31,10 @@ namespace MidnightEngine
 		m_SquareActor = actor;
 
 		m_CameraActor = m_ActiveScene->CreateActor("Main Camera");
-		m_CameraActor.AddComponent<Component::Camera>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+		m_CameraActor.AddComponent<Component::Camera>();
 
 		m_SecondCameraActor = m_ActiveScene->CreateActor("Clip-space Camera");
-		auto& cc = m_SecondCameraActor.AddComponent<Component::Camera>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
+		auto& cc = m_SecondCameraActor.AddComponent<Component::Camera>();
 		cc.Primary = false;
 	}
 	void EditorLayer::OnDetach()
@@ -52,7 +52,8 @@ namespace MidnightEngine
 		{
 			m_ViewportFramebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
-			//m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+
+			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 
 		// Update
@@ -310,7 +311,14 @@ namespace MidnightEngine
 			m_SecondCameraActor.GetComponent<Component::Camera>().Primary = !m_PrimaryCamera;
 		}
 
-
+		{
+			auto& camera = m_SecondCameraActor.GetComponent<Component::Camera>();
+			float orthoSize = camera.SceneCamera.GetOrthographicSize();
+			if (ImGui::DragFloat("second camera size", &orthoSize))
+			{
+				camera.SceneCamera.SetOrthographicSize(orthoSize);
+			}
+		}
 
 		ImGui::Text("Quads: %d", m_Quads.size());
 		ImGui::Separator();

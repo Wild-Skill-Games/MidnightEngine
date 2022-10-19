@@ -7,15 +7,13 @@ namespace MidnightEngine
 	class Camera
 	{
 	public:
+		Camera() = default;
 		Camera(const glm::mat4& projection);
+		virtual ~Camera() = default;
 
 		const glm::mat4& GetProjection() const { return m_Projection; }
 
-		// TODO: implement the functions below
-		void SetPerspective(float fov, float aspectRatio, float nearClip, float farClip);
-		void SetOrthographic(float size, float aspectRatio, float nearClip, float farClip);
-
-	private:
-		glm::mat4 m_Projection;
+	protected:
+		glm::mat4 m_Projection = glm::mat4(1.0f);
 	};
 }
