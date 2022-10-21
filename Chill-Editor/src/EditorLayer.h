@@ -44,6 +44,8 @@ namespace MidnightEngine
 
 		glm::vec4 m_BackgroundColor = { 0.1f, 0.1f, 0.1f, 1.0f };
 
+		int m_SelectedTheme = 1;
+
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};

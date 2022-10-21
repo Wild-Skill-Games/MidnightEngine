@@ -28,21 +28,15 @@ namespace MidnightEngine
 		m_SquareActor = m_ActiveScene->CreateActor("Square1");
 		m_SquareActor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
-		ME_CORE_INFO(m_SquareActor.HasComponent<Component::SpriteRenderer>());
-
 		m_SecondSquareActor = m_ActiveScene->CreateActor("Square2");
 		m_SecondSquareActor.AddComponent<Component::SpriteRenderer>(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
-		ME_CORE_INFO(m_SecondSquareActor.HasComponent<Component::SpriteRenderer>());
-
 		m_CameraActor = m_ActiveScene->CreateActor("Camera A");
 		m_CameraActor.GetComponent<Component::Transform>().Position.z = 10.0f;
-		auto& cameraA = m_CameraActor.AddComponent<Component::Camera>().SceneCamera;
-		cameraA.SetProjectionType(SceneCamera::ProjectionType::Perspective);
+		m_CameraActor.AddComponent<Component::Camera>().SceneCamera.SetProjectionType(SceneCamera::ProjectionType::Perspective);
 
 		m_SecondCameraActor = m_ActiveScene->CreateActor("Camera B");
-		auto& cc = m_SecondCameraActor.AddComponent<Component::Camera>();
-		cc.Primary = false;
+		m_SecondCameraActor.AddComponent<Component::Camera>().Primary = false;
 
 		class CameraController : public ScriptableActor
 		{
@@ -321,8 +315,48 @@ namespace MidnightEngine
 
 		ImGui::Begin("Settings");
 
+		ImGui::Text("Game colors");
 		ImGui::ColorEdit4("Background tint", glm::value_ptr(m_BackgroundColor));
 		ImGui::Separator();
+
+		const char* themes[] = { "Light", "Dark" };
+		const char* currentTheme = themes[m_SelectedTheme];
+
+		if (ImGui::BeginCombo("Theme", currentTheme))
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				bool isSelected = currentTheme == themes[i];
+				if (ImGui::Selectable(themes[i], isSelected))
+				{
+					currentTheme = themes[i];
+					if (currentTheme == themes[0])
+					{
+						m_SelectedTheme = 0;
+						ImGui::StyleColorsLight();
+					}
+					else
+					{
+						m_SelectedTheme = 1;
+						ImGuiLayer::SetDarkThemeColors();
+					}
+				}
+
+				if (isSelected)
+				{
+					ImGui::SetItemDefaultFocus();
+				}
+			}
+			ImGui::EndCombo();
+		}
+
+		ImGui::Separator();
+		ImGui::Text("Ui colors");
+		for (int i = 0; i < ImGuiCol_COUNT; i++)
+		{
+			const char* name = ImGui::GetStyleColorName(i);
+			ImGui::ColorEdit4(name, (float*)&ImGui::GetStyle().Colors[i]);
+		}
 
 		ImGui::End();
 
