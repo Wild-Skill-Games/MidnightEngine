@@ -34,6 +34,16 @@ namespace MidnightEngine
 			m_SelectionContext = {};
 		}
 
+		if (ImGui::BeginPopupContextWindow(0, 1, false))
+		{
+			if (ImGui::MenuItem("Create Empty Actor"))
+			{
+				m_Context->CreateActor("Empty Actor");
+			}
+
+			ImGui::EndPopup();
+		}
+
 		ImGui::End();
 
 
@@ -41,6 +51,31 @@ namespace MidnightEngine
 		if (m_SelectionContext)
 		{
 			DrawComponents(m_SelectionContext);
+
+			if (ImGui::Button("Add Component"))
+			{
+				ImGui::OpenPopup("AddComponent");
+			}
+
+			if (ImGui::BeginPopup("AddComponent"))
+			{
+				if (ImGui::MenuItem("Camera"))
+				{
+					m_SelectionContext.AddComponent<Component::Camera>();
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::MenuItem("Sprite Renderer"))
+				{
+					m_SelectionContext.AddComponent<Component::SpriteRenderer>();
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::MenuItem("Native Script"))
+				{
+					//m_SelectionContext.AddComponent<Component::NativeScript>();
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+			}
 		}
 		ImGui::End();
 	}
@@ -55,12 +90,12 @@ namespace MidnightEngine
 			m_SelectionContext = actor;
 		}
 
-		bool entityDeleted = false;
+		bool actorDeleted = false;
 		if (ImGui::BeginPopupContextItem())
 		{
-			if (ImGui::MenuItem("Delete Entity"))
+			if (ImGui::MenuItem("Delete Actor"))
 			{
-				entityDeleted = true;
+				actorDeleted = true;
 			}
 			ImGui::EndPopup();
 		}
@@ -70,13 +105,14 @@ namespace MidnightEngine
 			ImGui::TreePop();
 		}
 
-		if (entityDeleted)
+		if (actorDeleted)
 		{
 			if (m_SelectionContext == actor)
 			{
 				m_SelectionContext = {};
 			}
-			actor.Destroy();
+			//actor.Destroy();
+			m_Context->DestroyActor(actor);
 		}
 	}
 
@@ -173,9 +209,32 @@ namespace MidnightEngine
 			}
 		}
 
+		const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth;
+
 		if (actor.HasComponent<Component::SpriteRenderer>())
 		{
-			if (ImGui::TreeNodeEx((void*)typeid(Component::SpriteRenderer).hash_code(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth, "Sprite Renderer"))
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(4.0f, 4.0f));
+
+			bool open = ImGui::TreeNodeEx((void*)typeid(Component::SpriteRenderer).hash_code(), treeNodeFlags, "Sprite Renderer");
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+
+			if (ImGui::Button("+", ImVec2(20.0f, 20.0f)))
+			{
+				ImGui::OpenPopup("Component settings");
+			}
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("Component settings"))
+			{
+				if (ImGui::MenuItem("Delete"))
+				{
+					removeComponent = true;
+				}
+				ImGui::EndPopup();
+			}
+
+			if (open)
 			{
 				auto& spriteRenderer = actor.GetComponent<Component::SpriteRenderer>();
 
@@ -183,11 +242,34 @@ namespace MidnightEngine
 
 				ImGui::TreePop();
 			}
+
+			if (removeComponent)
+			{
+				actor.RemoveComponent<Component::SpriteRenderer>();
+			}
 		}
 
 		if (actor.HasComponent<Component::Camera>())
 		{
-			if (ImGui::TreeNodeEx((void*)typeid(Component::Camera).hash_code(), ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth, "Camera"))
+			bool open = ImGui::TreeNodeEx((void*)typeid(Component::Camera).hash_code(), treeNodeFlags, "Camera");
+
+			ImGui::SameLine();
+			if (ImGui::Button("+"))
+			{
+				ImGui::OpenPopup("Component settings");
+			}
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("Component settings"))
+			{
+				if (ImGui::MenuItem("Delete"))
+				{
+					removeComponent = true;
+				}
+				ImGui::EndPopup();
+			}
+
+			if (open)
 			{
 				auto& camera = actor.GetComponent<Component::Camera>();
 
@@ -260,6 +342,11 @@ namespace MidnightEngine
 				}
 
 				ImGui::TreePop();
+			}
+
+			if (removeComponent)
+			{
+				actor.RemoveComponent<Component::Camera>();
 			}
 		}
 

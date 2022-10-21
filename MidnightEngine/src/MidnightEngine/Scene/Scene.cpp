@@ -29,8 +29,7 @@ namespace MidnightEngine
 
 	void Scene::DestroyActor(Actor actor)
 	{
-		//TODO : destroy actor
-		//m_Registry.destroy(actor);
+		m_Registry.destroy(actor);
 	}
 
 	void Scene::OnUpdate(Timestep ts)
@@ -96,5 +95,37 @@ namespace MidnightEngine
 				camera.SceneCamera.SetViewportSize(width, height);
 			}
 		}
+	}
+
+	template <typename T>
+	void Scene::OnComponentAdded(Actor actor, T& component)
+	{
+		static_assert(false);
+	}
+
+	template <>
+	void Scene::OnComponentAdded<Component::Transform>(Actor actor, Component::Transform& component)
+	{
+	}
+
+	template <>
+	void Scene::OnComponentAdded<Component::Camera>(Actor actor, Component::Camera& component)
+	{
+		component.SceneCamera.SetViewportSize(m_ViewportWidth, m_ViewportHeight);
+	}
+
+	template <>
+	void Scene::OnComponentAdded<Component::SpriteRenderer>(Actor actor, Component::SpriteRenderer& component)
+	{
+	}
+
+	template <>
+	void Scene::OnComponentAdded<Component::Tag>(Actor actor, Component::Tag& component)
+	{
+	}
+
+	template <>
+	void Scene::OnComponentAdded<Component::NativeScript>(Actor actor, Component::NativeScript& component)
+	{
 	}
 }

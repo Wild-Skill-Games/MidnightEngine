@@ -25,13 +25,15 @@ namespace MidnightEngine
 
 		m_ActiveScene = CreateRef<Scene>();
 
-		Actor actor = m_ActiveScene->CreateActor("Square1");
-		actor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		m_SquareActor = m_ActiveScene->CreateActor("Square1");
+		m_SquareActor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
-		actor = m_ActiveScene->CreateActor("Square2");
-		actor.AddComponent<Component::SpriteRenderer>(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+		ME_CORE_INFO(m_SquareActor.HasComponent<Component::SpriteRenderer>());
 
-		m_SquareActor = actor;
+		m_SecondSquareActor = m_ActiveScene->CreateActor("Square2");
+		m_SecondSquareActor.AddComponent<Component::SpriteRenderer>(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+		ME_CORE_INFO(m_SecondSquareActor.HasComponent<Component::SpriteRenderer>());
 
 		m_CameraActor = m_ActiveScene->CreateActor("Camera A");
 		m_CameraActor.GetComponent<Component::Transform>().Position.z = 10.0f;

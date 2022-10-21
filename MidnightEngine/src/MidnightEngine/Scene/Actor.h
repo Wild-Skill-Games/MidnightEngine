@@ -17,7 +17,10 @@ namespace MidnightEngine
 		{
 			ME_CORE_ASSERT(!HasComponent<T>(), "Actor already has component!");
 
-			return m_Scene->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
+			T& component = m_Scene->m_Registry.emplace<T>(m_EntityHandle, std::forward<Args>(args)...);
+			m_Scene->OnComponentAdded(T::GetID());
+			m_Scene->OnComponentAdded<T>(*this, component);
+			return component;
 		}
 
 		template<typename T>
@@ -39,7 +42,7 @@ namespace MidnightEngine
 		{
 			ME_CORE_ASSERT(HasComponent<T>(), "Actor does not have component!");
 
-			return m_Scene->m_Registry.remove<T>(m_EntityHandle);
+			m_Scene->m_Registry.remove<T>(m_EntityHandle);
 		}
 
 		void Destroy()
@@ -49,6 +52,7 @@ namespace MidnightEngine
 
 		operator bool() const { return m_EntityHandle != entt::null && m_Scene; }
 		operator uint32_t() const { return (uint32_t)m_EntityHandle; }
+		operator entt::entity() const { return m_EntityHandle; }
 
 		bool operator ==(const Actor& other) const { return m_EntityHandle == other.m_EntityHandle && m_Scene == other.m_Scene; }
 

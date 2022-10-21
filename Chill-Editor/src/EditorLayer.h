@@ -28,6 +28,7 @@ namespace MidnightEngine
 
 		Ref<Scene> m_ActiveScene;
 		Actor m_SquareActor;
+		Actor m_SecondSquareActor;
 
 		bool m_PrimaryCamera = true;
 
