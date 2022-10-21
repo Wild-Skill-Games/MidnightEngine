@@ -25,19 +25,18 @@ namespace MidnightEngine
 
 		m_ActiveScene = CreateRef<Scene>();
 
-		Actor actor = m_ActiveScene->CreateActor("Square");
+		Actor actor = m_ActiveScene->CreateActor("Square1");
 		actor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
-
-		actor = m_ActiveScene->CreateActor("Anoda Square");
-		actor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		actor = m_ActiveScene->CreateActor("Square2");
+		actor.AddComponent<Component::SpriteRenderer>(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 		m_SquareActor = actor;
 
-		m_CameraActor = m_ActiveScene->CreateActor("Main Camera");
+		m_CameraActor = m_ActiveScene->CreateActor("Camera A");
 		m_CameraActor.AddComponent<Component::Camera>();
 
-		m_SecondCameraActor = m_ActiveScene->CreateActor("Clip-space Camera");
+		m_SecondCameraActor = m_ActiveScene->CreateActor("Camera B");
 		auto& cc = m_SecondCameraActor.AddComponent<Component::Camera>();
 		cc.Primary = false;
 
@@ -56,19 +55,19 @@ namespace MidnightEngine
 			{
 				auto& transform = GetComponent<Component::Transform>().TransformMatrix;
 
-				if (Input::IsKeyPressed(ME_KEY_A))
+				if (Input::IsKeyPressed(KeyCode::A))
 				{
 					transform[3][0] -= speed * ts;
 				}
-				if (Input::IsKeyPressed(ME_KEY_D))
+				if (Input::IsKeyPressed(KeyCode::D))
 				{
 					transform[3][0] += speed * ts;
 				}
-				if (Input::IsKeyPressed(ME_KEY_W))
+				if (Input::IsKeyPressed(KeyCode::W))
 				{
 					transform[3][1] += speed * ts;
 				}
-				if (Input::IsKeyPressed(ME_KEY_S))
+				if (Input::IsKeyPressed(KeyCode::S))
 				{
 					transform[3][1] -= speed * ts;
 				}
@@ -134,7 +133,7 @@ namespace MidnightEngine
 		//         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 		//     }
 
-		static bool	dockspaceOpen = true;
+		static bool dockspaceOpen = true;
 		static bool opt_fullscreen = true;
 		static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 
@@ -307,71 +306,21 @@ namespace MidnightEngine
 			ImGui::EndMenuBar();
 		}
 
-
-
-
-
-
-
 		ImGui::Begin("Libary");
 		ImGui::End();
-
-
-
-
-
-
 
 		ImGui::Begin("Project");
 		ImGui::End();
 
-
-
-
-
-
-
-
 		ImGui::Begin("Game");
 		ImGui::End();
-
-
-
-
-
-
-
-
 
 		ImGui::Begin("Settings");
 
 		ImGui::ColorEdit4("Background tint", glm::value_ptr(m_BackgroundColor));
 		ImGui::Separator();
 
-		if (ImGui::Checkbox("Camera A", &m_PrimaryCamera))
-		{
-			m_CameraActor.GetComponent<Component::Camera>().Primary = m_PrimaryCamera;
-			m_SecondCameraActor.GetComponent<Component::Camera>().Primary = !m_PrimaryCamera;
-		}
-
-		{
-			auto& camera = m_SecondCameraActor.GetComponent<Component::Camera>();
-			float orthoSize = camera.SceneCamera.GetOrthographicSize();
-			if (ImGui::DragFloat("second camera size", &orthoSize))
-			{
-				camera.SceneCamera.SetOrthographicSize(orthoSize);
-			}
-		}
-
 		ImGui::End();
-
-
-
-
-
-
-
-
 
 		ImGui::Begin("Stats");
 
@@ -384,14 +333,6 @@ namespace MidnightEngine
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
 		ImGui::End();
-
-
-
-
-
-
-
-
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 		ImGui::Begin("Viewport");
@@ -406,7 +347,7 @@ namespace MidnightEngine
 		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y > 0)
 		{
 			m_ViewportFramebuffer->Resize(m_ViewportSize.x, m_ViewportSize.y);
-			m_ViewportSize = { viewportPanelSize.x,  viewportPanelSize.y };
+			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
 		}
