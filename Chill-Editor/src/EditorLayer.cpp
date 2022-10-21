@@ -34,7 +34,9 @@ namespace MidnightEngine
 		m_SquareActor = actor;
 
 		m_CameraActor = m_ActiveScene->CreateActor("Camera A");
-		m_CameraActor.AddComponent<Component::Camera>();
+		m_CameraActor.GetComponent<Component::Transform>().Position.z = 10.0f;
+		auto& cameraA = m_CameraActor.AddComponent<Component::Camera>().SceneCamera;
+		cameraA.SetProjectionType(SceneCamera::ProjectionType::Perspective);
 
 		m_SecondCameraActor = m_ActiveScene->CreateActor("Camera B");
 		auto& cc = m_SecondCameraActor.AddComponent<Component::Camera>();
@@ -47,29 +49,29 @@ namespace MidnightEngine
 
 			void OnCreate()
 			{
-				auto& transform = GetComponent<Component::Transform>().TransformMatrix;
-				transform[3][0] = rand() % 10 - 5.0f;
+				auto& position = GetComponent<Component::Transform>().Position;
+				position.x = rand() % 10 - 5.0f;
 			}
 
 			void OnUpdate(Timestep ts)
 			{
-				auto& transform = GetComponent<Component::Transform>().TransformMatrix;
+				auto& position = GetComponent<Component::Transform>().Position;
 
 				if (Input::IsKeyPressed(KeyCode::A))
 				{
-					transform[3][0] -= speed * ts;
+					position.x -= speed * ts;
 				}
 				if (Input::IsKeyPressed(KeyCode::D))
 				{
-					transform[3][0] += speed * ts;
+					position.x += speed * ts;
 				}
 				if (Input::IsKeyPressed(KeyCode::W))
 				{
-					transform[3][1] += speed * ts;
+					position.y += speed * ts;
 				}
 				if (Input::IsKeyPressed(KeyCode::S))
 				{
-					transform[3][1] -= speed * ts;
+					position.y -= speed * ts;
 				}
 			}
 		};

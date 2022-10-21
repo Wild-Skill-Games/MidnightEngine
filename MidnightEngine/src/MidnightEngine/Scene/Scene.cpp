@@ -29,7 +29,7 @@ namespace MidnightEngine
 
 	void Scene::DestroyActor(Actor actor)
 	{
-		// TODO : destroy actor
+		//TODO : destroy actor
 		//m_Registry.destroy(actor);
 	}
 
@@ -53,7 +53,7 @@ namespace MidnightEngine
 
 		//render sprites
 		Camera* mainCamera = nullptr;
-		glm::mat4* cameraTransform = nullptr;
+		glm::mat4 cameraTransform;
 		{
 			auto view = m_Registry.view<Component::Transform, Component::Camera>();
 			for (auto entity : view)
@@ -62,7 +62,7 @@ namespace MidnightEngine
 				if (camera.Primary)
 				{
 					mainCamera = &camera.SceneCamera;
-					cameraTransform = &transform.TransformMatrix;
+					cameraTransform = transform.GetTransform();
 					break;
 				}
 			}
@@ -70,13 +70,13 @@ namespace MidnightEngine
 
 		if (mainCamera)
 		{
-			Renderer2D::BeginScene(mainCamera->GetProjection(), *cameraTransform);
+			Renderer2D::BeginScene(mainCamera->GetProjection(), cameraTransform);
 
 			auto group = m_Registry.group<Component::Transform>(entt::get<Component::SpriteRenderer>);
 			for (auto entity : group)
 			{
 				auto [transform, sprite] = group.get<Component::Transform, Component::SpriteRenderer>(entity);
-				Renderer2D::DrawRotatedQuad(transform, sprite.Color);
+				Renderer2D::DrawRotatedQuad(transform.GetTransform(), sprite.Color);
 			}
 
 			Renderer2D::EndScene();

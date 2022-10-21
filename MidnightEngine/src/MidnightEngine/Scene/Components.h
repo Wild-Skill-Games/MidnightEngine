@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "SceneCamera.h"
 #include "ScriptableActor.h"
@@ -23,17 +24,28 @@ namespace MidnightEngine
 
 		struct Transform
 		{
-			glm::mat4 TransformMatrix = glm::mat4(1.0f);
+			//glm::mat4 TransformMatrix = glm::mat4(1.0f);
+			glm::vec3 Position = glm::vec3(0.0f);
+			glm::vec3 Rotation = glm::vec3(0.0f);
+			glm::vec3 Scale = glm::vec3(1.0f);
 
 			Transform() = default;
 			Transform(const Transform&) = default;
-			Transform(const glm::mat4& transformMatrix)
-				: TransformMatrix(transformMatrix)
+			Transform(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale)
+				: Position(position), Rotation(rotation), Scale(scale)
 			{
 			}
 
-			operator glm::mat4& () { return TransformMatrix; }
-			operator const glm::mat4& () const { return TransformMatrix; }
+			glm::mat4& GetTransform()
+			{
+				auto rotation = glm::rotate(glm::mat4(1.0f), glm::radians(Rotation.x), glm::vec3(1, 0, 0))
+					* glm::rotate(glm::mat4(1.0f), glm::radians(Rotation.y), glm::vec3(0, 1, 0))
+					* glm::rotate(glm::mat4(1.0f), glm::radians(Rotation.z), glm::vec3(0, 0, 1));
+
+				return glm::translate(glm::mat4(1.0f), Position) *
+					rotation *
+					glm::scale(glm::mat4(1.0f), Scale);
+			}
 		};
 
 		struct SpriteRenderer
