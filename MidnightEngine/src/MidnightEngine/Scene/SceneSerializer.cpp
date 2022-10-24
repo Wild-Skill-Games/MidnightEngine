@@ -5,7 +5,7 @@
 #include "Components.h"
 
 #include <fstream>
-#include <yaml-cpp/yaml.h>
+//#include <yaml-cpp/yaml.h>
 
 namespace MidnightEngine
 {
@@ -17,7 +17,7 @@ namespace MidnightEngine
 	{
 	}
 
-	static void SerializeActor(YAML::Emitter& out, Actor actor)
+	/*static void SerializeActor(YAML::Emitter& out, Actor actor)
 	{
 		out << YAML::BeginMap;
 		out << YAML::Key << "Actor" << YAML::Value << "1234567890";
@@ -34,11 +34,11 @@ namespace MidnightEngine
 		}
 
 		out << YAML::EndMap;
-	}
+	}*/
 
 	void SceneSerializer::Serialize(const std::string& filepath)
 	{
-		YAML::Emitter out;
+		/*YAML::Emitter out;
 
 		out << YAML::BeginMap;
 		out << YAML::Key << "Scene" << YAML::Value << "Untitled";
@@ -59,7 +59,7 @@ namespace MidnightEngine
 		out << YAML::EndMap;
 
 		std::ofstream fout(filepath);
-		fout << out.c_str();
+		fout << out.c_str();*/
 	}
 
 	void SceneSerializer::SerializeRuntime(const std::string& filepath)
