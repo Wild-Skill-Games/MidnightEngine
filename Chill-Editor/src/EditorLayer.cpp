@@ -4,6 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "MidnightEngine/Scene/SceneSerializer.h"
+
 namespace MidnightEngine
 {
 	EditorLayer::EditorLayer()
@@ -23,19 +25,26 @@ namespace MidnightEngine
 
 		m_ViewportFramebuffer = Framebuffer::Create(framebufferSpecification);
 
-		m_ActiveScene = CreateRef<Scene>();
+		m_Scene = CreateRef<Scene>();
 
-		m_SquareActor = m_ActiveScene->CreateActor("Square1");
+
+
+
+
+
+
+
+		m_SquareActor = m_Scene->CreateActor("Square1");
 		m_SquareActor.AddComponent<Component::SpriteRenderer>(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
-		m_SecondSquareActor = m_ActiveScene->CreateActor("Square2");
+		m_SecondSquareActor = m_Scene->CreateActor("Square2");
 		m_SecondSquareActor.AddComponent<Component::SpriteRenderer>(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
-		m_CameraActor = m_ActiveScene->CreateActor("Camera A");
+		m_CameraActor = m_Scene->CreateActor("Camera A");
 		m_CameraActor.GetComponent<Component::Transform>().Position.z = 10.0f;
 		m_CameraActor.AddComponent<Component::Camera>().SceneCamera.SetProjectionType(SceneCamera::ProjectionType::Perspective);
 
-		m_SecondCameraActor = m_ActiveScene->CreateActor("Camera B");
+		m_SecondCameraActor = m_Scene->CreateActor("Camera B");
 		m_SecondCameraActor.AddComponent<Component::Camera>().Primary = false;
 
 		class CameraController : public ScriptableActor
@@ -75,7 +84,19 @@ namespace MidnightEngine
 		m_CameraActor.AddComponent<Component::NativeScript>().Bind<CameraController>();
 		m_SecondCameraActor.AddComponent<Component::NativeScript>().Bind<CameraController>();
 
-		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+		m_SceneHierarchyPanel.SetContext(m_Scene);
+
+
+
+
+
+
+
+
+
+
+		SceneSerializer serializer(m_Scene);
+		serializer.Serialize("assets/scenes/Example.mscene");
 	}
 	void EditorLayer::OnDetach()
 	{
@@ -93,7 +114,7 @@ namespace MidnightEngine
 			m_ViewportFramebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
 
-			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_Scene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 
 		// Update
@@ -110,7 +131,7 @@ namespace MidnightEngine
 		RenderCommand::Clear();
 
 		// Update Scene
-		m_ActiveScene->OnUpdate(ts);
+		m_Scene->OnUpdate(ts);
 
 		m_ViewportFramebuffer->Unbind();
 	}

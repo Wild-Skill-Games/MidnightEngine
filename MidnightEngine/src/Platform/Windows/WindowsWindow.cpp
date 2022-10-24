@@ -7,6 +7,8 @@
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
+#include "MidnightEngine/Scene/SceneSerializer.h"
+
 namespace MidnightEngine
 {
 	static bool s_GLFWInitialized = false;

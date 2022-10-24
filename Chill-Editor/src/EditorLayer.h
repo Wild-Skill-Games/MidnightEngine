@@ -26,7 +26,8 @@ namespace MidnightEngine
 		Ref<Shader> m_Shader;
 		Ref<Framebuffer> m_ViewportFramebuffer;
 
-		Ref<Scene> m_ActiveScene;
+		Ref<Scene> m_Scene;
+
 		Actor m_SquareActor;
 		Actor m_SecondSquareActor;
 

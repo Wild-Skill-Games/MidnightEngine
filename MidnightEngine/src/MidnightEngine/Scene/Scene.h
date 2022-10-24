@@ -30,6 +30,7 @@ namespace MidnightEngine
 		uint32_t m_ViewportHeight;
 
 		friend class Actor;
+		friend class SceneSerializer;
 		friend class SceneHierarchyPanel;
 	};
 }

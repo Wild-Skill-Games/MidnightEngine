@@ -2,6 +2,11 @@ workspace "MidnightEngine"
 	architecture "x64"
 	startproject "Sandbox"
 	
+	flags
+	{
+		"MultiProcessorCompile",
+	}
+
 	configurations
 	{
 		"Debug",
@@ -54,6 +59,7 @@ project "MidnightEngine"
 	defines
 	{
 		"_CRT_SECURE_NO_WARNINGS",
+		"GLFW_INCLUDE_NONE",
 	}
 
 	includedirs
@@ -84,7 +90,6 @@ project "MidnightEngine"
 			"ME_PLATFORM_WINDOWS",
 			"ME_DYNAMIC_LINK",
 			"ME_BUILD_DLL",
-			"GLFW_INCLUDE_NONE",
 			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
 		}
 
@@ -130,7 +135,7 @@ project "Sandbox"
 	
 	links
 	{
-		"MidnightEngine"
+		"MidnightEngine",
 	}
 
 	filter "system:windows"
@@ -184,7 +189,7 @@ project "Chill-Editor"
 	
 	links
 	{
-		"MidnightEngine"
+		"MidnightEngine",
 	}
 
 	filter "system:windows"
