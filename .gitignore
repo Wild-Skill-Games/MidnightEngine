@@ -1,12 +1,10 @@
-# visual studio cache
+# ide cache folders
 .vs/
-
-#visual studio files
-/*.sln
-*.vcxproj
-*.vcxproj.filters
-*.vcxproj.user
+.vscode/
 
 # binaries
 /bin/
 /bin-int/
+
+# exports
+out/
