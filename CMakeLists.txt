@@ -3,7 +3,8 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-project ("MidnightEngine")
+project ("Engine")
 
 # Include sub-projects.
-add_subdirectory (MidnightEngine)
+add_subdirectory (Engine)
+add_subdirectory (Sandbox)
